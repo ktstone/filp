@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Late Night Menu | Friends In Low Places",
   description:
-    "Late night cocktails, munchies, and bucket deals. Kitchen open until close at Nashville's premier honky tonk.",
+    "Late night bites at Nashville's premier honky tonk. Burgers, chicken tenders, nachos, and more — kitchen open until close.",
 };
 
 const menuData: MenuPageData = {
@@ -15,121 +15,80 @@ const menuData: MenuPageData = {
   menuType: "late-night",
   sections: [
     {
-      id: "late-cocktails",
-      icon: "Wine",
-      label: "Cocktails",
-      subtitle: "After Dark Sips",
-      heading: "Late Night Cocktails",
-      note: "Kitchen open until close",
-      featured: {
-        name: "Midnight Whiskey Sour",
-        price: "$15",
-        description:
-          "A bold twist on the classic with Tennessee whiskey, fresh lemon, egg white foam, and a dash of Angostura bitters. Shaken and served up.",
-        image: "/images/menu-burger.jpg",
-        badge: "Late Night Hit",
-        tags: ["Bold", "Classic"],
-      },
-      regularItems: [
-        {
-          name: "The Last Call",
-          price: "$14",
-          description:
-            "Dark rum, espresso, Kahl\u00faa, and cream shaken over ice. The perfect nightcap to keep you going.",
-        },
-        {
-          name: "Neon Limeade",
-          price: "$11",
-          description:
-            "Tequila, fresh lime, blue cura\u00e7ao, and soda water. Bright, citrusy, and dangerously refreshing.",
-        },
-        {
-          name: "Bourbon Peach Smash",
-          price: "$13",
-          description:
-            "Muddled fresh peach, bourbon, lemon, and simple syrup served over crushed ice with a mint sprig.",
-        },
-      ],
-    },
-    {
-      id: "munchies",
+      id: "late-starters",
       icon: "Flame",
-      label: "Munchies",
-      subtitle: "Fuel for the Dance Floor",
-      heading: "Munchies",
+      label: "To Start",
+      subtitle: "Late Night Bites",
+      heading: "To Start",
+      note: "Kitchen open until close",
       imageCards: [
         {
-          name: "Hot Chicken Basket",
-          price: "$18",
+          name: "Loaded Nachos",
+          price: "",
           description:
-            "Crispy Nashville hot chicken tenders with crinkle-cut fries, pickles, and our house ranch.",
-          image: "/images/menu-chicken.jpg",
-          badge: "Popular",
+            "Tortilla chips, queso, pickled jalapeño, sour cream, green onion. Add chili or grilled chicken.",
+          image: "/images/menu-nachos.jpg",
         },
         {
-          name: "Loaded Totchos",
-          price: "$13",
+          name: "Cheese Fries",
+          price: "",
           description:
-            "Crispy tater tots loaded with queso, bacon crumbles, jalape\u00f1os, sour cream, and scallions.",
-          image: "/images/food-nachos.jpg",
+            "Fries seasoned with Trixie Dust, topped with cheese sauce.",
+          image: "/images/menu-sliders.jpg",
         },
       ],
       stackedCards: [
         {
           items: [
             {
-              name: "Corn Dog Bites",
-              price: "$10",
+              name: "Fried Pickles",
+              price: "",
               description:
-                "Golden-fried mini corn dogs served with honey mustard and spicy ketchup.",
+                "Bread-and-butter pickles, served with ranch.",
             },
             {
-              name: "Buffalo Chicken Sliders",
-              price: "$15",
+              name: "F-U-C Queso",
+              price: "",
               description:
-                "Three crispy buffalo chicken sliders with blue cheese slaw and pickles on brioche buns.",
+                "Green chili queso with serrano and jalapeño, served with chips.",
             },
           ],
         },
       ],
     },
     {
-      id: "buckets",
-      icon: "Beer",
-      label: "Buckets & Pitchers",
-      subtitle: "Share the Love",
-      heading: "Buckets & Pitchers",
-      listItems: [
+      id: "late-sandwiches",
+      icon: "UtensilsCrossed",
+      label: "Things on Bread",
+      subtitle: "Sandwiches & Wraps",
+      heading: "Things on Bread",
+      note: "All served with regular fries, steak fries, or both (Trixie Dust).",
+      imageCards: [
         {
-          name: "Domestic Bucket (5)",
-          subtitle: "Bud, Bud Light, Coors, Miller",
-          price: "$22",
+          name: "Backyard Burger",
+          price: "",
+          description:
+            "1, 2, or 3 smashed beef patties, American cheese, lettuce, tomato, pickle, onion, TY's sauce.",
+          image: "/images/menu-burger.jpg",
+          badge: "Build Your Own",
         },
+      ],
+      stackedCards: [
         {
-          name: "Import Bucket (5)",
-          subtitle: "Corona, Modelo, Heineken",
-          price: "$28",
-        },
-        {
-          name: "Margarita Pitcher",
-          subtitle: "Serves 4-5 \u2022 Our House Recipe",
-          price: "$35",
-        },
-        {
-          name: "Beer & Shot Combo",
-          subtitle: "Any Domestic + Well Shot",
-          price: "$10",
-        },
-        {
-          name: "Whiskey Flight",
-          subtitle: "4 Tennessee Whiskeys",
-          price: "$18",
-        },
-        {
-          name: "Spiked Slushie Bucket",
-          subtitle: "Frozen \u2022 Serves 3-4",
-          price: "$25",
-          badge: "PARTY STARTER",
+          items: [
+            {
+              name: "Buffalo Chicken Tender Wrap",
+              price: "",
+              description:
+                "Buffalo chicken tenders, romaine, pickles, ranch, blue cheese dipping sauce.",
+            },
+            {
+              name: "Chicken Tenders",
+              price: "",
+              description:
+                "Hand-breaded and crispy. Also available tossed in buffalo sauce.",
+            },
+          ],
         },
       ],
     },

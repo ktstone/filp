@@ -32,29 +32,29 @@ const lunchDinnerMenu: MenuData = {
   heading: "Food That Hits",
   headingNeon: "The Spot",
   description:
-    "Nothing soaks up a night of fun like our southern-inspired kitchen. From spicy wings to slow-smoked brisket, we've got the fuel you need.",
+    "Nothing soaks up a night of fun like our southern-inspired kitchen. From Jack's famous smoked wings to our Backyard Burger, we've got the fuel you need.",
   featuredImage: "/images/food-burger.jpg",
   featuredTag: "Crowd Favorite",
-  featuredName: "The Low Places Burger",
-  featuredPrice: "$16.50",
+  featuredName: "Backyard Burger",
+  featuredPrice: "",
   items: [
     {
       image: "/images/food-wings.jpg",
-      name: "Nashville Hot Wings",
-      description: "Spicy cayenne glaze, pickles, ranch.",
-      price: "$14",
+      name: "Jack's Smoked BBQ Wings",
+      description: "House-smoked; Trisha's dad's famous recipe.",
+      price: "",
     },
     {
       image: "/images/food-nachos.jpg",
-      name: "Honky Tonk Nachos",
-      description: "Brisket, queso, jalapeños, crema.",
-      price: "$18",
+      name: "Loaded Nachos",
+      description: "Queso, pico, pickled jalapeño, sour cream.",
+      price: "",
     },
     {
       image: "/images/food-pickles.jpg",
       name: "Fried Pickles",
-      description: "Golden brown chips, spicy remoulade.",
-      price: "$9",
+      description: "Hot and crispy bread-and-butter pickles, ranch.",
+      price: "",
     },
   ],
 };
@@ -66,29 +66,29 @@ const brunchMenu: MenuData = {
   heading: "Brunch Like",
   headingNeon: "A Local",
   description:
-    "Saturdays and Sundays until 1PM. Hair-of-the-dog cocktails, biscuit stacks, and all the comfort you need to start the weekend right.",
+    "Mornings in Low Places — 10AM to 2PM. Giant cinnamon rolls, biscuit stacks, and all the comfort you need to start the weekend right.",
   featuredImage: "/images/menu-chicken.jpg",
-  featuredTag: "Brunch Best Seller",
-  featuredName: "Chicken & Waffles",
-  featuredPrice: "$19",
+  featuredTag: "Perfect for Sharing",
+  featuredName: "Giant Cinnamon Roll",
+  featuredPrice: "",
   items: [
     {
       image: "/images/food-nachos.jpg",
-      name: "Biscuits & Gravy",
-      description: "Buttermilk biscuits, sausage gravy, fried egg.",
-      price: "$14",
+      name: "Bacon, Egg & Cheese Biscuit",
+      description: "Buttermilk biscuit, egg, bacon, American cheese.",
+      price: "",
     },
     {
       image: "/images/menu-cocktail.jpg",
-      name: "Boozy Brunch Punch",
-      description: "Champagne, OJ, peach schnapps, fresh fruit.",
-      price: "$12",
+      name: "Mimosa Tower",
+      description: "Serves up to 8 — the ultimate brunch move.",
+      price: "",
     },
     {
       image: "/images/menu-burger.jpg",
-      name: "Hangover Burger",
-      description: "Smash patty, bacon, fried egg, pimento cheese.",
-      price: "$17",
+      name: "Hashbrown Casserito",
+      description: "Cheesy hashbrown casserole, eggs, sausage, bacon.",
+      price: "",
     },
   ],
 };
@@ -101,28 +101,28 @@ const lateNightMenu: MenuData = {
   headingNeon: "Munchies",
   description:
     "The kitchen stays hot until close. Load up on late-night favorites between sets — perfect fuel for dancing until last call.",
-  featuredImage: "/images/menu-chicken.jpg",
-  featuredTag: "Late Night Hit",
-  featuredName: "Hot Chicken Basket",
-  featuredPrice: "$18",
+  featuredImage: "/images/menu-burger.jpg",
+  featuredTag: "Build Your Own",
+  featuredName: "Backyard Burger",
+  featuredPrice: "",
   items: [
     {
       image: "/images/food-nachos.jpg",
-      name: "Loaded Totchos",
-      description: "Tater tots, brisket chili, queso, sour cream.",
-      price: "$13",
+      name: "Loaded Nachos",
+      description: "Queso, pickled jalapeño, sour cream, green onion.",
+      price: "",
     },
     {
       image: "/images/food-pickles.jpg",
-      name: "Corn Dog Bites",
-      description: "Beer batter, honey mustard, comeback sauce.",
-      price: "$10",
+      name: "Fried Pickles",
+      description: "Bread-and-butter pickles, served with ranch.",
+      price: "",
     },
     {
       image: "/images/food-wings.jpg",
-      name: "Buffalo Chicken Sliders",
-      description: "Fried chicken, blue cheese slaw, pickles.",
-      price: "$15",
+      name: "Buffalo Chicken Tender Wrap",
+      description: "Buffalo tenders, romaine, pickles, ranch.",
+      price: "",
     },
   ],
 };
@@ -133,8 +133,8 @@ function getActiveMenu(): MenuData {
   const hour = now.getHours();
   const isWeekend = day === 0 || day === 6;
 
-  // Weekend mornings until 1PM → brunch
-  if (isWeekend && hour < 13) {
+  // Weekend mornings until 2PM → brunch
+  if (isWeekend && hour >= 10 && hour < 14) {
     return brunchMenu;
   }
 
@@ -189,9 +189,11 @@ export function FoodSection() {
               <h4 className="mt-1 font-heading text-2xl font-bold text-white">
                 {menu.featuredName}
               </h4>
-              <p className="mt-1 font-heading text-lg font-bold text-honky-red">
-                {menu.featuredPrice}
-              </p>
+              {menu.featuredPrice && (
+                <p className="mt-1 font-heading text-lg font-bold text-honky-red">
+                  {menu.featuredPrice}
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -246,9 +248,11 @@ export function FoodSection() {
                     </p>
                   </div>
                 </div>
-                <span className="font-heading text-lg font-bold text-white">
-                  {item.price}
-                </span>
+                {item.price && (
+                  <span className="font-heading text-lg font-bold text-white">
+                    {item.price}
+                  </span>
+                )}
               </div>
             ))}
           </div>

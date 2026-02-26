@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Lunch & Dinner Menu | Friends In Low Places",
   description:
-    "Signature cocktails, cold draft beers, and Southern comfort food. View the full lunch and dinner menu at Nashville's premier honky tonk.",
+    "Southern comfort food, smoked wings, burgers, and more. View the full lunch and dinner menu at Nashville's premier honky tonk.",
 };
 
 const menuData: MenuPageData = {
@@ -15,103 +15,25 @@ const menuData: MenuPageData = {
   menuType: "lunch-dinner",
   sections: [
     {
-      id: "cocktails",
-      icon: "Wine",
-      label: "Cocktails",
-      subtitle: "Handcrafted",
-      heading: "Signature Cocktails",
-      note: "Served all night long",
-      featured: {
-        name: "Neon Moon Margarita",
-        price: "$14",
-        description:
-          "A smoky twist on the classic margarita with mezcal, fresh lime, agave nectar, and a smoked salt rim. Garnished with a charred lime wheel.",
-        image: "/images/menu-margarita.jpg",
-        badge: "Fan Favorite",
-        tags: ["Smoky", "Fresh"],
-      },
-      regularItems: [
-        {
-          name: "The Thunder Rolls",
-          price: "$16",
-          description:
-            "Bourbon, blackberry liqueur, fresh lemon, and a splash of ginger beer. Served over a single large ice cube.",
-        },
-        {
-          name: "Rodeo Sweet Tea",
-          price: "$12",
-          description:
-            "Deep Eddy sweet tea vodka, fresh peach puree, lemon, and a dash of honey. A Nashville summer staple.",
-          tags: ["Refreshing"],
-        },
-        {
-          name: "Two Pina Coladas",
-          price: "$13",
-          description:
-            "Coconut rum, fresh pineapple, and cream of coconut blended to frozen perfection. Topped with a cherry.",
-        },
-      ],
-    },
-    {
-      id: "beers",
-      icon: "Beer",
-      label: "Draft Beers",
-      subtitle: "Cold & Crisp",
-      heading: "Draft Beers",
-      listItems: [
-        {
-          name: "Honky Tonk Lager",
-          subtitle: "Local Brew \u2022 4.5% ABV",
-          price: "$7",
-        },
-        {
-          name: "Lone Star Light",
-          subtitle: "Domestic \u2022 4.2% ABV",
-          price: "$5",
-        },
-        {
-          name: "Shiner Bock",
-          subtitle: "Texas Favorite \u2022 4.4% ABV",
-          price: "$6",
-        },
-        {
-          name: "Voodoo Ranger IPA",
-          subtitle: "Craft \u2022 7.0% ABV",
-          price: "$8",
-        },
-        {
-          name: "Coors Banquet",
-          subtitle: "Domestic \u2022 5.0% ABV",
-          price: "$5",
-        },
-        {
-          name: "Pitcher of Choice",
-          subtitle: "Any Domestic Draft",
-          price: "$18",
-          badge: "BEST VALUE",
-        },
-      ],
-    },
-    {
-      id: "food",
-      icon: "UtensilsCrossed",
-      label: "Comfort Food",
-      subtitle: "Hearty Eats",
-      heading: "Southern Comfort Food",
+      id: "appetizers",
+      icon: "Flame",
+      label: "To Start",
+      subtitle: "Appetizers",
+      heading: "To Start",
       imageCards: [
         {
-          name: "Nashville Hot Sliders",
-          price: "$15",
+          name: "Jack's Smoked BBQ Chicken Wings",
+          price: "",
           description:
-            "Three crispy chicken sliders tossed in our house hot sauce, topped with pickles and slaw on brioche buns.",
-          image: "/images/menu-sliders.jpg",
-          badge: "Spicy",
+            "House-smoked; Trisha's dad's famous recipe.",
+          image: "/images/menu-chicken.jpg",
+          badge: "Famous Recipe",
         },
         {
-          name: "Brisket Nachos",
-          price: "$18",
+          name: "Loaded Nachos",
+          price: "",
           description:
-            "Slow-smoked brisket piled high on tortilla chips with queso, jalape\u00f1os, pico de gallo, and sour cream.",
+            "Tortilla chips, queso, pico, pickled jalapeño, sour cream, green onion. Add chili or grilled chicken.",
           image: "/images/menu-nachos.jpg",
         },
       ],
@@ -119,18 +41,208 @@ const menuData: MenuPageData = {
         {
           items: [
             {
-              name: "Fried Pickles",
-              price: "$9",
+              name: "Buffalo Chicken Dip",
+              price: "",
               description:
-                "Hand-breaded dill pickle chips served with our tangy ranch dipping sauce.",
+                "Served with chips, carrots, and celery.",
             },
             {
-              name: "Loaded Fries",
-              price: "$11",
+              name: "Cheese Fries",
+              price: "",
               description:
-                "Crispy fries topped with bacon, cheddar cheese, scallions, and sour cream.",
+                "Crispy fries seasoned with Trixie Dust and covered with cheese sauce. Add Smoky Chorizo Chili.",
             },
           ],
+        },
+        {
+          items: [
+            {
+              name: "Georgia Meat & Cheese",
+              price: "",
+              description:
+                "Smoked sausage, cheddar cheese, pickles, butter-baked crackers.",
+            },
+            {
+              name: "F-U-C Queso",
+              price: "",
+              description:
+                "Green chili queso with serrano and jalapeño, served with chips.",
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              name: "Fried Pickles",
+              price: "",
+              description:
+                "Hot and crispy bread-and-butter pickles served with ranch.",
+            },
+            {
+              name: "Chicken Tenders",
+              price: "",
+              description:
+                "Hand-breaded, crispy chicken tenders. Also available tossed in buffalo sauce. Make it a Tower of Tenders.",
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              name: "Collard Green Stuffed Wontons",
+              price: "",
+              description:
+                "Collard greens and cream cheese, served with Tennessee hot honey pimento sauce.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "soup-salad",
+      icon: "GlassWater",
+      label: "Soup & Salad",
+      subtitle: "Fresh & Hearty",
+      heading: "Soup & Salad",
+      regularItems: [
+        {
+          name: "Smoky Chorizo Chili",
+          price: "",
+          description:
+            "Topped with cheddar cheese and sour cream.",
+        },
+        {
+          name: "Big Green Salad",
+          price: "",
+          description:
+            "Chopped romaine, tomatoes, cucumbers, dressing of choice. Add grilled chicken, chicken tenders, or a scoop of chicken salad.",
+        },
+        {
+          name: "Cobb Salad",
+          price: "",
+          description:
+            "Romaine, grilled chicken, tomato, bacon, hard-boiled eggs, avocado, chives, blue cheese crumbles.",
+        },
+        {
+          name: "Steak Salad",
+          price: "",
+          description:
+            "Tender steak, romaine, cherry tomatoes, crispy onions, blue cheese, red wine vinaigrette.",
+        },
+        {
+          name: "Wedge Salad",
+          price: "",
+          description:
+            "Iceberg wedge, bacon, cherry tomatoes, green onion, Thousand Island dressing.",
+        },
+      ],
+    },
+    {
+      id: "sandwiches",
+      icon: "UtensilsCrossed",
+      label: "Things on Bread",
+      subtitle: "Sandwiches, Burgers & Wraps",
+      heading: "Things on Bread",
+      note: "All served with regular fries, steak fries, or both (dusted with Trixie Dust). Substitute \u201cmeatless\u201d chicken on any burger or wrap.",
+      imageCards: [
+        {
+          name: "Backyard Burger",
+          price: "",
+          description:
+            "1, 2, or 3 smashed beef patties, American cheese, lettuce, tomato, pickle, onion, TY's sauce.",
+          image: "/images/menu-burger.jpg",
+          badge: "Build Your Own",
+        },
+        {
+          name: "Big Bacon Cheeseburger",
+          price: "",
+          description:
+            "6 oz ground beef, smoked bacon, double cheddar, TY's sauce, seeded Martin's bun.",
+          image: "/images/menu-sliders.jpg",
+        },
+      ],
+      stackedCards: [
+        {
+          items: [
+            {
+              name: "Fried Catfish Sandwich",
+              price: "",
+              description:
+                "Cornmeal-dusted catfish, slaw, pickles, spicy remoulade, Martin's potato roll.",
+            },
+            {
+              name: "Turkey BLAT",
+              price: "",
+              description:
+                "Candied bacon, lettuce, tomato, avocado mayo, house-smoked turkey, buttery croissant.",
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              name: "Smoked Pulled Pork Sandwich",
+              price: "",
+              description:
+                "Hickory-smoked pork, peach BBQ sauce, cole slaw.",
+            },
+            {
+              name: "Chicken Salad Sandwich",
+              price: "",
+              description:
+                "Chicken salad with sweet relish, hard-boiled eggs, dried cranberries, cinnamon swirl bread.",
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              name: "BLT on Texas Toast",
+              price: "",
+              description:
+                "Thick-cut bacon, tomato, leaf lettuce, Trixie Dust mayo. Make it \u201cBig Time\u201d \u2014 add a 6 oz cheeseburger patty.",
+            },
+            {
+              name: "Fried Chicken Caesar Wrap",
+              price: "",
+              description:
+                "Chicken tenders, romaine, Caesar dressing, croutons, tomato, parmesan. Also available with grilled chicken.",
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              name: "Buffalo Chicken Tender Wrap",
+              price: "",
+              description:
+                "Buffalo chicken tenders, romaine, pickles, ranch, blue cheese dipping sauce.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "dessert",
+      icon: "Cookie",
+      label: "Dessert",
+      subtitle: "Sweet Finish",
+      heading: "Dessert",
+      listItems: [
+        {
+          name: "Caramel-Bottom Apple Pie",
+          subtitle: "Served with Vanilla Ice Cream",
+          price: "$9",
+        },
+        {
+          name: "G&T's Wedding Cake",
+          subtitle: "House Specialty",
+          price: "$9",
+        },
+        {
+          name: "Gooey Chocolate Chip Cookies",
+          subtitle: "Fresh Baked",
+          price: "$9",
         },
       ],
     },

@@ -6,88 +6,61 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Weekend Brunch Menu | Friends In Low Places",
   description:
-    "Boozy brunch cocktails, chicken and waffles, and all the Southern brunch favorites. Saturday and Sunday until 1PM.",
+    "Mornings in Low Places — giant cinnamon rolls, biscuits, mimosa towers, and all the Southern brunch favorites. 10AM–2PM.",
 };
 
 const menuData: MenuPageData = {
   title: "BRUNCH",
-  subtitle: "Wake Up & Honky Tonk",
+  subtitle: "Mornings in Low Places",
   menuType: "brunch",
   sections: [
     {
-      id: "brunch-cocktails",
-      icon: "Wine",
-      label: "Cocktails",
-      subtitle: "Hair of the Dog",
-      heading: "Brunch Cocktails",
-      note: "Sat & Sun until 1PM",
-      featured: {
-        name: "Boozy Brunch Punch",
-        price: "$12",
-        description:
-          "A refreshing blend of champagne, vodka, passion fruit, orange juice, and a splash of grenadine. Served in a mason jar with fresh fruit.",
-        image: "/images/menu-cocktail.jpg",
-        badge: "Brunch Best Seller",
-        tags: ["Fruity", "Bubbly"],
-      },
-      regularItems: [
-        {
-          name: "Nashville Mule",
-          price: "$13",
-          description:
-            "Local whiskey, fresh ginger beer, lime, and a sprig of mint. Served in a copper mug.",
-        },
-        {
-          name: "Peach Bellini",
-          price: "$11",
-          description:
-            "Prosecco and fresh peach puree with a hint of vanilla. Light, bubbly, and dangerously easy to drink.",
-        },
-        {
-          name: "Honey Bourbon Lemonade",
-          price: "$14",
-          description:
-            "Small-batch bourbon, house-made honey syrup, fresh lemon, and a dash of bitters.",
-        },
-      ],
-    },
-    {
-      id: "brunch-plates",
+      id: "brunch-items",
       icon: "UtensilsCrossed",
-      label: "Brunch Plates",
-      subtitle: "Rise & Shine",
-      heading: "Brunch Plates",
+      label: "Brunch",
+      subtitle: "10:00 AM – 2:00 PM",
+      heading: "Brunch Items",
       imageCards: [
         {
-          name: "Chicken & Waffles",
-          price: "$19",
+          name: "Giant Cinnamon Roll",
+          price: "",
           description:
-            "Crispy buttermilk fried chicken atop a golden Belgian waffle, drizzled with bourbon maple syrup and a dusting of powdered sugar.",
+            "Oversized, gooey cinnamon roll, ideal for sharing.",
           image: "/images/menu-chicken.jpg",
-          badge: "Best Seller",
+          badge: "Perfect for Sharing",
         },
         {
-          name: "Biscuits & Gravy",
-          price: "$14",
+          name: "Hashbrown Casserito",
+          price: "",
           description:
-            "Two fluffy buttermilk biscuits smothered in house-made sausage gravy with cracked black pepper.",
-          image: "/images/food-nachos.jpg",
+            "Cheesy hashbrown casserole wrapped in a tortilla with eggs, sausage, bacon. Seared with a cheese crust and served with hashbrown crowns.",
+          image: "/images/menu-nachos.jpg",
         },
       ],
       stackedCards: [
         {
           items: [
             {
-              name: "Hangover Burger",
-              price: "$17",
+              name: "Avocado Pesto Toast",
+              price: "",
               description:
-                "Half-pound smash burger with bacon, fried egg, American cheese, and spicy mayo on a brioche bun.",
+                "Buttery croissant, everything bagel spice, sweet pimento chili.",
             },
             {
-              name: "Avocado Toast",
-              price: "$12",
+              name: "Bacon, Egg & Cheese Biscuit",
+              price: "",
               description:
-                "Smashed avocado on sourdough with everything seasoning, cherry tomatoes, and a poached egg.",
+                "Buttermilk biscuit, egg, bacon, American cheese. Served with hashbrown crowns.",
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              name: "Chicken Biscuit",
+              price: "",
+              description:
+                "Chicken tender on buttermilk biscuit, sweet heat pimento mayo. Served with hashbrown crowns.",
             },
           ],
         },
@@ -96,39 +69,44 @@ const menuData: MenuPageData = {
     {
       id: "sides",
       icon: "Coffee",
-      label: "Sides & Extras",
-      subtitle: "A Little More",
-      heading: "Sides & Extras",
+      label: "Sides",
+      subtitle: "A Little Extra",
+      heading: "Sides",
       listItems: [
         {
-          name: "Fresh Fruit Cup",
-          subtitle: "Seasonal Selection",
-          price: "$6",
+          name: "Side of Hashbrown Casserole",
+          subtitle: "Cheesy & Golden",
+          price: "",
         },
         {
-          name: "Bacon Strip (3)",
-          subtitle: "Applewood Smoked",
-          price: "$5",
+          name: "Side of Hashbrown Crowns",
+          subtitle: "Crispy & Hot",
+          price: "",
+        },
+      ],
+    },
+    {
+      id: "boozy",
+      icon: "Wine",
+      label: "Make It Boozy",
+      subtitle: "Hair of the Dog",
+      heading: "Make It Boozy",
+      listItems: [
+        {
+          name: "Mimosa",
+          subtitle: "Classic Bubbly",
+          price: "",
         },
         {
-          name: "Hash Browns",
-          subtitle: "Crispy Golden",
-          price: "$4",
+          name: "Ketel One Espresso Martini",
+          subtitle: "Wake Up & Shake Up",
+          price: "",
         },
         {
-          name: "Biscuit & Honey Butter",
-          subtitle: "House Made",
-          price: "$3",
-        },
-        {
-          name: "Side of Grits",
-          subtitle: "Creamy Stone-Ground",
-          price: "$4",
-        },
-        {
-          name: "Bottomless Coffee",
-          subtitle: "Dark Roast",
-          price: "$4",
+          name: "Mimosa Tower",
+          subtitle: "Serves up to 8",
+          price: "",
+          badge: "PARTY STARTER",
         },
       ],
     },
