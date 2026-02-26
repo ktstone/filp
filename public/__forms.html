@@ -1,0 +1,21 @@
+<!--
+  Hidden form blueprint for Netlify Forms detection.
+  Netlify parses static HTML at deploy time to register form schemas.
+  This file is not linked from anywhere — it exists solely for form detection.
+-->
+<html>
+<head><title>Forms</title></head>
+<body>
+  <form name="vip-inquiry" data-netlify="true" hidden>
+    <input name="first-name" type="text" />
+    <input name="last-name" type="text" />
+    <input name="email" type="email" />
+    <input name="phone" type="tel" />
+    <input name="guests" type="number" />
+    <select name="location"><option value=""></option></select>
+    <input name="date" type="date" />
+    <select name="time"><option value=""></option></select>
+    <textarea name="message"></textarea>
+  </form>
+</body>
+</html>
