@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Spline_Sans } from "next/font/google";
+import { Spline_Sans, Epilogue } from "next/font/google";
 import "./globals.css";
 
 const splineSans = Spline_Sans({
   variable: "--font-spline-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
+const epilogue = Epilogue({
+  variable: "--font-epilogue",
+  subsets: ["latin"],
+  weight: ["200", "300", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -21,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${splineSans.variable} antialiased`}>{children}</body>
+      <body className={`${splineSans.variable} ${epilogue.variable} antialiased`}>{children}</body>
     </html>
   );
 }
