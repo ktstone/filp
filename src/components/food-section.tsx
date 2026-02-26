@@ -22,10 +22,12 @@ interface MenuData {
   featuredName: string;
   featuredPrice: string;
   items: MenuItem[];
+  menuLink: string;
 }
 
 const lunchDinnerMenu: MenuData = {
   label: "Lunch & Dinner",
+  menuLink: "/menu/lunch-dinner",
   subtitle: "Southern Comfort",
   heading: "Food That Hits",
   headingNeon: "The Spot",
@@ -59,6 +61,7 @@ const lunchDinnerMenu: MenuData = {
 
 const brunchMenu: MenuData = {
   label: "Weekend Brunch",
+  menuLink: "/menu/brunch",
   subtitle: "Rise & Shine",
   heading: "Brunch Like",
   headingNeon: "A Local",
@@ -92,6 +95,7 @@ const brunchMenu: MenuData = {
 
 const lateNightMenu: MenuData = {
   label: "Late Night",
+  menuLink: "/menu/late-night",
   subtitle: "After Dark Eats",
   heading: "Midnight",
   headingNeon: "Munchies",
@@ -251,7 +255,7 @@ export function FoodSection() {
 
           {/* View Full Menu link */}
           <a
-            href="#"
+            href={menu.menuLink}
             className="mt-2 flex items-center gap-2 text-base font-bold tracking-wider text-honky-red uppercase transition-colors hover:text-honky-red/80"
           >
             View Full Menu

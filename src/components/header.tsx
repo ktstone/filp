@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Menu, X, Calendar, Music, PartyPopper, ShoppingBag } from "lucide-react";
+import { Menu, X, Calendar, Music, PartyPopper, UtensilsCrossed, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -14,10 +14,10 @@ import {
 } from "@/components/ui/sheet";
 
 const navLinks = [
-  { label: "Events", href: "#", icon: Music },
-  { label: "Menu", href: "#", icon: ShoppingBag },
-  { label: "Private Parties", href: "#", icon: PartyPopper },
-  { label: "Shop", href: "#", icon: ShoppingBag },
+  { label: "Live Music", href: "/events", icon: Music },
+  { label: "Food", href: "/menu/lunch-dinner", icon: UtensilsCrossed },
+  { label: "Private Events", href: "/private-events", icon: PartyPopper },
+  { label: "VIP Packages", href: "/vip-packages", icon: Sparkles },
 ];
 
 export function Header() {
@@ -25,20 +25,15 @@ export function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-honky-border bg-[rgba(26,26,26,0.8)] backdrop-blur-md">
       <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4">
         {/* Logo */}
-        <div className="flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-honky-red/20">
-            <Image
-              src="/images/filp-logo Small.png"
-              alt="FILP logo"
-              width={12}
-              height={18}
-              className="shrink-0"
-            />
-          </div>
-          <span className="font-heading text-xl font-black tracking-tight text-white uppercase">
-            Friends In Low Places
-          </span>
-        </div>
+        <a href="/" className="flex items-center">
+          <Image
+            src="/images/logo-circle.png"
+            alt="FILP logo"
+            width={36}
+            height={36}
+            className="shrink-0"
+          />
+        </a>
 
         {/* Desktop nav */}
         <div className="hidden items-center gap-8 md:flex">
@@ -53,8 +48,10 @@ export function Header() {
               </a>
             ))}
           </nav>
-          <Button className="h-10 rounded-lg bg-honky-red px-6 text-sm font-semibold tracking-wider text-white uppercase shadow-[0_0_15px_rgba(239,72,80,0.4)] hover:bg-honky-red/90">
-            Book VIP
+          <Button asChild className="h-10 rounded-lg bg-honky-red px-6 text-sm font-semibold tracking-wider text-white uppercase shadow-[0_0_15px_rgba(239,72,80,0.4)] hover:bg-honky-red/90">
+            <a href="https://www.opentable.com/r/friends-in-low-places-bar-and-honky-tonk-nashville" target="_blank" rel="noopener noreferrer">
+              Book VIP
+            </a>
           </Button>
         </div>
 
@@ -82,7 +79,7 @@ export function Header() {
                 <div className="flex items-center gap-3">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-honky-red/20">
                     <Image
-                      src="/images/filp-logo Small.png"
+                      src="/images/logo-circle.png"
                       alt="FILP logo"
                       width={10}
                       height={15}
@@ -138,19 +135,19 @@ export function Header() {
               {/* Footer CTA */}
               <SheetFooter className="border-t border-white/10 px-6 py-6">
                 <SheetClose asChild>
-                  <Button className="w-full rounded-xl bg-honky-red py-6 text-base font-bold tracking-wider text-white uppercase shadow-[0_0_15px_rgba(239,72,80,0.4)] hover:bg-honky-red/90">
+                  <a href="https://www.opentable.com/r/friends-in-low-places-bar-and-honky-tonk-nashville" target="_blank" rel="noopener noreferrer" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-honky-red py-6 text-base font-bold tracking-wider text-white uppercase shadow-[0_0_15px_rgba(239,72,80,0.4)] hover:bg-honky-red/90">
                     <Calendar className="h-5 w-5" />
                     Book VIP
-                  </Button>
+                  </a>
                 </SheetClose>
                 <SheetClose asChild>
-                  <Button
-                    variant="outline"
-                    className="w-full rounded-xl border-white/20 bg-transparent py-6 text-base font-bold tracking-wider text-white uppercase hover:bg-white/5 hover:text-white"
+                  <a
+                    href="/menu/lunch-dinner"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/20 bg-transparent py-6 text-base font-bold tracking-wider text-white uppercase hover:bg-white/5"
                   >
                     <Music className="h-5 w-5" />
-                    View Menu
-                  </Button>
+                    View Food Menu
+                  </a>
                 </SheetClose>
               </SheetFooter>
             </SheetContent>

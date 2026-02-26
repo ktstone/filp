@@ -2,24 +2,27 @@ import Image from "next/image";
 import {
   Calendar,
   ChevronDown,
-  ChevronRight,
   UtensilsCrossed,
   Star,
   Sparkles,
   Music,
   Gem,
+  ArrowRight,
+  Users,
+  PartyPopper,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LineupSection } from "@/components/lineup-section";
 import { FoodSection } from "@/components/food-section";
 import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 /* -------------------------------------------------------------------------- */
 /*  Hero                                                                       */
 /* -------------------------------------------------------------------------- */
 function Hero() {
   return (
-    <section className="relative flex h-[800px] items-center justify-center overflow-hidden px-4 pt-20">
+    <section className="relative flex h-screen min-h-[700px] items-center justify-center overflow-hidden px-4 pt-20 pb-24">
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
@@ -52,16 +55,15 @@ function Hero() {
           </span>
         </div>
 
-        {/* Heading */}
-        <h1 className="mt-8 font-heading text-7xl font-black leading-[0.95] tracking-[-4.8px] uppercase drop-shadow-[0_25px_25px_rgba(0,0,0,0.15)] lg:text-[96px]">
-          <span className="text-white">Where the</span>
-          <br />
-          <span className="neon-text font-heading" data-neon="Honky Tonk">
-            Honky Tonk
-          </span>
-          <br />
-          <span className="text-white">Never Sleeps</span>
-        </h1>
+        {/* Logo */}
+        <Image
+          src="/images/logo-circle.png"
+          alt="Friends In Low Places - Nashville TN"
+          width={400}
+          height={400}
+          className="mt-8 w-[280px] drop-shadow-[0_0_40px_rgba(239,70,79,0.4)] lg:w-[400px]"
+          priority
+        />
 
         {/* Subtitle */}
         <p className="mt-8 max-w-[672px] text-xl font-light leading-7 text-white/80">
@@ -72,16 +74,17 @@ function Hero() {
 
         {/* Buttons */}
         <div className="mt-12 flex items-center gap-4">
-          <Button className="h-14 rounded-lg bg-honky-red px-8 text-base font-semibold tracking-wider text-white uppercase shadow-[0_0_30px_rgba(239,72,80,0.3)] hover:bg-honky-red/90">
-            <Calendar className="h-4 w-4" />
-            Book a Table
+          <Button asChild className="h-14 rounded-lg bg-honky-red px-8 text-base font-semibold tracking-wider text-white uppercase shadow-[0_0_30px_rgba(239,72,80,0.3)] hover:bg-honky-red/90">
+            <a href="https://www.opentable.com/r/friends-in-low-places-bar-and-honky-tonk-nashville" target="_blank" rel="noopener noreferrer">
+              <Calendar className="h-4 w-4" />
+              Book a Table
+            </a>
           </Button>
-          <Button
-            variant="outline"
-            className="h-14 rounded-lg border-2 border-white/20 bg-transparent px-8 text-base font-semibold tracking-wider text-white uppercase backdrop-blur-sm hover:bg-white/5 hover:text-white"
-          >
-            <Music className="h-[18px] w-[18px]" />
-            View Menu
+          <Button asChild variant="outline" className="h-14 rounded-lg border-2 border-white/20 bg-transparent px-8 text-base font-semibold tracking-wider text-white uppercase backdrop-blur-sm hover:bg-white/5 hover:text-white">
+            <a href="/menu/lunch-dinner">
+              <Music className="h-[18px] w-[18px]" />
+              View Menu
+            </a>
           </Button>
         </div>
       </div>
@@ -130,9 +133,11 @@ function ReservationsSection() {
                 </p>
               </div>
 
-              <Button className="mt-8 w-full rounded-lg bg-white py-4 text-base font-semibold tracking-wider text-honky-bg uppercase hover:bg-white/90">
-                <Calendar className="h-5 w-5" />
-                Book on OpenTable
+              <Button asChild className="mt-8 w-full rounded-lg bg-white py-4 text-base font-semibold tracking-wider text-honky-bg uppercase hover:bg-white/90">
+                <a href="https://www.opentable.com/r/friends-in-low-places-bar-and-honky-tonk-nashville" target="_blank" rel="noopener noreferrer">
+                  <Calendar className="h-5 w-5" />
+                  Book on OpenTable
+                </a>
               </Button>
             </div>
           </div>
@@ -170,6 +175,193 @@ function ReservationsSection() {
   );
 }
 
+
+/* -------------------------------------------------------------------------- */
+/*  Virtual Tour                                                               */
+/* -------------------------------------------------------------------------- */
+function VirtualTour() {
+  return (
+    <section className="px-6 py-20 sm:px-8">
+      <div className="mx-auto max-w-[1280px]">
+        {/* Section header */}
+        <div className="mb-10 flex flex-col items-center gap-2 text-center">
+          <h3 className="font-heading text-lg font-bold tracking-[1.8px] text-honky-teal uppercase">
+            Explore the Venue
+          </h3>
+          <h2 className="font-heading text-4xl font-black uppercase md:text-5xl">
+            <span className="text-white">Take a </span>
+            <span className="neon-text font-heading" data-neon="Tour">Tour</span>
+          </h2>
+          <p className="mt-3 max-w-lg text-base leading-relaxed text-white/50">
+            Step inside Friends In Low Places before you even walk through the
+            door. Explore all four floors in 360&deg;.
+          </p>
+        </div>
+
+        {/* Embed container — 16:9 responsive */}
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_0_60px_rgba(0,0,0,0.4)]">
+          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+            <iframe
+              src="https://my.matterport.com/show/?m=kL9B2jws3Fe"
+              className="absolute inset-0 h-full w-full"
+              allow="autoplay; fullscreen; web-share; xr-spatial-tracking"
+              allowFullScreen
+              loading="lazy"
+              title="Friends In Low Places virtual tour"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Private Events Teaser                                                      */
+/* -------------------------------------------------------------------------- */
+const featuredVenues = [
+  {
+    name: "Honky Tonk",
+    subtitle: "Full Buyout",
+    capacity: 1075,
+    description:
+      "Over 30 TVs, floor-to-ceiling LED screens, and dynamic seating for the ultimate Broadway experience.",
+    accent: "honky-red",
+  },
+  {
+    name: "The Oasis",
+    subtitle: "Full Buyout",
+    capacity: 700,
+    description:
+      "Two full bars, an outdoor stage, and dynamic seating from barstools to custom banquettes.",
+    accent: "honky-teal",
+  },
+  {
+    name: "3rd Floor",
+    subtitle: "Full Buyout",
+    capacity: 175,
+    description:
+      "Three distinct spaces curated by Garth and Trisha with menus by Trisha Yearwood.",
+    accent: "amber",
+  },
+];
+
+function PrivateEventsTeaser() {
+  return (
+    <section className="relative overflow-hidden px-6 py-20 sm:px-8">
+      {/* Background accent */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(239,70,79,0.06),transparent_60%)]" />
+
+      <div className="relative mx-auto max-w-[1280px]">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* Left — headline + CTA */}
+          <div>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
+              <PartyPopper className="h-3.5 w-3.5 text-honky-teal" />
+              <span className="text-xs font-semibold tracking-[1.2px] text-honky-teal uppercase">
+                Private Events
+              </span>
+            </div>
+
+            <h2 className="font-heading text-4xl font-black text-white uppercase md:text-5xl">
+              Host Your{" "}
+              <span className="neon-text font-heading" data-neon="Event">
+                Event
+              </span>
+            </h2>
+
+            <p className="mt-5 max-w-lg text-lg leading-8 text-white/50">
+              From intimate gatherings of 24 to full venue buyouts for over
+              1,000 guests — 12 unique spaces across 4 floors, right on
+              Broadway.
+            </p>
+
+            {/* Stats row */}
+            <div className="mt-8 flex gap-8">
+              {[
+                { value: "12", label: "Spaces" },
+                { value: "1,075", label: "Max Guests" },
+                { value: "4", label: "Floors" },
+              ].map((stat) => (
+                <div key={stat.label} className="flex flex-col gap-0.5">
+                  <span className="font-heading text-2xl font-black text-white">
+                    {stat.value}
+                  </span>
+                  <span className="text-[10px] font-medium tracking-wider text-white/30 uppercase">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10">
+              <Button
+                asChild
+                className="h-14 rounded-lg bg-honky-red px-8 text-base font-semibold tracking-wider text-white uppercase shadow-[0_0_30px_rgba(239,72,80,0.3)] hover:bg-honky-red/90"
+              >
+                <a href="/private-events">
+                  Explore All Venues
+                  <ArrowRight className="h-4 w-4" />
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          {/* Right — venue cards stack */}
+          <div className="flex flex-col gap-4">
+            {featuredVenues.map((venue) => (
+              <a
+                key={venue.name}
+                href="/private-events"
+                className="group relative flex items-center gap-6 overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all hover:border-white/15 hover:bg-white/[0.04]"
+              >
+                {/* Capacity number — decorative */}
+                <div className="absolute -right-2 -bottom-3 font-heading text-[100px] font-black leading-none text-white/[0.02] select-none">
+                  {venue.capacity}
+                </div>
+
+                {/* Capacity badge */}
+                <div className="flex h-16 w-16 shrink-0 flex-col items-center justify-center rounded-xl border border-white/10 bg-white/5">
+                  <Users className="mb-0.5 h-4 w-4 text-white/40" />
+                  <span className="font-heading text-lg font-black text-white">
+                    {venue.capacity.toLocaleString()}
+                  </span>
+                </div>
+
+                {/* Info */}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <h4 className="font-heading text-lg font-black text-white uppercase">
+                      {venue.name}
+                    </h4>
+                    <span className="text-xs font-medium text-white/30">
+                      &mdash; {venue.subtitle}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm leading-relaxed text-white/40">
+                    {venue.description}
+                  </p>
+                </div>
+
+                {/* Arrow */}
+                <ArrowRight className="h-4 w-4 shrink-0 text-white/20 transition-all group-hover:translate-x-1 group-hover:text-honky-red" />
+              </a>
+            ))}
+
+            {/* See all link */}
+            <a
+              href="/private-events"
+              className="group mt-1 flex items-center justify-center gap-2 rounded-xl border border-dashed border-white/10 py-4 text-sm font-semibold tracking-wider text-white/40 uppercase transition-colors hover:border-white/20 hover:text-white/70"
+            >
+              View All 12 Venues
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
 /* -------------------------------------------------------------------------- */
 /*  VIP / Newsletter Signup                                                    */
@@ -245,7 +437,7 @@ function VipSignup() {
                 Text{" "}
                 <span className="text-honky-red">FRIENDS</span>{" "}
                 to{" "}
-                <span className="text-white">44802</span>
+                <span className="text-honky-red">44802</span>
               </p>
             </div>
             <p className="text-xs text-[#6b7280]">
@@ -255,156 +447,6 @@ function VipSignup() {
         </div>
       </div>
     </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Footer                                                                     */
-/* -------------------------------------------------------------------------- */
-function Footer() {
-  return (
-    <footer className="border-t border-white/10 bg-black px-6 pt-16 pb-8">
-      <div className="mx-auto max-w-[1280px]">
-        {/* Main footer columns */}
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Brand */}
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-2">
-              <Image
-                src="/images/filp-logo Small.png"
-                alt="FILP logo"
-                width={15}
-                height={23}
-                className="shrink-0"
-              />
-              <span className="font-heading text-xl font-black leading-7 tracking-tight text-white uppercase">
-                Friends In
-                <br />
-                Low Places
-              </span>
-            </div>
-            <p className="text-sm leading-relaxed text-white/40">
-              The premier honky tonk destination on Broadway. Good tunes, good
-              drinks, and memories you might forget.
-            </p>
-          </div>
-
-          {/* Visit Us */}
-          <div>
-            <h4 className="mb-6 text-base font-semibold tracking-wider text-white uppercase">
-              Visit Us
-            </h4>
-            <div className="flex flex-col gap-2">
-              <p className="text-sm text-white/60">411 Broadway</p>
-              <p className="text-sm text-white/60">Nashville, TN 37203</p>
-              <p className="mt-2 text-sm text-white/60">
-                <a href="tel:+16155499297" className="transition-colors hover:text-white">
-                  (615) 549-9297
-                </a>
-              </p>
-              <a
-                href="https://maps.google.com/?q=411+Broadway+Nashville+TN+37203"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 flex items-center gap-1 text-sm font-semibold text-honky-red transition-colors hover:text-honky-red/80"
-              >
-                Get Directions
-                <ChevronRight className="h-2 w-2" />
-              </a>
-            </div>
-          </div>
-
-          {/* Hours */}
-          <div>
-            <h4 className="mb-6 text-base font-semibold tracking-wider text-white uppercase">
-              Hours
-            </h4>
-            <div className="flex flex-col gap-2">
-              <div className="flex items-start justify-between border-b border-honky-border-subtle pb-2">
-                <span className="text-sm text-white/60">Mon - Thu</span>
-                <span className="text-sm text-white">11AM - 2AM</span>
-              </div>
-              <div className="flex items-start justify-between border-b border-honky-border-subtle pb-2">
-                <span className="text-sm text-white/60">Fri - Sun</span>
-                <span className="text-sm text-white">10AM - 2AM</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h4 className="mb-6 text-base font-semibold tracking-wider text-white uppercase">
-              Stay in the Loop
-            </h4>
-            <div className="flex flex-col gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full rounded-lg border border-white/10 bg-white/5 px-4 py-4 text-sm text-white placeholder:text-white/30 focus:border-honky-red focus:outline-none"
-              />
-              <Button className="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black uppercase hover:bg-white/90 hover:text-black">
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="mt-12 flex items-center justify-between border-t border-honky-border-subtle pt-8">
-          <p className="text-xs text-white/20">
-            &copy; 2026 Friends In Low Places Bar &amp; Honky Tonk. All rights
-            reserved.
-          </p>
-          <div className="flex gap-6">
-            <a
-              href="https://www.facebook.com/FriendsBarNash/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/40 transition-colors hover:text-white/60"
-              aria-label="Facebook"
-            >
-              <svg
-                className="h-5 w-5"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
-            </a>
-            <a
-              href="https://twitter.com/FriendsBarNash/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/40 transition-colors hover:text-white/60"
-              aria-label="X (Twitter)"
-            >
-              <svg
-                className="h-5 w-5"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-              </svg>
-            </a>
-            <a
-              href="https://instagram.com/FriendsBarNash/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/40 transition-colors hover:text-white/60"
-              aria-label="Instagram"
-            >
-              <svg
-                className="h-5 w-5"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
   );
 }
 
@@ -420,6 +462,8 @@ export default function Home() {
         <LineupSection />
         <ReservationsSection />
         <FoodSection />
+        <VirtualTour />
+        <PrivateEventsTeaser />
         <VipSignup />
       </main>
       <Footer />
