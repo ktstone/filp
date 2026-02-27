@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Menu, X, Calendar, Music, PartyPopper, UtensilsCrossed, Sparkles, Star, HelpCircle, Gift } from "lucide-react";
+import { Menu, X, Calendar, Music, PartyPopper, UtensilsCrossed, Sparkles, Star, HelpCircle, Gift, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -28,7 +28,19 @@ const mobileOnlyLinks = [
 
 export function Header() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-honky-border bg-[rgba(26,26,26,0.8)] backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {/* Announcement bar */}
+      <div className="bg-honky-red">
+        <a
+          href="/private-events"
+          className="group mx-auto flex max-w-[1280px] items-center justify-center gap-2 px-6 py-2 text-center text-xs font-semibold tracking-wider text-white uppercase sm:text-sm"
+        >
+          <span>Host Your Private Event at Friends!</span>
+          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+        </a>
+      </div>
+
+      <div className="border-b border-honky-border bg-[rgba(26,26,26,0.8)] backdrop-blur-md">
       <div className="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4">
         {/* Logo */}
         <a href="/" className="flex items-center">
@@ -159,6 +171,7 @@ export function Header() {
             </SheetContent>
           </Sheet>
         </div>
+      </div>
       </div>
     </header>
   );

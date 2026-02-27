@@ -23,7 +23,7 @@ import { FoodSection } from "@/components/food-section";
 /* -------------------------------------------------------------------------- */
 function Hero() {
   return (
-    <section className="relative flex h-screen min-h-[700px] items-center justify-center overflow-hidden px-4 pt-20 pb-24">
+    <section className="relative flex h-screen min-h-[700px] items-center justify-center overflow-hidden px-4 pt-28 pb-24">
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
