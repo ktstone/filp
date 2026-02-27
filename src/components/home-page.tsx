@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
 import { LineupSection } from "@/components/lineup-section";
 import { FoodSection } from "@/components/food-section";
+import { Shader, Aurora } from "shaders/react";
 
 /* -------------------------------------------------------------------------- */
 /*  Hero                                                                       */
@@ -27,7 +28,7 @@ function Hero() {
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/hero-bar.jpg"
+          src="/images/home-hero.jpg"
           alt="Crowded bar interior with neon lights and stage performance"
           fill
           className="object-cover opacity-80"
@@ -37,6 +38,27 @@ function Hero() {
         {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-t from-honky-bg via-[rgba(26,26,26,0.5)] to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-[rgba(26,26,26,0.8)] via-transparent to-[rgba(26,26,26,0.8)]" />
+      </div>
+
+      {/* Shader overlay */}
+      <div className="absolute inset-0 z-[1] mix-blend-screen opacity-60">
+        <Shader>
+          <Aurora
+            blendMode="linearDodge"
+            colorA="#d9d9d9"
+            colorB="#ffdfc2"
+            colorC="#5d67c2"
+            colorSpace="oklab"
+            curtainCount={3}
+            height={72}
+            intensity={36}
+            opacity={0.71}
+            rayDensity={7}
+            seed={14}
+            speed={-2.8}
+            waviness={0}
+          />
+        </Shader>
       </div>
 
       {/* Scroll indicator */}
@@ -437,6 +459,27 @@ function VipSignup() {
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-[#0a0a0a]" />
+
+      {/* Shader overlay */}
+      <div className="absolute inset-0 z-[1] mix-blend-screen opacity-60">
+        <Shader>
+          <Aurora
+            blendMode="linearDodge"
+            colorA="#d9d9d9"
+            colorB="#ffdfc2"
+            colorC="#5d67c2"
+            colorSpace="oklab"
+            curtainCount={3}
+            height={72}
+            intensity={36}
+            opacity={0.71}
+            rayDensity={7}
+            seed={91}
+            speed={-2.8}
+            waviness={0}
+          />
+        </Shader>
+      </div>
 
       {/* Content */}
       <div

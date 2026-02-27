@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
+import { Shader, Aurora } from "shaders/react";
 
 /* -------------------------------------------------------------------------- */
 /*  Types                                                                      */
@@ -114,6 +115,27 @@ function MenuHero({ title, subtitle }: { title: string; subtitle: string }) {
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#181111] via-[rgba(24,17,17,0.6)] to-[rgba(24,17,17,0.3)]" />
+      </div>
+
+      {/* Shader overlay */}
+      <div className="absolute inset-0 z-[1] mix-blend-screen opacity-60">
+        <Shader>
+          <Aurora
+            blendMode="linearDodge"
+            colorA="#d9d9d9"
+            colorB="#ffdfc2"
+            colorC="#5d67c2"
+            colorSpace="oklab"
+            curtainCount={3}
+            height={72}
+            intensity={36}
+            opacity={0.71}
+            rayDensity={7}
+            seed={27}
+            speed={-2.8}
+            waviness={0}
+          />
+        </Shader>
       </div>
 
       {/* Content */}
@@ -486,6 +508,27 @@ function CtaBanner() {
       {/* Subtle radial glows */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(239,70,79,0.08),transparent_60%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(94,196,182,0.04),transparent_50%)]" />
+
+      {/* Shader overlay */}
+      <div className="absolute inset-0 z-[1] mix-blend-screen opacity-60">
+        <Shader>
+          <Aurora
+            blendMode="linearDodge"
+            colorA="#d9d9d9"
+            colorB="#ffdfc2"
+            colorC="#5d67c2"
+            colorSpace="oklab"
+            curtainCount={3}
+            height={72}
+            intensity={36}
+            opacity={0.71}
+            rayDensity={7}
+            seed={46}
+            speed={-2.8}
+            waviness={0}
+          />
+        </Shader>
+      </div>
 
       <div
         ref={ref}

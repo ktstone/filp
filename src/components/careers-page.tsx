@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
+import { Shader, Aurora } from "shaders/react";
 
 /* -------------------------------------------------------------------------- */
 /*  Positions                                                                  */
@@ -38,6 +39,27 @@ function CareersHero() {
     <section className="relative flex flex-col items-center justify-center overflow-hidden px-6 pt-40 pb-20">
       {/* Background glow */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,rgba(239,70,79,0.08),transparent_60%)]" />
+
+      {/* Shader overlay */}
+      <div className="absolute inset-0 z-[1] mix-blend-screen opacity-60">
+        <Shader>
+          <Aurora
+            blendMode="linearDodge"
+            colorA="#d9d9d9"
+            colorB="#ffdfc2"
+            colorC="#5d67c2"
+            colorSpace="oklab"
+            curtainCount={3}
+            height={72}
+            intensity={36}
+            opacity={0.71}
+            rayDensity={7}
+            seed={58}
+            speed={-2.8}
+            waviness={0}
+          />
+        </Shader>
+      </div>
 
       {/* Badge */}
       <div className="relative mb-8 inline-flex items-center gap-2 rounded-full border border-honky-red/30 bg-white/5 px-4 py-2 backdrop-blur-sm">

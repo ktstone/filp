@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
+import { Shader, Aurora } from "shaders/react";
 
 /* -------------------------------------------------------------------------- */
 /*  Package card                                                               */
@@ -606,6 +607,27 @@ export function VipPackagesPage() {
             backgroundSize: "32px 32px",
           }}
         />
+
+        {/* Shader overlay */}
+        <div className="absolute inset-0 z-[1] mix-blend-screen opacity-60">
+          <Shader>
+            <Aurora
+              blendMode="linearDodge"
+              colorA="#d9d9d9"
+              colorB="#ffdfc2"
+              colorC="#5d67c2"
+              colorSpace="oklab"
+              curtainCount={3}
+              height={72}
+              intensity={36}
+              opacity={0.71}
+              rayDensity={7}
+              seed={81}
+              speed={-2.8}
+              waviness={0}
+            />
+          </Shader>
+        </div>
 
         <div className="relative z-10 mx-auto w-full max-w-[1280px]">
           {/* Label */}
