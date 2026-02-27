@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import {
   Heart,
   Beer,
@@ -36,6 +37,7 @@ function PackageCard({
   borderColor,
   accentColor,
   pdfUrl,
+  images,
   index,
 }: {
   title: string;
@@ -45,6 +47,7 @@ function PackageCard({
   borderColor: string;
   accentColor: string;
   pdfUrl?: string;
+  images: string[];
   index: number;
 }) {
   const { ref, visible } = useReveal();
@@ -64,6 +67,26 @@ function PackageCard({
       {/* Decorative icon */}
       <div className="absolute -right-6 -bottom-6 opacity-[0.04]">
         <Icon className="h-48 w-48" />
+      </div>
+
+      {/* Photo mosaic */}
+      <div className="relative grid grid-cols-3 gap-1 p-3 pb-0">
+        {images.slice(0, 3).map((src, i) => (
+          <div
+            key={src}
+            className={`relative overflow-hidden ${
+              i === 0 ? "col-span-2 row-span-2 aspect-[4/3] rounded-tl-xl" : "aspect-square"
+            } ${i === 1 ? "rounded-tr-xl" : ""}`}
+          >
+            <Image
+              src={src}
+              alt={`${title} photo ${i + 1}`}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 50vw, 25vw"
+            />
+          </div>
+        ))}
       </div>
 
       <div className="relative flex flex-col p-8 md:p-10">
@@ -108,6 +131,67 @@ function PackageCard({
         </div>
       </div>
     </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Photo gallery                                                              */
+/* -------------------------------------------------------------------------- */
+
+const galleryImages = [
+  { src: "/images/vip-packages/bachelorette4.jpeg", alt: "Bachelorette party celebration" },
+  { src: "/images/vip-packages/bachelor4.jpeg", alt: "Bachelor party at Friends" },
+  { src: "/images/vip-packages/bachelorette5.jpeg", alt: "Bachelorette group photo" },
+  { src: "/images/vip-packages/bachelor5.jpeg", alt: "Bachelor party drinks" },
+  { src: "/images/vip-packages/bachelorette6.jpeg", alt: "Bachelorette party fun" },
+  { src: "/images/vip-packages/bachelor6.jpeg", alt: "Bachelor party crew" },
+  { src: "/images/vip-packages/bachelorette7.jpeg", alt: "Bachelorette party at Friends" },
+  { src: "/images/vip-packages/bachelorette8.jpeg", alt: "Bachelorette celebration" },
+];
+
+function PhotoGallery() {
+  const { ref, visible } = useReveal();
+
+  return (
+    <section className="px-6 py-16 md:py-24">
+      <div className="mx-auto max-w-[1280px]">
+        <div className="mb-12 flex flex-col gap-2 text-center">
+          <h3 className="font-heading text-lg font-bold tracking-[1.8px] text-honky-teal uppercase">
+            The Party Starts Here
+          </h3>
+          <h2 className="font-heading text-4xl font-black text-white uppercase md:text-5xl">
+            <span className="text-white">Celebrate at </span>
+            <span className="neon-text font-heading" data-neon="Friends">
+              Friends
+            </span>
+          </h2>
+        </div>
+
+        <div
+          ref={ref}
+          className={`columns-2 gap-3 sm:columns-3 lg:columns-4 transition-all duration-700 ${
+            visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          }`}
+        >
+          {galleryImages.map((img, i) => (
+            <div
+              key={img.src}
+              className="group relative mb-3 overflow-hidden rounded-xl break-inside-avoid"
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                width={600}
+                height={i % 3 === 0 ? 800 : 600}
+                className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -591,6 +675,11 @@ export function VipPackagesPage() {
               borderColor="border-honky-red/20 hover:border-honky-red/40"
               accentColor="bg-honky-red/20"
               pdfUrl="/docs/FILP_Bachelorette_Packages.pdf"
+              images={[
+                "/images/vip-packages/bachelorette1.jpeg",
+                "/images/vip-packages/bachelorette2.jpeg",
+                "/images/vip-packages/bachelorette3.jpeg",
+              ]}
             />
             <PackageCard
               index={1}
@@ -601,10 +690,20 @@ export function VipPackagesPage() {
               borderColor="border-honky-teal/20 hover:border-honky-teal/40"
               accentColor="bg-honky-teal/20"
               pdfUrl="/docs/FILP_Bachelor_Packages.pdf"
+              images={[
+                "/images/vip-packages/bachelor1.jpeg",
+                "/images/vip-packages/bachelor2.jpeg",
+                "/images/vip-packages/bachelor3.jpeg",
+              ]}
             />
           </div>
         </div>
       </section>
+
+      {/* ------------------------------------------------------------------ */}
+      {/*  Photo gallery                                                       */}
+      {/* ------------------------------------------------------------------ */}
+      <PhotoGallery />
 
       {/* ------------------------------------------------------------------ */}
       {/*  Inquiry form                                                        */}
