@@ -3,9 +3,10 @@ import { Footer } from "@/components/footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Friends In Low Places",
+  title: "Privacy Policy",
   description:
     "Privacy Policy for Friends In Low Places Bar & Honky Tonk. Learn how we collect, use, and protect your personal information.",
+  alternates: { canonical: "https://www.friendsbarnashville.com/privacy-policy" },
 };
 
 const sections = [
@@ -109,7 +110,7 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#181111]">
+      <main id="main-content" className="min-h-screen bg-[#181111]">
         {/* Hero */}
         <section className="flex flex-col items-center px-6 pt-40 pb-12">
           <h1 className="text-center font-heading text-5xl font-black leading-[0.9] text-white uppercase md:text-[72px]">

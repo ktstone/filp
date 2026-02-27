@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Clock, ArrowRight, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useReveal } from "@/hooks/use-reveal";
 
 /* -------------------------------------------------------------------------- */
 /*  Types & helpers                                                            */
@@ -112,6 +113,110 @@ function findNearestDay(entries: ScheduleEntry[]): Date | null {
 }
 
 /* -------------------------------------------------------------------------- */
+/*  Timeline with reveal (separate component so hook mounts with DOM)          */
+/* -------------------------------------------------------------------------- */
+
+function TimelineReveal({
+  filteredSlots,
+  venueFilter,
+  now,
+}: {
+  filteredSlots: ShowSlot[];
+  venueFilter: VenueFilter;
+  now: Date;
+}) {
+  const { ref, visible } = useReveal();
+
+  return (
+    <div
+      ref={ref}
+      className={`mt-10 ml-1 transition-all duration-700 ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+      }`}
+    >
+      {filteredSlots.map((slot, i) => {
+        const live = isShowLive(slot, now);
+        const artists =
+          venueFilter === "all"
+            ? slot.artists
+            : slot.artists.filter((a) => a.venue === venueFilter);
+
+        return (
+          <div key={`${slot.timeLabel}-${i}`} className="group relative flex gap-5 md:gap-8">
+            {/* Timeline spine */}
+            <div className="relative flex w-2 shrink-0 flex-col items-center">
+              <div className="relative z-10 mt-2">
+                {live ? (
+                  <div className="relative">
+                    <span className="absolute -inset-2 animate-ping rounded-full bg-honky-red/40" />
+                    <span className="relative block h-3 w-3 rounded-full bg-honky-red shadow-[0_0_10px_rgba(239,72,80,0.6)]" />
+                  </div>
+                ) : (
+                  <span className="block h-2.5 w-2.5 rounded-full border-2 border-white/20 bg-honky-bg transition-colors group-hover:border-white/40" />
+                )}
+              </div>
+              <div className="w-px flex-1 bg-gradient-to-b from-white/10 to-transparent" />
+            </div>
+
+            {/* Card */}
+            <div
+              className={`mb-6 flex-1 rounded-xl border p-5 transition-all ${
+                live
+                  ? "border-honky-red/30 bg-honky-red/[0.06] shadow-[0_0_30px_rgba(239,72,80,0.08)]"
+                  : "border-white/[0.06] bg-white/[0.02] hover:border-white/10 hover:bg-white/[0.04]"
+              }`}
+            >
+              {/* Time row */}
+              <div className="mb-3 flex flex-wrap items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <Clock className={`h-3.5 w-3.5 ${live ? "text-honky-red" : "text-white/30"}`} />
+                  <span className={`text-sm font-bold tracking-wide ${live ? "text-honky-red" : "text-white/50"}`}>
+                    {slot.timeLabel}
+                  </span>
+                </div>
+                {live && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-honky-red px-3 py-1">
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
+                    <span className="text-[10px] font-bold tracking-[1.5px] text-white uppercase">
+                      Live Now
+                    </span>
+                  </span>
+                )}
+              </div>
+
+              {/* Artists */}
+              <div className="flex flex-col gap-2">
+                {artists.map((artist) => (
+                  <div
+                    key={`${artist.name}-${artist.venue}`}
+                    className="flex items-start justify-between gap-4"
+                  >
+                    <h4 className="font-heading text-xl font-black text-white uppercase md:text-2xl">
+                      {artist.name}
+                    </h4>
+                    <span
+                      className={`mt-1 shrink-0 rounded-full border px-3 py-1 text-[10px] font-bold tracking-[1px] uppercase ${
+                        artist.venue === "Honky Tonk"
+                          ? "border-honky-red/30 bg-honky-red/10 text-honky-red"
+                          : "border-honky-teal/30 bg-honky-teal/10 text-honky-teal"
+                      }`}
+                    >
+                      {artist.venue === "Honky Tonk" ? "Honky Tonk" : "The Oasis"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+      })}
+      {/* End dot */}
+      <div className="ml-[3px] h-2 w-2 rounded-full bg-white/10" />
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Component                                                                  */
 /* -------------------------------------------------------------------------- */
 
@@ -169,9 +274,9 @@ export function LineupSection() {
       {/* Header row */}
       <div className="flex flex-col gap-6 border-b border-white/10 pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex flex-col gap-2">
-          <h3 className="font-heading text-lg font-bold tracking-[1.8px] text-honky-teal uppercase">
+          <p className="font-heading text-lg font-bold tracking-[1.8px] text-honky-teal uppercase">
             {isToday ? "Today\u2019s Lineup" : "Upcoming Shows"}
-          </h3>
+          </p>
           <h2 className="font-heading text-5xl font-black tracking-tight uppercase">
             <span className="text-white">Who&apos;s </span>
             <span className="neon-text font-heading" data-neon="Playing">
@@ -195,6 +300,7 @@ export function LineupSection() {
             <button
               key={key}
               onClick={() => setVenueFilter(key)}
+              aria-pressed={venueFilter === key}
               className={`flex items-center gap-2 rounded-md px-4 py-2.5 text-xs font-semibold tracking-wider uppercase transition-all ${
                 venueFilter === key
                   ? "bg-honky-red text-white shadow-lg"
@@ -218,86 +324,7 @@ export function LineupSection() {
 
       {/* Timeline */}
       {filteredSlots.length > 0 ? (
-        <div className="mt-10 ml-1">
-          {filteredSlots.map((slot, i) => {
-            const live = isShowLive(slot, now);
-            const artists =
-              venueFilter === "all"
-                ? slot.artists
-                : slot.artists.filter((a) => a.venue === venueFilter);
-
-            return (
-              <div key={`${slot.timeLabel}-${i}`} className="group relative flex gap-5 md:gap-8">
-                {/* Timeline spine */}
-                <div className="relative flex w-2 shrink-0 flex-col items-center">
-                  <div className="relative z-10 mt-2">
-                    {live ? (
-                      <div className="relative">
-                        <span className="absolute -inset-2 animate-ping rounded-full bg-honky-red/40" />
-                        <span className="relative block h-3 w-3 rounded-full bg-honky-red shadow-[0_0_10px_rgba(239,72,80,0.6)]" />
-                      </div>
-                    ) : (
-                      <span className="block h-2.5 w-2.5 rounded-full border-2 border-white/20 bg-honky-bg transition-colors group-hover:border-white/40" />
-                    )}
-                  </div>
-                  <div className="w-px flex-1 bg-gradient-to-b from-white/10 to-transparent" />
-                </div>
-
-                {/* Card */}
-                <div
-                  className={`mb-6 flex-1 rounded-xl border p-5 transition-all ${
-                    live
-                      ? "border-honky-red/30 bg-honky-red/[0.06] shadow-[0_0_30px_rgba(239,72,80,0.08)]"
-                      : "border-white/[0.06] bg-white/[0.02] hover:border-white/10 hover:bg-white/[0.04]"
-                  }`}
-                >
-                  {/* Time row */}
-                  <div className="mb-3 flex flex-wrap items-center gap-3">
-                    <div className="flex items-center gap-2">
-                      <Clock className={`h-3.5 w-3.5 ${live ? "text-honky-red" : "text-white/30"}`} />
-                      <span className={`text-sm font-bold tracking-wide ${live ? "text-honky-red" : "text-white/50"}`}>
-                        {slot.timeLabel}
-                      </span>
-                    </div>
-                    {live && (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-honky-red px-3 py-1">
-                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />
-                        <span className="text-[10px] font-bold tracking-[1.5px] text-white uppercase">
-                          Live Now
-                        </span>
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Artists */}
-                  <div className="flex flex-col gap-2">
-                    {artists.map((artist) => (
-                      <div
-                        key={`${artist.name}-${artist.venue}`}
-                        className="flex items-start justify-between gap-4"
-                      >
-                        <h4 className="font-heading text-xl font-black text-white uppercase md:text-2xl">
-                          {artist.name}
-                        </h4>
-                        <span
-                          className={`mt-1 shrink-0 rounded-full border px-3 py-1 text-[10px] font-bold tracking-[1px] uppercase ${
-                            artist.venue === "Honky Tonk"
-                              ? "border-honky-red/30 bg-honky-red/10 text-honky-red"
-                              : "border-honky-teal/30 bg-honky-teal/10 text-honky-teal"
-                          }`}
-                        >
-                          {artist.venue === "Honky Tonk" ? "Honky Tonk" : "The Oasis"}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-          {/* End dot */}
-          <div className="ml-[3px] h-2 w-2 rounded-full bg-white/10" />
-        </div>
+        <TimelineReveal filteredSlots={filteredSlots} venueFilter={venueFilter} now={now} />
       ) : (
         <div className="mt-10 flex flex-col items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.02] py-16 text-center">
           <Music className="h-8 w-8 text-white/10" />

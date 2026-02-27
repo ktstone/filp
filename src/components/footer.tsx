@@ -4,7 +4,7 @@ import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
 /* Simple X/Twitter icon — Lucide doesn't include the current X logo */
 function XIcon({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
       <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
     </svg>
   );
@@ -20,7 +20,7 @@ export function Footer() {
           <div className="flex flex-col gap-6">
             <Image
               src="/images/logo-circle.png"
-              alt="FILP logo"
+              alt="Friends In Low Places"
               width={64}
               height={64}
               className="shrink-0"
@@ -128,7 +128,6 @@ export function Footer() {
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3221.246084708189!2d-86.7800974!3d36.1605659!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88646772e1037f27%3A0x92455bd05c9e7a5b!2sFriends%20in%20Low%20Places%20Bar%20%26%20Honky-Tonk!5e0!3m2!1sen!2sus!4v1772153086470!5m2!1sen!2sus"
                 className="h-full w-full grayscale invert-[0.85] hue-rotate-[200deg] contrast-[0.9] brightness-[0.7]"
                 style={{ border: 0 }}
-                allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Friends In Low Places location map"

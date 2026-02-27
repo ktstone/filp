@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Music, Clock, MapPin, ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
+import { useReveal } from "@/hooks/use-reveal";
 
 /* -------------------------------------------------------------------------- */
 /*  Types & helpers                                                            */
@@ -203,6 +204,8 @@ function DatePicker({
               key={day.dateKey}
               data-selected={isSelected}
               onClick={() => onSelect(day.date)}
+              aria-label={day.date.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+              aria-pressed={isSelected}
               className={`group/date relative flex shrink-0 flex-col items-center gap-0.5 rounded-xl px-4 py-3 transition-all ${
                 isSelected
                   ? "border border-honky-red/50 bg-honky-red/10 shadow-[0_0_20px_rgba(239,72,80,0.1)]"
@@ -260,6 +263,7 @@ function TimelineSlot({
   venueFilter: VenueFilter;
   index: number;
 }) {
+  const { ref, visible } = useReveal();
   const filteredArtists =
     venueFilter === "all"
       ? slot.artists
@@ -269,8 +273,11 @@ function TimelineSlot({
 
   return (
     <div
-      className="group relative flex gap-6 md:gap-10"
-      style={{ animationDelay: `${index * 60}ms` }}
+      ref={ref}
+      className={`group relative flex gap-6 md:gap-10 transition-all duration-700 ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+      }`}
+      style={{ transitionDelay: `${index * 80}ms` }}
     >
       {/* Timeline dot + line */}
       <div className="relative flex w-2 shrink-0 flex-col items-center">
@@ -420,7 +427,7 @@ export function EventsPage() {
 
         <div className="relative z-10 mx-auto w-full max-w-[1280px]">
           {/* Label */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
+          <div className="mb-6 inline-flex animate-[fadeInUp_0.6s_ease-out_both] items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
             <Music className="h-3.5 w-3.5 text-honky-teal" />
             <span className="text-xs font-semibold tracking-[1.2px] text-honky-teal uppercase">
               Live Music Schedule
@@ -428,7 +435,7 @@ export function EventsPage() {
           </div>
 
           {/* Heading */}
-          <h1 className="font-heading text-5xl font-black text-white uppercase md:text-6xl lg:text-7xl">
+          <h1 className="animate-[fadeInUp_0.7s_ease-out_0.1s_both] font-heading text-5xl font-black text-white uppercase md:text-6xl lg:text-7xl">
             Who&apos;s{" "}
             <span className="neon-text font-heading" data-neon="Playing">
               Playing
@@ -436,7 +443,7 @@ export function EventsPage() {
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-6 max-w-[560px] text-lg leading-8 text-white/60 md:text-xl">
+          <p className="mt-6 max-w-[560px] animate-[fadeInUp_0.7s_ease-out_0.2s_both] text-lg leading-8 text-white/60 md:text-xl">
             Live music every day across two stages. Check the schedule and
             plan your night on Broadway.
           </p>
@@ -497,6 +504,7 @@ export function EventsPage() {
                     <button
                       key={key}
                       onClick={() => setVenueFilter(key)}
+                      aria-pressed={venueFilter === key}
                       className={`flex items-center gap-2 rounded-md px-4 py-2 text-xs font-semibold tracking-wider uppercase transition-all ${
                         venueFilter === key
                           ? "bg-honky-red text-white shadow-lg"

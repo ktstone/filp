@@ -4,9 +4,10 @@ import { MenuPage, type MenuPageData } from "@/components/menu-page";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Weekend Brunch Menu | Friends In Low Places",
+  title: "Weekend Brunch Menu",
   description:
-    "Mornings in Low Places — giant cinnamon rolls, biscuits, mimosa towers, and all the Southern brunch favorites. 10AM\u20132PM.",
+    "Mornings in Low Places. Giant cinnamon rolls, biscuits, mimosa towers, and all the Southern brunch favorites. 10AM\u20132PM.",
+  alternates: { canonical: "https://www.friendsbarnashville.com/menu/brunch" },
 };
 
 const menuData: MenuPageData = {
@@ -109,7 +110,7 @@ export default function BrunchPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <MenuPage data={menuData} />
       </main>
       <Footer />

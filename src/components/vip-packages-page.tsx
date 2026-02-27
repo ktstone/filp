@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import {
   Heart,
   Beer,
@@ -22,33 +22,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-/* -------------------------------------------------------------------------- */
-/*  Scroll-reveal hook                                                         */
-/* -------------------------------------------------------------------------- */
-
-function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return { ref, visible };
-}
+import { useReveal } from "@/hooks/use-reveal";
 
 /* -------------------------------------------------------------------------- */
 /*  Package card                                                               */
@@ -611,7 +585,7 @@ export function VipPackagesPage() {
             <PackageCard
               index={0}
               title="Bachelorette Packages"
-              description="Grab your girls, your boas, and your best white dress — it's time to celebrate YOU at Friends In Low Places! From disco ball drinks to the best music in the Neon Neighborhood, we've got everything to make your last fling before the ring unforgettable!"
+              description="Grab your girls, your boas, and your best white dress! It's time to celebrate YOU at Friends In Low Places! From disco ball drinks to the best music in the Neon Neighborhood, we've got everything to make your last fling before the ring unforgettable!"
               icon={Heart}
               gradient="from-[#ef464f]/20 via-[#2c1a1a]/50 to-[#1a1a1a]"
               borderColor="border-honky-red/20 hover:border-honky-red/40"

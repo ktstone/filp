@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import {
   Users,
@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useReveal } from "@/hooks/use-reveal";
 import { type Venue, DEFAULT_BOOKING_URL, getLocationColor, venues } from "@/lib/venues";
 
 /* -------------------------------------------------------------------------- */
@@ -83,10 +84,16 @@ function VenueHero({ venue }: { venue: Venue }) {
 
 function VenueDescription({ venue }: { venue: Venue }) {
   const color = getLocationColor(venue.location);
+  const { ref, visible } = useReveal();
 
   return (
     <section className="px-6 py-16 md:py-20">
-      <div className="mx-auto max-w-[900px]">
+      <div
+        ref={ref}
+        className={`mx-auto max-w-[900px] transition-all duration-700 ${
+          visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+      >
         <div className="grid gap-12 lg:grid-cols-[1fr_320px]">
           {/* Main description */}
           <div>
@@ -175,6 +182,7 @@ function VenueDescription({ venue }: { venue: Venue }) {
 
 function VenueGallery({ venue }: { venue: Venue }) {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const { ref, visible } = useReveal();
 
   // Combine hero image + gallery images
   const allImages = [venue.image, ...venue.gallery];
@@ -184,7 +192,12 @@ function VenueGallery({ venue }: { venue: Venue }) {
   return (
     <>
       <section className="px-6 pb-16 md:pb-20">
-        <div className="mx-auto max-w-[900px]">
+        <div
+          ref={ref}
+          className={`mx-auto max-w-[900px] transition-all duration-700 ${
+            visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          }`}
+        >
           <h2 className="mb-8 font-heading text-2xl font-black text-white uppercase md:text-3xl">
             Gallery
           </h2>
@@ -217,63 +230,115 @@ function VenueGallery({ venue }: { venue: Venue }) {
 
       {/* Lightbox */}
       {lightboxIndex !== null && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4"
-          onClick={() => setLightboxIndex(null)}
-        >
-          <button
-            onClick={() => setLightboxIndex(null)}
-            className="absolute top-6 right-6 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-          >
-            <X className="h-5 w-5" />
-          </button>
-
-          {/* Previous */}
-          {lightboxIndex > 0 && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setLightboxIndex(lightboxIndex - 1);
-              }}
-              className="absolute left-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </button>
-          )}
-
-          {/* Next */}
-          {lightboxIndex < allImages.length - 1 && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setLightboxIndex(lightboxIndex + 1);
-              }}
-              className="absolute right-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-            >
-              <ArrowRight className="h-5 w-5" />
-            </button>
-          )}
-
-          <div
-            className="relative max-h-[85vh] max-w-[90vw] overflow-hidden rounded-xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Image
-              src={allImages[lightboxIndex]}
-              alt={`${venue.name} - Photo ${lightboxIndex + 1}`}
-              width={1200}
-              height={800}
-              className="max-h-[85vh] w-auto object-contain"
-            />
-          </div>
-
-          {/* Counter */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-white/10 px-4 py-2 text-sm text-white/70 backdrop-blur-sm">
-            {lightboxIndex + 1} / {allImages.length}
-          </div>
-        </div>
+        <GalleryLightbox
+          images={allImages}
+          index={lightboxIndex}
+          venueName={venue.name}
+          onClose={() => setLightboxIndex(null)}
+          onPrev={() => setLightboxIndex(Math.max(0, lightboxIndex - 1))}
+          onNext={() => setLightboxIndex(Math.min(allImages.length - 1, lightboxIndex + 1))}
+        />
       )}
     </>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Gallery Lightbox (accessible)                                              */
+/* -------------------------------------------------------------------------- */
+
+function GalleryLightbox({
+  images,
+  index,
+  venueName,
+  onClose,
+  onPrev,
+  onNext,
+}: {
+  images: string[];
+  index: number;
+  venueName: string;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}) {
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft" && index > 0) onPrev();
+      if (e.key === "ArrowRight" && index < images.length - 1) onNext();
+    },
+    [onClose, onPrev, onNext, index, images.length],
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [handleKeyDown]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${venueName} photo gallery, image ${index + 1} of ${images.length}`}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        aria-label="Close gallery"
+        className="absolute top-6 right-6 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+      >
+        <X className="h-5 w-5" />
+      </button>
+
+      {index > 0 && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onPrev();
+          }}
+          aria-label="Previous image"
+          className="absolute left-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+        >
+          <ArrowLeft className="h-5 w-5" />
+        </button>
+      )}
+
+      {index < images.length - 1 && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onNext();
+          }}
+          aria-label="Next image"
+          className="absolute right-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+        >
+          <ArrowRight className="h-5 w-5" />
+        </button>
+      )}
+
+      <div
+        className="relative max-h-[85vh] max-w-[90vw] overflow-hidden rounded-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Image
+          src={images[index]}
+          alt={`${venueName} - Photo ${index + 1}`}
+          width={1200}
+          height={800}
+          className="max-h-[85vh] w-auto object-contain"
+        />
+      </div>
+
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full bg-white/10 px-4 py-2 text-sm text-white/70 backdrop-blur-sm" aria-live="polite">
+        {index + 1} / {images.length}
+      </div>
+    </div>
   );
 }
 
@@ -283,13 +348,19 @@ function VenueGallery({ venue }: { venue: Venue }) {
 
 function VenueFloorPlan({ venue }: { venue: Venue }) {
   const [expanded, setExpanded] = useState(false);
+  const { ref, visible } = useReveal();
 
   if (!venue.floorPlan) return null;
 
   return (
     <>
       <section className="px-6 pb-16 md:pb-20">
-        <div className="mx-auto max-w-[900px]">
+        <div
+          ref={ref}
+          className={`mx-auto max-w-[900px] transition-all duration-700 ${
+            visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+          }`}
+        >
           <h2 className="mb-8 font-heading text-2xl font-black text-white uppercase md:text-3xl">
             Floor Plan
           </h2>
@@ -317,34 +388,107 @@ function VenueFloorPlan({ venue }: { venue: Venue }) {
 
       {/* Floor plan lightbox */}
       {expanded && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4"
-          onClick={() => setExpanded(false)}
-        >
-          <button
-            onClick={() => setExpanded(false)}
-            className="absolute top-6 right-6 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
-          >
-            <X className="h-5 w-5" />
-          </button>
-          <div onClick={(e) => e.stopPropagation()}>
-            <Image
-              src={venue.floorPlan}
-              alt={`${venue.name} floor plan`}
-              width={1400}
-              height={900}
-              className="max-h-[90vh] w-auto object-contain"
-            />
-          </div>
-        </div>
+        <FloorPlanLightbox
+          src={venue.floorPlan}
+          venueName={venue.name}
+          onClose={() => setExpanded(false)}
+        />
       )}
     </>
   );
 }
 
 /* -------------------------------------------------------------------------- */
+/*  Floor Plan Lightbox (accessible)                                           */
+/* -------------------------------------------------------------------------- */
+
+function FloorPlanLightbox({
+  src,
+  venueName,
+  onClose,
+}: {
+  src: string;
+  venueName: string;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleKey);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${venueName} floor plan, expanded view`}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        aria-label="Close floor plan"
+        className="absolute top-6 right-6 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+      >
+        <X className="h-5 w-5" />
+      </button>
+      <div onClick={(e) => e.stopPropagation()}>
+        <Image
+          src={src}
+          alt={`${venueName} floor plan`}
+          width={1400}
+          height={900}
+          className="max-h-[90vh] w-auto object-contain"
+        />
+      </div>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
 /*  Other Spaces (related)                                                     */
 /* -------------------------------------------------------------------------- */
+
+function OtherSpaceCard({ venue, index }: { venue: Venue; index: number }) {
+  const { ref, visible } = useReveal<HTMLAnchorElement>();
+  return (
+    <a
+      ref={ref}
+      key={venue.slug}
+      href={`/private-events/${venue.slug}`}
+      className={`group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 transition-all duration-600 hover:border-white/20 ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+      }`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
+      <div className="relative h-40 overflow-hidden">
+        <Image
+          src={venue.image}
+          alt={venue.name}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#181111] via-transparent to-transparent" />
+      </div>
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="font-heading text-lg font-black text-white uppercase">
+          {venue.name}
+        </h3>
+        <div className="mt-2 flex items-center gap-2 text-sm text-white/40">
+          <Users className="h-3.5 w-3.5" />
+          <span>{venue.capacity} guests</span>
+        </div>
+      </div>
+    </a>
+  );
+}
 
 function OtherSpaces({ currentSlug, location }: { currentSlug: string; location: string }) {
   const related = venues
@@ -372,32 +516,8 @@ function OtherSpaces({ currentSlug, location }: { currentSlug: string; location:
         </h2>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {others.map((venue) => (
-            <a
-              key={venue.slug}
-              href={`/private-events/${venue.slug}`}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 transition-all hover:border-white/20"
-            >
-              <div className="relative h-40 overflow-hidden">
-                <Image
-                  src={venue.image}
-                  alt={venue.name}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#181111] via-transparent to-transparent" />
-              </div>
-              <div className="flex flex-1 flex-col p-5">
-                <h3 className="font-heading text-lg font-black text-white uppercase">
-                  {venue.name}
-                </h3>
-                <div className="mt-2 flex items-center gap-2 text-sm text-white/40">
-                  <Users className="h-3.5 w-3.5" />
-                  <span>{venue.capacity} guests</span>
-                </div>
-              </div>
-            </a>
+          {others.map((venue, i) => (
+            <OtherSpaceCard key={venue.slug} venue={venue} index={i} />
           ))}
         </div>
 
@@ -420,12 +540,18 @@ function OtherSpaces({ currentSlug, location }: { currentSlug: string; location:
 /* -------------------------------------------------------------------------- */
 
 function BookingCta({ venue }: { venue: Venue }) {
+  const { ref, visible } = useReveal();
   return (
     <section className="relative overflow-hidden px-6 py-20">
       <div className="absolute inset-0 bg-honky-red/5" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(239,70,79,0.08),transparent_70%)]" />
 
-      <div className="relative mx-auto flex max-w-[700px] flex-col items-center text-center">
+      <div
+        ref={ref}
+        className={`relative mx-auto flex max-w-[700px] flex-col items-center text-center transition-all duration-700 ${
+          visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+      >
         <h2 className="font-heading text-3xl font-black text-white uppercase md:text-4xl">
           Book the{" "}
           <span className="neon-text font-heading" data-neon={venue.name.split(" - ").pop()}>

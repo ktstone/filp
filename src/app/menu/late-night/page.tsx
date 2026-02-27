@@ -4,9 +4,10 @@ import { MenuPage, type MenuPageData } from "@/components/menu-page";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Late Night Menu | Friends In Low Places",
+  title: "Late Night Menu",
   description:
-    "Late night bites at Nashville's premier honky tonk. Burgers, chicken tenders, nachos, and more \u2014 kitchen open until close.",
+    "Late night bites at Nashville's premier honky tonk. Burgers, chicken tenders, nachos, and more. Kitchen open until close.",
+  alternates: { canonical: "https://www.friendsbarnashville.com/menu/late-night" },
 };
 
 const menuData: MenuPageData = {
@@ -100,7 +101,7 @@ export default function LateNightPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <MenuPage data={menuData} />
       </main>
       <Footer />

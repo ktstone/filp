@@ -16,6 +16,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useReveal } from "@/hooks/use-reveal";
 
 /* -------------------------------------------------------------------------- */
 /*  Types                                                                      */
@@ -108,6 +109,7 @@ function MenuHero({ title, subtitle }: { title: string; subtitle: string }) {
           src="/images/menu-hero.jpg"
           alt="Bar interior with warm lighting"
           fill
+          sizes="100vw"
           className="object-cover"
           priority
         />
@@ -117,7 +119,7 @@ function MenuHero({ title, subtitle }: { title: string; subtitle: string }) {
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center">
         {/* Badge */}
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-honky-red/30 bg-white/5 px-4 py-2 backdrop-blur-sm">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-honky-red/30 bg-white/5 px-4 py-2 backdrop-blur-sm opacity-0 animate-[fadeInUp_0.6s_ease_forwards]">
           <Sparkles className="h-3.5 w-3.5 text-white" />
           <span className="text-xs font-semibold tracking-[1.2px] text-white uppercase">
             Est. 2023
@@ -125,7 +127,7 @@ function MenuHero({ title, subtitle }: { title: string; subtitle: string }) {
         </div>
 
         {/* Heading */}
-        <h1 className="font-heading text-6xl leading-[0.9] font-black uppercase text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)] md:text-[96px]">
+        <h1 className="font-heading text-6xl leading-[0.9] font-black uppercase text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)] md:text-[96px] opacity-0 animate-[fadeInUp_0.6s_ease_0.1s_forwards]">
           {title.split(" ").length > 1 ? (
             <>
               {title.split(" ").slice(0, -1).join(" ")}{" "}
@@ -141,7 +143,7 @@ function MenuHero({ title, subtitle }: { title: string; subtitle: string }) {
         </h1>
 
         {/* Subtitle */}
-        <p className="mt-4 text-lg font-light text-white/70">{subtitle}</p>
+        <p className="mt-4 text-lg font-light text-white/70 opacity-0 animate-[fadeInUp_0.6s_ease_0.2s_forwards]">{subtitle}</p>
       </div>
     </section>
   );
@@ -252,7 +254,7 @@ function FeaturedCard({ item }: { item: FeaturedItem }) {
     <div className="mb-8 flex flex-col overflow-hidden rounded-2xl border border-[#392829] bg-[#271c1c] md:flex-row">
       {/* Image */}
       <div className="relative h-64 w-full shrink-0 md:h-auto md:w-[40%]">
-        <Image src={item.image} alt={item.name} fill className="object-cover" />
+        <Image src={item.image} alt={item.name} fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover" />
         {item.badge && (
           <span className="absolute top-4 left-4 rounded-full bg-honky-teal/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
             {item.badge}
@@ -368,7 +370,7 @@ function ImageCardComponent({ item }: { item: ImageCard }) {
     <div className="overflow-hidden rounded-2xl border border-[#392829] bg-[#271c1c]">
       {/* Image */}
       <div className="relative h-48">
-        <Image src={item.image} alt={item.name} fill className="object-cover" />
+        <Image src={item.image} alt={item.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
         {item.badge && (
           <span className="absolute top-3 right-3 rounded-full bg-honky-teal/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
             {item.badge}
@@ -424,41 +426,50 @@ function StackedTextCard({ card }: { card: StackedCard }) {
 /* -------------------------------------------------------------------------- */
 
 function MenuSectionBlock({ section }: { section: MenuSection }) {
+  const { ref, visible } = useReveal();
+
   return (
     <section id={section.id} className="scroll-mt-[140px] py-12">
       <SectionHeader subtitle={section.subtitle} heading={section.heading} note={section.note} />
 
-      {/* Featured item */}
-      {section.featured && <FeaturedCard item={section.featured} />}
+      <div
+        ref={ref}
+        className={`transition-all duration-700 ${
+          visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+      >
+        {/* Featured item */}
+        {section.featured && <FeaturedCard item={section.featured} />}
 
-      {/* Regular items (2-col grid) */}
-      {section.regularItems && section.regularItems.length > 0 && (
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {section.regularItems.map((item) => (
-            <RegularCard key={item.name} item={item} />
-          ))}
-        </div>
-      )}
+        {/* Regular items (2-col grid) */}
+        {section.regularItems && section.regularItems.length > 0 && (
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {section.regularItems.map((item) => (
+              <RegularCard key={item.name} item={item} />
+            ))}
+          </div>
+        )}
 
-      {/* List items (beer list style) */}
-      {section.listItems && section.listItems.length > 0 && (
-        <div className="mt-6">
-          <ListCard items={section.listItems} />
-        </div>
-      )}
+        {/* List items (beer list style) */}
+        {section.listItems && section.listItems.length > 0 && (
+          <div className="mt-6">
+            <ListCard items={section.listItems} />
+          </div>
+        )}
 
-      {/* Image cards + stacked cards in a grid */}
-      {((section.imageCards && section.imageCards.length > 0) ||
-        (section.stackedCards && section.stackedCards.length > 0)) && (
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {section.imageCards?.map((item) => (
-            <ImageCardComponent key={item.name} item={item} />
-          ))}
-          {section.stackedCards?.map((card, i) => (
-            <StackedTextCard key={i} card={card} />
-          ))}
-        </div>
-      )}
+        {/* Image cards + stacked cards in a grid */}
+        {((section.imageCards && section.imageCards.length > 0) ||
+          (section.stackedCards && section.stackedCards.length > 0)) && (
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {section.imageCards?.map((item) => (
+              <ImageCardComponent key={item.name} item={item} />
+            ))}
+            {section.stackedCards?.map((card, i) => (
+              <StackedTextCard key={i} card={card} />
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }
@@ -468,13 +479,20 @@ function MenuSectionBlock({ section }: { section: MenuSection }) {
 /* -------------------------------------------------------------------------- */
 
 function CtaBanner() {
+  const { ref, visible } = useReveal();
+
   return (
     <section className="relative overflow-hidden border-t border-white/[0.06] bg-[#181111] px-6 py-24">
       {/* Subtle radial glows */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(239,70,79,0.08),transparent_60%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(94,196,182,0.04),transparent_50%)]" />
 
-      <div className="relative mx-auto flex max-w-[800px] flex-col items-center text-center">
+      <div
+        ref={ref}
+        className={`relative mx-auto flex max-w-[800px] flex-col items-center text-center transition-all duration-700 ${
+          visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+      >
         {/* Decorative line */}
         <div className="mb-8 flex items-center gap-4">
           <span className="h-px w-10 bg-gradient-to-r from-transparent to-honky-red/40" />

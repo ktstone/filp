@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { Users, ArrowRight, Sparkles, Mail, Phone, MapPin, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useReveal } from "@/hooks/use-reveal";
 import { venues, DEFAULT_BOOKING_URL, type Venue } from "@/lib/venues";
 
 /* -------------------------------------------------------------------------- */
@@ -12,33 +13,6 @@ import { venues, DEFAULT_BOOKING_URL, type Venue } from "@/lib/venues";
 
 const filters = ["All", "Honky Tonk", "The Oasis", "3rd Floor"] as const;
 type Filter = (typeof filters)[number];
-
-/* -------------------------------------------------------------------------- */
-/*  Scroll-reveal hook                                                         */
-/* -------------------------------------------------------------------------- */
-
-function useReveal() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return { ref, visible };
-}
 
 /* -------------------------------------------------------------------------- */
 /*  Capacity bar — visual indicator                                            */
@@ -289,7 +263,7 @@ export function PrivateEventsPage() {
           {/* Subtitle */}
           <p className="mt-6 max-w-[640px] text-lg leading-8 text-white/60 md:text-xl">
             From intimate gatherings to full venue buyouts accommodating over
-            1,000 guests &mdash; we have the perfect space for your next celebration
+            1,000 guests. We have the perfect space for your next celebration
             on Broadway.
           </p>
 
@@ -334,9 +308,9 @@ export function PrivateEventsPage() {
         <div className="mx-auto max-w-[1280px]">
           {/* Section header */}
           <div className="mb-10 flex flex-col gap-2 text-center">
-            <h3 className="font-heading text-lg font-bold tracking-[1.8px] text-honky-teal uppercase">
+            <p className="font-heading text-lg font-bold tracking-[1.8px] text-honky-teal uppercase">
               Our Venues
-            </h3>
+            </p>
             <h2 className="font-heading text-4xl font-black text-white uppercase md:text-5xl">
               <span className="text-white">Find Your </span>
               <span className="neon-text font-heading" data-neon="Space">
@@ -358,6 +332,7 @@ export function PrivateEventsPage() {
                 <button
                   key={filter}
                   onClick={() => setActiveFilter(filter)}
+                  aria-pressed={isActive}
                   className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold tracking-wider uppercase transition-all ${
                     isActive
                       ? "border-honky-red/50 bg-honky-red/10 text-white shadow-[0_0_15px_rgba(239,72,80,0.15)]"

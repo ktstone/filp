@@ -4,9 +4,10 @@ import { MenuPage, type MenuPageData } from "@/components/menu-page";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Lunch & Dinner Menu | Friends In Low Places",
+  title: "Lunch & Dinner Menu",
   description:
-    "Inspired by Trisha's Southern Kitchen — familiar favorites and new creations at Nashville's premier honky tonk. View the full lunch and dinner menu.",
+    "Inspired by Trisha's Southern Kitchen. Familiar favorites and new creations at Nashville's premier honky tonk. View the full lunch and dinner menu.",
+  alternates: { canonical: "https://www.friendsbarnashville.com/menu/lunch-dinner" },
 };
 
 const menuData: MenuPageData = {
@@ -207,7 +208,7 @@ const menuData: MenuPageData = {
               name: "BLT on Texas Toast",
               price: "",
               description:
-                "Thick-cut bacon, tomato, leaf lettuce, Trixie Dust mayo. Make it \u201cBig Time\u201d \u2014 add a 6 oz cheeseburger patty.",
+                "Thick-cut bacon, tomato, leaf lettuce, Trixie Dust mayo. Make it \u201cBig Time\u201d and add a 6 oz cheeseburger patty.",
             },
             {
               name: "Fried Chicken Caesar Wrap",
@@ -264,7 +265,7 @@ export default function LunchDinnerPage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <MenuPage data={menuData} />
       </main>
       <Footer />

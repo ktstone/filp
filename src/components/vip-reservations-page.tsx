@@ -17,6 +17,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useReveal } from "@/hooks/use-reveal";
 
 /* -------------------------------------------------------------------------- */
 /*  Perks                                                                      */
@@ -37,7 +38,7 @@ const perks: Perk[] = [
   {
     icon: DoorOpen,
     title: "VIP Entrance",
-    description: "Expedited entry into the venue \u2014 skip the line.",
+    description: "Expedited entry into the venue. Skip the line.",
   },
   {
     icon: Eye,
@@ -127,6 +128,30 @@ function ReservationsHero() {
 /*  Perks Grid                                                                 */
 /* -------------------------------------------------------------------------- */
 
+function PerkCard({ perk, index }: { perk: Perk; index: number }) {
+  const { ref, visible } = useReveal();
+  const Icon = perk.icon;
+  return (
+    <div
+      ref={ref}
+      className={`flex items-start gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all duration-600 ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+      }`}
+      style={{ transitionDelay: `${index * 100}ms` }}
+    >
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-honky-red/10">
+        <Icon className="h-[18px] w-[18px] text-honky-red" />
+      </div>
+      <div>
+        <h3 className="font-heading text-base font-bold text-white">{perk.title}</h3>
+        <p className="mt-1 text-sm font-light leading-relaxed text-white/40">
+          {perk.description}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function PerksSection() {
   return (
     <section className="relative px-6 pb-16">
@@ -135,21 +160,8 @@ function PerksSection() {
           Your reservation will feature
         </p>
         <div className="grid gap-4 sm:grid-cols-2">
-          {perks.map(({ icon: Icon, title, description }) => (
-            <div
-              key={title}
-              className="flex items-start gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6"
-            >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-honky-red/10">
-                <Icon className="h-[18px] w-[18px] text-honky-red" />
-              </div>
-              <div>
-                <h3 className="font-heading text-base font-bold text-white">{title}</h3>
-                <p className="mt-1 text-sm font-light leading-relaxed text-white/40">
-                  {description}
-                </p>
-              </div>
-            </div>
+          {perks.map((perk, i) => (
+            <PerkCard key={perk.title} perk={perk} index={i} />
           ))}
         </div>
       </div>
@@ -172,6 +184,7 @@ const galleryImages = [
 ];
 
 function VipGallery() {
+  const { ref, visible } = useReveal();
   return (
     <section className="relative px-6 pb-20">
       {/* Section label */}
@@ -180,7 +193,12 @@ function VipGallery() {
       </p>
 
       {/* Asymmetric mosaic grid */}
-      <div className="mx-auto max-w-[1100px]">
+      <div
+        ref={ref}
+        className={`mx-auto max-w-[1100px] transition-all duration-700 ${
+          visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+      >
         <div className="grid grid-cols-2 grid-rows-[160px_160px_160px_160px] gap-3 sm:grid-cols-4 sm:grid-rows-[220px_180px_220px] sm:gap-4">
           {/* Large hero tile — spans 2 cols, 2 rows */}
           <div className="relative col-span-2 row-span-2 overflow-hidden rounded-2xl">
@@ -272,9 +290,15 @@ function VipGallery() {
 /* -------------------------------------------------------------------------- */
 
 function GroupDiningCallout({ onSelect }: { onSelect: () => void }) {
+  const { ref, visible } = useReveal();
   return (
     <section className="relative px-6 pb-16">
-      <div className="mx-auto max-w-[640px]">
+      <div
+        ref={ref}
+        className={`mx-auto max-w-[640px] transition-all duration-700 ${
+          visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+      >
         <div className="flex flex-col items-center gap-5 rounded-2xl border border-honky-teal/15 bg-honky-teal/[0.03] p-8 text-center sm:flex-row sm:text-left">
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-honky-teal/10">
             <Briefcase className="h-6 w-6 text-honky-teal" />
@@ -328,6 +352,7 @@ function ReservationTypeToggle({
         <button
           type="button"
           onClick={() => onChange("vip")}
+          aria-pressed={value === "vip"}
           className={`flex flex-col items-center gap-2 rounded-xl border-2 px-4 py-4 transition-all ${
             value === "vip"
               ? "border-honky-red/50 bg-honky-red/[0.08]"
@@ -347,6 +372,7 @@ function ReservationTypeToggle({
         <button
           type="button"
           onClick={() => onChange("group-dining")}
+          aria-pressed={value === "group-dining"}
           className={`flex flex-col items-center gap-2 rounded-xl border-2 px-4 py-4 transition-all ${
             value === "group-dining"
               ? "border-honky-teal/50 bg-honky-teal/[0.08]"
@@ -615,7 +641,7 @@ function ReservationForm({
           className={`${inputClasses} resize-none`}
           placeholder={
             isGroup
-              ? "Tell us about your group \u2014 occasion, dietary needs, A/V requirements, etc."
+              ? "Tell us about your group: occasion, dietary needs, A/V requirements, etc."
               : "Tell us about your celebration, any special requests, etc."
           }
         />
@@ -672,6 +698,7 @@ function SelectArrow() {
         viewBox="0 0 24 24"
         stroke="currentColor"
         strokeWidth={2}
+        aria-hidden="true"
       >
         <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
       </svg>
@@ -701,23 +728,34 @@ export function VipReservationsPage() {
       />
 
       {/* Form section */}
-      <section id="reservation-form" className="relative px-6 pb-24">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_center,rgba(94,196,182,0.03),transparent_50%)]" />
-
-        <div className="relative mx-auto max-w-[640px]">
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm sm:p-10">
-            <div className="mb-8">
-              <h2 className="font-heading text-2xl font-black text-white uppercase">
-                Reserve Your Table
-              </h2>
-              <p className="mt-2 text-sm font-light text-white/40">
-                Fields marked with <span className="text-honky-red">*</span> are required.
-              </p>
-            </div>
-            <ReservationForm key={formType} initialType={formType} onTypeChange={setFormType} />
-          </div>
-        </div>
-      </section>
+      <RevealFormCard formType={formType} setFormType={setFormType} />
     </div>
+  );
+}
+
+function RevealFormCard({ formType, setFormType }: { formType: ReservationType; setFormType: (t: ReservationType) => void }) {
+  const { ref, visible } = useReveal();
+  return (
+    <section id="reservation-form" className="relative px-6 pb-24">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_center,rgba(94,196,182,0.03),transparent_50%)]" />
+      <div
+        ref={ref}
+        className={`relative mx-auto max-w-[640px] transition-all duration-700 ${
+          visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+      >
+        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm sm:p-10">
+          <div className="mb-8">
+            <h2 className="font-heading text-2xl font-black text-white uppercase">
+              Reserve Your Table
+            </h2>
+            <p className="mt-2 text-sm font-light text-white/40">
+              Fields marked with <span className="text-honky-red">*</span> are required.
+            </p>
+          </div>
+          <ReservationForm key={formType} initialType={formType} onTypeChange={setFormType} />
+        </div>
+      </div>
+    </section>
   );
 }

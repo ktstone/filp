@@ -18,6 +18,7 @@ import {
   Sparkles,
   type LucideIcon,
 } from "lucide-react";
+import { useReveal } from "@/hooks/use-reveal";
 
 /* -------------------------------------------------------------------------- */
 /*  FAQ Data                                                                   */
@@ -225,12 +226,17 @@ const faqs: FaqItem[] = [
 /*  Accordion Item                                                             */
 /* -------------------------------------------------------------------------- */
 
-function AccordionItem({ item, isOpen, onToggle }: { item: FaqItem; isOpen: boolean; onToggle: () => void }) {
+function AccordionItem({ item, isOpen, onToggle, index }: { item: FaqItem; isOpen: boolean; onToggle: () => void; index: number }) {
   const Icon = item.icon;
+  const { ref, visible } = useReveal();
 
   return (
     <div
-      className={`overflow-hidden rounded-2xl border transition-colors duration-300 ${
+      ref={ref}
+      style={{ transitionDelay: `${index * 60}ms` }}
+      className={`overflow-hidden rounded-2xl border transition-all duration-500 ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0"
+      } ${
         isOpen
           ? "border-honky-red/20 bg-white/[0.03]"
           : "border-white/[0.06] bg-white/[0.01] hover:border-white/10 hover:bg-white/[0.02]"
@@ -238,6 +244,7 @@ function AccordionItem({ item, isOpen, onToggle }: { item: FaqItem; isOpen: bool
     >
       <button
         onClick={onToggle}
+        aria-expanded={isOpen}
         className="flex w-full items-center gap-4 px-6 py-5 text-left transition-colors sm:px-8"
       >
         {/* Icon */}
@@ -272,6 +279,8 @@ function AccordionItem({ item, isOpen, onToggle }: { item: FaqItem; isOpen: bool
 
       {/* Answer panel */}
       <div
+        role="region"
+        aria-hidden={!isOpen}
         className={`grid transition-all duration-300 ease-in-out ${
           isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         }`}
@@ -336,6 +345,7 @@ export function FaqPage() {
               <AccordionItem
                 key={i}
                 item={item}
+                index={i}
                 isOpen={openIndex === i}
                 onToggle={() => setOpenIndex(openIndex === i ? null : i)}
               />

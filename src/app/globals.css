@@ -105,6 +105,18 @@
   }
 }
 
+/* Scroll-reveal entry animation for hero elements */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Neon text glow — GPU-composited approach using pseudo-element + opacity */
 @keyframes neon-breathe {
   0%, 100% { opacity: 1; }
@@ -129,4 +141,20 @@
   will-change: opacity;
   pointer-events: none;
   z-index: -1;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .neon-text::after {
+    animation: none;
+  }
 }

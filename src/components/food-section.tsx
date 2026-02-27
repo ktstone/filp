@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { useReveal } from "@/hooks/use-reveal";
 
 interface MenuItem {
   image: string;
@@ -66,7 +67,7 @@ const brunchMenu: MenuData = {
   heading: "Brunch Like",
   headingNeon: "A Local",
   description:
-    "Mornings in Low Places \u2014 10AM to 2PM. Giant cinnamon rolls, biscuit stacks, and all the comfort you need to start the weekend right.",
+    "Mornings in Low Places, 10AM to 2PM. Giant cinnamon rolls, biscuit stacks, and all the comfort you need to start the weekend right.",
   featuredImage: "/images/menu/bacon_egg_cheese_biscuit.jpeg",
   featuredTag: "Brunch Favorite",
   featuredName: "Bacon, Egg & Cheese Biscuit",
@@ -100,7 +101,7 @@ const lateNightMenu: MenuData = {
   heading: "Midnight",
   headingNeon: "Munchies",
   description:
-    "The kitchen stays hot until close. Load up on late-night favorites between sets \u2014 perfect fuel for dancing until last call.",
+    "The kitchen stays hot until close. Load up on late-night favorites between sets. Perfect fuel for dancing until last call.",
   featuredImage: "/images/menu/backyard_burger.jpg",
   featuredTag: "Build Your Own",
   featuredName: "Backyard Burger",
@@ -154,6 +155,7 @@ function getActiveMenu(): MenuData {
 
 export function FoodSection() {
   const [menu, setMenu] = useState<MenuData>(lunchDinnerMenu);
+  const { ref, visible } = useReveal();
 
   useEffect(() => {
     setMenu(getActiveMenu());
@@ -166,7 +168,12 @@ export function FoodSection() {
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-l from-honky-bg/50 via-transparent to-transparent" />
 
-      <div className="relative mx-auto flex max-w-[1280px] flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-11">
+      <div
+        ref={ref}
+        className={`relative mx-auto flex max-w-[1280px] flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-11 transition-all duration-700 ${
+          visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+      >
         {/* Left: Featured image */}
         <div className="flex w-full shrink-0 items-center justify-center lg:w-[592px]">
           <div className="relative">
@@ -176,6 +183,7 @@ export function FoodSection() {
                   src={menu.featuredImage}
                   alt={menu.featuredName}
                   fill
+                  sizes="(max-width: 640px) 100vw, 584px"
                   className="object-cover"
                 />
               </div>
@@ -236,6 +244,7 @@ export function FoodSection() {
                       src={item.image}
                       alt={item.name}
                       fill
+                      sizes="64px"
                       className="object-cover"
                     />
                   </div>

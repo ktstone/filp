@@ -19,8 +19,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!venue) return {};
 
   return {
-    title: `${venue.name} | Private Events | Friends In Low Places`,
+    title: `${venue.name} — Private Events`,
     description: `${venue.description.slice(0, 155)}...`,
+    alternates: { canonical: `https://www.friendsbarnashville.com/private-events/${slug}` },
   };
 }
 
@@ -33,7 +34,7 @@ export default async function VenueDetailRoute({ params }: Props) {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         <VenueDetailPage venue={venue} />
       </main>
       <Footer />

@@ -34,7 +34,7 @@ export function Header() {
         <a href="/" className="flex items-center">
           <Image
             src="/images/logo-circle.png"
-            alt="FILP logo"
+            alt="Friends In Low Places - Home"
             width={36}
             height={36}
             className="shrink-0"
@@ -86,7 +86,7 @@ export function Header() {
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-honky-red/20">
                     <Image
                       src="/images/logo-circle.png"
-                      alt="FILP logo"
+                      alt="Friends In Low Places"
                       width={10}
                       height={15}
                       className="shrink-0"

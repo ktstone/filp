@@ -15,6 +15,7 @@ import {
   Sparkle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useReveal } from "@/hooks/use-reveal";
 
 /* -------------------------------------------------------------------------- */
 /*  Positions                                                                  */
@@ -62,10 +63,11 @@ function CareersHero() {
 
       {/* Position pills */}
       <div className="relative mt-10 flex flex-wrap items-center justify-center gap-3">
-        {positions.map(({ title, icon: Icon }) => (
+        {positions.map(({ title, icon: Icon }, i) => (
           <div
             key={title}
-            className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 backdrop-blur-sm"
+            className="flex animate-[fadeInUp_0.5s_ease-out_both] items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 backdrop-blur-sm"
+            style={{ animationDelay: `${0.3 + i * 0.08}s` }}
           >
             <Icon className="h-4 w-4 text-honky-red/70" />
             <span className="text-sm font-semibold tracking-wide text-white/80">
@@ -277,6 +279,7 @@ function ApplicationForm() {
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={2}
+              aria-hidden="true"
             >
               <path
                 strokeLinecap="round"
@@ -294,10 +297,19 @@ function ApplicationForm() {
           Resume
         </label>
         <div
+          role="button"
+          tabIndex={0}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           onClick={() => fileInputRef.current?.click()}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              fileInputRef.current?.click();
+            }
+          }}
+          aria-label={file ? `Resume uploaded: ${file.name}. Click to change.` : "Upload resume. Click or drag file here."}
           className={`group flex cursor-pointer flex-col items-center gap-3 rounded-xl border-2 border-dashed px-6 py-8 transition-all ${
             isDragging
               ? "border-honky-red/60 bg-honky-red/5"
@@ -378,33 +390,39 @@ function ApplicationForm() {
 /*  Main Export                                                                 */
 /* -------------------------------------------------------------------------- */
 
+function RevealFormSection() {
+  const { ref, visible } = useReveal();
+  return (
+    <section className="relative px-6 pb-24">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_center,rgba(94,196,182,0.04),transparent_60%)]" />
+      <div
+        ref={ref}
+        className={`relative mx-auto max-w-[640px] transition-all duration-700 ${
+          visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+      >
+        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm sm:p-10">
+          <div className="mb-8">
+            <h2 className="font-heading text-2xl font-black text-white uppercase">
+              Apply Now
+            </h2>
+            <p className="mt-2 text-sm font-light text-white/40">
+              Fields marked with <span className="text-honky-red">*</span>{" "}
+              are required.
+            </p>
+          </div>
+          <ApplicationForm />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function CareersPage() {
   return (
     <div className="min-h-screen bg-[#181111]">
       <CareersHero />
-
-      {/* Form section */}
-      <section className="relative px-6 pb-24">
-        {/* Background accent */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_center,rgba(94,196,182,0.04),transparent_60%)]" />
-
-        <div className="relative mx-auto max-w-[640px]">
-          {/* Form card */}
-          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm sm:p-10">
-            <div className="mb-8">
-              <h2 className="font-heading text-2xl font-black text-white uppercase">
-                Apply Now
-              </h2>
-              <p className="mt-2 text-sm font-light text-white/40">
-                Fields marked with <span className="text-honky-red">*</span>{" "}
-                are required.
-              </p>
-            </div>
-
-            <ApplicationForm />
-          </div>
-        </div>
-      </section>
+      <RevealFormSection />
     </div>
   );
 }
