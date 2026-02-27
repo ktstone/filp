@@ -374,10 +374,21 @@ function ReservationTypeToggle({
 /*  Reservation Form                                                           */
 /* -------------------------------------------------------------------------- */
 
-function ReservationForm({ initialType = "vip" }: { initialType?: ReservationType }) {
+function ReservationForm({
+  initialType = "vip",
+  onTypeChange,
+}: {
+  initialType?: ReservationType;
+  onTypeChange?: (type: ReservationType) => void;
+}) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [reservationType, setReservationType] = useState<ReservationType>(initialType);
+
+  function handleTypeChange(type: ReservationType) {
+    setReservationType(type);
+    onTypeChange?.(type);
+  }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -437,7 +448,7 @@ function ReservationForm({ initialType = "vip" }: { initialType?: ReservationTyp
       <input type="hidden" name="form-name" value="vip-reservations" />
 
       {/* Reservation type toggle */}
-      <ReservationTypeToggle value={reservationType} onChange={setReservationType} />
+      <ReservationTypeToggle value={reservationType} onChange={handleTypeChange} />
       <input type="hidden" name="reservation-type" value={reservationType} />
 
       {/* Name */}
@@ -680,7 +691,14 @@ export function VipReservationsPage() {
       <ReservationsHero />
       <PerksSection />
       <VipGallery />
-      <GroupDiningCallout onSelect={() => setFormType("group-dining")} />
+      <GroupDiningCallout
+        onSelect={() => {
+          setFormType("group-dining");
+          setTimeout(() => {
+            document.getElementById("reservation-form")?.scrollIntoView({ behavior: "smooth" });
+          }, 100);
+        }}
+      />
 
       {/* Form section */}
       <section id="reservation-form" className="relative px-6 pb-24">
@@ -696,7 +714,7 @@ export function VipReservationsPage() {
                 Fields marked with <span className="text-honky-red">*</span> are required.
               </p>
             </div>
-            <ReservationForm key={formType} initialType={formType} />
+            <ReservationForm key={formType} initialType={formType} onTypeChange={setFormType} />
           </div>
         </div>
       </section>
