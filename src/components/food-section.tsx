@@ -175,10 +175,10 @@ export function FoodSection() {
         }`}
       >
         {/* Left: Featured image */}
-        <div className="flex w-full shrink-0 items-center justify-center lg:w-[592px]">
+        <div className="w-full shrink-0 lg:w-[592px]">
           <div className="relative">
             <div className="overflow-hidden rounded-2xl border-4 border-white/5 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
-              <div className="relative h-[400px] w-full sm:h-[500px] sm:w-[584px]">
+              <div className="relative aspect-[4/5] w-full sm:aspect-auto sm:h-[500px] sm:w-[584px]">
                 <Image
                   src={menu.featuredImage}
                   alt={menu.featuredName}
