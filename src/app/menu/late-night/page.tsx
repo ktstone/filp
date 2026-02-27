@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Late Night Menu | Friends In Low Places",
   description:
-    "Late night bites at Nashville's premier honky tonk. Burgers, chicken tenders, nachos, and more — kitchen open until close.",
+    "Late night bites at Nashville's premier honky tonk. Burgers, chicken tenders, nachos, and more \u2014 kitchen open until close.",
 };
 
 const menuData: MenuPageData = {
@@ -23,34 +23,34 @@ const menuData: MenuPageData = {
       note: "Kitchen open until close",
       imageCards: [
         {
-          name: "Loaded Nachos",
+          name: "Fried Pickles",
           price: "",
           description:
-            "Tortilla chips, queso, pickled jalapeño, sour cream, green onion. Add chili or grilled chicken.",
-          image: "/images/menu-nachos.jpg",
+            "Bread-and-butter pickles, served with ranch.",
+          image: "/images/menu/fried_pickles.jpg",
         },
         {
-          name: "Cheese Fries",
+          name: "F-U-C Queso",
           price: "",
           description:
-            "Fries seasoned with Trixie Dust, topped with cheese sauce.",
-          image: "/images/menu-sliders.jpg",
+            "Green chili queso with serrano and jalapeño, served with chips.",
+          image: "/images/menu/queso.jpg",
         },
       ],
       stackedCards: [
         {
           items: [
             {
-              name: "Fried Pickles",
+              name: "Loaded Nachos",
               price: "",
               description:
-                "Bread-and-butter pickles, served with ranch.",
+                "Tortilla chips, queso, pickled jalapeño, sour cream, green onion. Add chili or grilled chicken.",
             },
             {
-              name: "F-U-C Queso",
+              name: "Cheese Fries",
               price: "",
               description:
-                "Green chili queso with serrano and jalapeño, served with chips.",
+                "Fries seasoned with Trixie Dust, topped with cheese sauce.",
             },
           ],
         },
@@ -69,8 +69,15 @@ const menuData: MenuPageData = {
           price: "",
           description:
             "1, 2, or 3 smashed beef patties, American cheese, lettuce, tomato, pickle, onion, TY's sauce.",
-          image: "/images/menu-burger.jpg",
+          image: "/images/menu/backyard_burger.jpg",
           badge: "Build Your Own",
+        },
+        {
+          name: "Chicken Tenders",
+          price: "",
+          description:
+            "Hand-breaded and crispy. Also available tossed in buffalo sauce.",
+          image: "/images/menu/chicken_tenders.jpg",
         },
       ],
       stackedCards: [
@@ -81,12 +88,6 @@ const menuData: MenuPageData = {
               price: "",
               description:
                 "Buffalo chicken tenders, romaine, pickles, ranch, blue cheese dipping sauce.",
-            },
-            {
-              name: "Chicken Tenders",
-              price: "",
-              description:
-                "Hand-breaded and crispy. Also available tossed in buffalo sauce.",
             },
           ],
         },

@@ -10,6 +10,7 @@ import {
   Cookie,
   Coffee,
   Sparkles,
+  Star,
   Clock,
   GlassWater,
   type LucideIcon,
@@ -468,34 +469,46 @@ function MenuSectionBlock({ section }: { section: MenuSection }) {
 
 function CtaBanner() {
   return (
-    <section className="bg-honky-red px-6 py-20">
-      <div className="mx-auto flex max-w-[800px] flex-col items-center text-center">
+    <section className="relative overflow-hidden border-t border-white/[0.06] bg-[#181111] px-6 py-24">
+      {/* Subtle radial glows */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(239,70,79,0.08),transparent_60%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(94,196,182,0.04),transparent_50%)]" />
+
+      <div className="relative mx-auto flex max-w-[800px] flex-col items-center text-center">
+        {/* Decorative line */}
+        <div className="mb-8 flex items-center gap-4">
+          <span className="h-px w-10 bg-gradient-to-r from-transparent to-honky-red/40" />
+          <Star className="h-4 w-4 text-honky-red/50" />
+          <span className="h-px w-10 bg-gradient-to-l from-transparent to-honky-red/40" />
+        </div>
+
         <h2 className="font-heading text-5xl font-black uppercase text-white">
-          Coming with a Crowd?
+          Coming with a{" "}
+          <span className="neon-text font-heading" data-neon="Crowd?">Crowd?</span>
         </h2>
-        <p className="mt-4 text-lg font-light text-white/80">
-          Book a VIP table for your group and skip the line. Private servers, premium bottle service,
-          and the best seats in the house.
+        <p className="mt-5 max-w-lg text-lg font-light leading-8 text-white/50">
+          Book a VIP table for your group and skip the line. Dedicated servers, premium bottle
+          service, and the best seats in the house.
         </p>
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Button
             asChild
-            className="h-14 rounded-lg bg-white px-8 text-base font-bold tracking-wider text-honky-red uppercase hover:bg-white/90"
+            className="h-14 rounded-lg bg-honky-red px-8 text-base font-bold tracking-wider text-white uppercase shadow-[0_0_30px_rgba(239,72,80,0.25)] hover:bg-honky-red/90"
           >
-            <a
-              href="https://www.opentable.com/r/friends-in-low-places-bar-and-honky-tonk-nashville"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Book VIP Table
+            <a href="/vip-reservations">
+              <Star className="h-4 w-4" />
+              VIP Reservations
             </a>
           </Button>
           <Button
             asChild
             variant="outline"
-            className="h-14 rounded-lg border-2 border-white bg-transparent px-8 text-base font-bold tracking-wider text-white uppercase hover:bg-white/10 hover:text-white"
+            className="h-14 rounded-lg border-2 border-white/15 bg-white/5 px-8 text-base font-bold tracking-wider text-white uppercase backdrop-blur-sm hover:bg-white/10 hover:text-white"
           >
-            <a href="/#events">View Events</a>
+            <a href="/vip-packages">
+              <Sparkles className="h-4 w-4" />
+              VIP Packages
+            </a>
           </Button>
         </div>
       </div>

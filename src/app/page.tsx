@@ -75,15 +75,15 @@ function Hero() {
         {/* Buttons */}
         <div className="mt-12 flex items-center gap-4">
           <Button asChild className="h-14 rounded-lg bg-honky-red px-8 text-base font-semibold tracking-wider text-white uppercase shadow-[0_0_30px_rgba(239,72,80,0.3)] hover:bg-honky-red/90">
-            <a href="https://www.opentable.com/r/friends-in-low-places-bar-and-honky-tonk-nashville" target="_blank" rel="noopener noreferrer">
-              <Calendar className="h-4 w-4" />
-              Book a Table
+            <a href="#lineup">
+              <Music className="h-4 w-4" />
+              Live Music
             </a>
           </Button>
           <Button asChild variant="outline" className="h-14 rounded-lg border-2 border-white/20 bg-transparent px-8 text-base font-semibold tracking-wider text-white uppercase backdrop-blur-sm hover:bg-white/5 hover:text-white">
-            <a href="/menu/lunch-dinner">
-              <Music className="h-[18px] w-[18px]" />
-              View Menu
+            <a href="/private-events">
+              <PartyPopper className="h-[18px] w-[18px]" />
+              Private Events
             </a>
           </Button>
         </div>
@@ -111,61 +111,91 @@ function ReservationsSection() {
         </div>
 
         {/* Cards */}
-        <div className="grid gap-8 md:grid-cols-2">
-          {/* Dinner & Drinks */}
+        <div className="grid gap-6 md:grid-cols-3">
+          {/* Reservations */}
           <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#2c2c2c]">
-            {/* Decorative corner element */}
-            <div className="absolute top-0 right-0 h-[139px] w-[112px] opacity-20">
-              <UtensilsCrossed className="h-full w-full text-white/10" />
+            <div className="absolute top-0 right-0 h-[120px] w-[100px] opacity-20">
+              <Calendar className="h-full w-full text-white/10" />
             </div>
 
-            <div className="flex h-full flex-col justify-between p-12">
+            <div className="flex h-full flex-col justify-between p-8 lg:p-10">
               <div>
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-white/10">
-                  <UtensilsCrossed className="h-[18px] w-[18px] text-white" />
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-white/10">
+                  <Calendar className="h-[18px] w-[18px] text-white" />
                 </div>
                 <h4 className="mb-3 font-heading text-2xl font-bold text-white">
-                  Dinner &amp; Drinks
+                  Reservations
                 </h4>
-                <p className="max-w-md text-base leading-relaxed text-white/60">
-                  Reserve a table for our full menu service. Enjoy our famous
-                  fried chicken and signature cocktails while you watch the show.
+                <p className="text-sm leading-relaxed text-white/60">
+                  Reserve a table for our full menu service. Enjoy Trisha&rsquo;s
+                  famous Southern kitchen and signature cocktails while you
+                  watch the show.
                 </p>
               </div>
 
-              <Button asChild className="mt-8 w-full rounded-lg bg-white py-4 text-base font-semibold tracking-wider text-honky-bg uppercase hover:bg-white/90">
+              <Button asChild className="mt-8 w-full rounded-lg bg-white py-4 text-sm font-semibold tracking-wider text-honky-bg uppercase hover:bg-white/90">
                 <a href="https://www.opentable.com/r/friends-in-low-places-bar-and-honky-tonk-nashville" target="_blank" rel="noopener noreferrer">
-                  <Calendar className="h-5 w-5" />
+                  <Calendar className="h-4 w-4" />
                   Book on OpenTable
                 </a>
               </Button>
             </div>
           </div>
 
-          {/* VIP Bottle Service */}
-          <div className="relative overflow-hidden rounded-2xl border border-honky-red/30 bg-gradient-to-br from-[#2c2c2c] to-[rgba(239,72,80,0.1)]">
-            {/* Decorative corner element */}
-            <div className="absolute top-0 right-0 h-32 w-[139px] opacity-20">
-              <Sparkles className="h-full w-full text-honky-red/20" />
+          {/* VIP Reservations */}
+          <div className="relative overflow-hidden rounded-2xl border border-honky-teal/20 bg-gradient-to-br from-[#2c2c2c] to-[rgba(94,196,182,0.05)]">
+            <div className="absolute top-0 right-0 h-[120px] w-[100px] opacity-20">
+              <Star className="h-full w-full text-honky-teal/20" />
             </div>
 
-            <div className="flex h-full flex-col justify-between p-12">
+            <div className="flex h-full flex-col justify-between p-8 lg:p-10">
               <div>
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-honky-red/20">
-                  <Star className="h-5 w-5 text-honky-red" />
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-honky-teal/15">
+                  <Star className="h-5 w-5 text-honky-teal" />
                 </div>
                 <h4 className="mb-3 font-heading text-2xl font-bold text-white">
-                  VIP Bottle Service
+                  VIP Reservations
                 </h4>
-                <p className="max-w-md text-base leading-relaxed text-white/60">
-                  Get the best seats in the house. Includes expedited entry,
-                  private server, and premium bottle selection.
+                <p className="text-sm leading-relaxed text-white/60">
+                  Dedicated VIP server, expedited entry, prime table views, and
+                  marquee presentations to celebrate your occasion.
                 </p>
               </div>
 
-              <Button className="mt-8 w-full rounded-lg bg-honky-red py-4 text-base font-semibold tracking-wider text-white uppercase shadow-[0_10px_15px_-3px_rgba(239,72,80,0.2),0_4px_6px_-4px_rgba(239,72,80,0.2)] hover:bg-honky-red/90">
-                <Star className="h-5 w-5" />
-                Request VIP Table
+              <Button asChild className="mt-8 w-full rounded-lg bg-honky-teal py-4 text-sm font-semibold tracking-wider text-white uppercase shadow-[0_10px_15px_-3px_rgba(94,196,182,0.15)] hover:bg-honky-teal/90">
+                <a href="/vip-reservations">
+                  <Star className="h-4 w-4" />
+                  Reserve VIP Table
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          {/* VIP Packages */}
+          <div className="relative overflow-hidden rounded-2xl border border-honky-red/30 bg-gradient-to-br from-[#2c2c2c] to-[rgba(239,72,80,0.08)]">
+            <div className="absolute top-0 right-0 h-[120px] w-[100px] opacity-20">
+              <Sparkles className="h-full w-full text-honky-red/20" />
+            </div>
+
+            <div className="flex h-full flex-col justify-between p-8 lg:p-10">
+              <div>
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-honky-red/20">
+                  <Sparkles className="h-5 w-5 text-honky-red" />
+                </div>
+                <h4 className="mb-3 font-heading text-2xl font-bold text-white">
+                  VIP Packages
+                </h4>
+                <p className="text-sm leading-relaxed text-white/60">
+                  Bachelor &amp; bachelorette packages, birthday celebrations,
+                  and group experiences with premium bottle service.
+                </p>
+              </div>
+
+              <Button asChild className="mt-8 w-full rounded-lg bg-honky-red py-4 text-sm font-semibold tracking-wider text-white uppercase shadow-[0_10px_15px_-3px_rgba(239,72,80,0.2)] hover:bg-honky-red/90">
+                <a href="/vip-packages">
+                  <Sparkles className="h-4 w-4" />
+                  View Packages
+                </a>
               </Button>
             </div>
           </div>

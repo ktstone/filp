@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Menu, X, Calendar, Music, PartyPopper, UtensilsCrossed, Sparkles } from "lucide-react";
+import { Menu, X, Calendar, Music, PartyPopper, UtensilsCrossed, Sparkles, Star, HelpCircle, Gift } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -18,7 +18,13 @@ const navLinks = [
   { label: "Food", href: "/menu/lunch-dinner", icon: UtensilsCrossed },
   { label: "Private Events", href: "/private-events", icon: PartyPopper },
   { label: "VIP Packages", href: "/vip-packages", icon: Sparkles },
-];
+  { label: "VIP Reservations", href: "/vip-reservations", icon: Star },
+] as const;
+
+const mobileOnlyLinks = [
+  { label: "Gift Cards", href: "https://friendsbarnashville.cardfoundry.com", icon: Gift },
+  { label: "FAQ", href: "/faq", icon: HelpCircle },
+] as const;
 
 export function Header() {
   return (
@@ -36,7 +42,7 @@ export function Header() {
         </a>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-8 lg:flex">
           <nav className="flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -49,14 +55,14 @@ export function Header() {
             ))}
           </nav>
           <Button asChild className="h-10 rounded-lg bg-honky-red px-6 text-sm font-semibold tracking-wider text-white uppercase shadow-[0_0_15px_rgba(239,72,80,0.4)] hover:bg-honky-red/90">
-            <a href="https://www.opentable.com/r/friends-in-low-places-bar-and-honky-tonk-nashville" target="_blank" rel="noopener noreferrer">
-              Book VIP
+            <a href="/vip-reservations">
+              Reserve a Table
             </a>
           </Button>
         </div>
 
         {/* Mobile menu */}
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <Sheet>
             <SheetTrigger asChild>
               <Button
@@ -98,7 +104,7 @@ export function Header() {
 
               {/* Nav links */}
               <nav className="flex flex-col px-4 py-4">
-                {navLinks.map((link) => {
+                {[...navLinks, ...mobileOnlyLinks].map((link) => {
                   const Icon = link.icon;
                   return (
                     <SheetClose key={link.label} asChild>
@@ -123,7 +129,7 @@ export function Header() {
                   Open Now
                 </p>
                 <p className="mt-1 text-sm text-white/60">
-                  Mon-Thu 11AM-2AM &middot; Fri-Sun 10AM-2AM
+                  Mon-Fri 11AM-2AM &middot; Sat-Sun 10AM-2AM
                 </p>
                 <p className="mt-1 text-sm text-white/60">
                   <a href="tel:+16155499297" className="transition-colors hover:text-white">
@@ -135,9 +141,9 @@ export function Header() {
               {/* Footer CTA */}
               <SheetFooter className="border-t border-white/10 px-6 py-6">
                 <SheetClose asChild>
-                  <a href="https://www.opentable.com/r/friends-in-low-places-bar-and-honky-tonk-nashville" target="_blank" rel="noopener noreferrer" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-honky-red py-6 text-base font-bold tracking-wider text-white uppercase shadow-[0_0_15px_rgba(239,72,80,0.4)] hover:bg-honky-red/90">
+                  <a href="/vip-reservations" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-honky-red py-6 text-base font-bold tracking-wider text-white uppercase shadow-[0_0_15px_rgba(239,72,80,0.4)] hover:bg-honky-red/90">
                     <Calendar className="h-5 w-5" />
-                    Book VIP
+                    Reserve a Table
                   </a>
                 </SheetClose>
                 <SheetClose asChild>
@@ -145,7 +151,7 @@ export function Header() {
                     href="/menu/lunch-dinner"
                     className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/20 bg-transparent py-6 text-base font-bold tracking-wider text-white uppercase hover:bg-white/5"
                   >
-                    <Music className="h-5 w-5" />
+                    <UtensilsCrossed className="h-5 w-5" />
                     View Food Menu
                   </a>
                 </SheetClose>

@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Lunch & Dinner Menu | Friends In Low Places",
   description:
-    "Southern comfort food, smoked wings, burgers, and more. View the full lunch and dinner menu at Nashville's premier honky tonk.",
+    "Inspired by Trisha's Southern Kitchen — familiar favorites and new creations at Nashville's premier honky tonk. View the full lunch and dinner menu.",
 };
 
 const menuData: MenuPageData = {
@@ -26,15 +26,22 @@ const menuData: MenuPageData = {
           price: "",
           description:
             "House-smoked; Trisha's dad's famous recipe.",
-          image: "/images/menu-chicken.jpg",
+          image: "/images/menu/wings.jpg",
           badge: "Famous Recipe",
         },
         {
-          name: "Loaded Nachos",
+          name: "Collard Green Stuffed Wontons",
           price: "",
           description:
-            "Tortilla chips, queso, pico, pickled jalapeño, sour cream, green onion. Add chili or grilled chicken.",
-          image: "/images/menu-nachos.jpg",
+            "Collard greens and cream cheese, served with Tennessee hot honey pimento sauce.",
+          image: "/images/menu/stuffed_wontons.jpg",
+        },
+        {
+          name: "Fried Pickles",
+          price: "",
+          description:
+            "Hot and crispy bread-and-butter pickles served with ranch.",
+          image: "/images/menu/fried_pickles.jpg",
         },
       ],
       stackedCards: [
@@ -57,42 +64,32 @@ const menuData: MenuPageData = {
         {
           items: [
             {
+              name: "Loaded Nachos",
+              price: "",
+              description:
+                "Tortilla chips, queso, pico, pickled jalapeño, sour cream, green onion. Add chili or grilled chicken.",
+            },
+            {
               name: "Georgia Meat & Cheese",
               price: "",
               description:
                 "Smoked sausage, cheddar cheese, pickles, butter-baked crackers.",
             },
+          ],
+        },
+        {
+          items: [
             {
               name: "F-U-C Queso",
               price: "",
               description:
                 "Green chili queso with serrano and jalapeño, served with chips.",
             },
-          ],
-        },
-        {
-          items: [
-            {
-              name: "Fried Pickles",
-              price: "",
-              description:
-                "Hot and crispy bread-and-butter pickles served with ranch.",
-            },
             {
               name: "Chicken Tenders",
               price: "",
               description:
                 "Hand-breaded, crispy chicken tenders. Also available tossed in buffalo sauce. Make it a Tower of Tenders.",
-            },
-          ],
-        },
-        {
-          items: [
-            {
-              name: "Collard Green Stuffed Wontons",
-              price: "",
-              description:
-                "Collard greens and cream cheese, served with Tennessee hot honey pimento sauce.",
             },
           ],
         },
@@ -104,6 +101,15 @@ const menuData: MenuPageData = {
       label: "Soup & Salad",
       subtitle: "Fresh & Hearty",
       heading: "Soup & Salad",
+      imageCards: [
+        {
+          name: "Cobb Salad",
+          price: "",
+          description:
+            "Romaine, grilled chicken, tomato, bacon, hard-boiled eggs, avocado, chives, blue cheese crumbles.",
+          image: "/images/menu/cobb_salad.jpg",
+        },
+      ],
       regularItems: [
         {
           name: "Smoky Chorizo Chili",
@@ -116,12 +122,6 @@ const menuData: MenuPageData = {
           price: "",
           description:
             "Chopped romaine, tomatoes, cucumbers, dressing of choice. Add grilled chicken, chicken tenders, or a scoop of chicken salad.",
-        },
-        {
-          name: "Cobb Salad",
-          price: "",
-          description:
-            "Romaine, grilled chicken, tomato, bacon, hard-boiled eggs, avocado, chives, blue cheese crumbles.",
         },
         {
           name: "Steak Salad",
@@ -150,25 +150,32 @@ const menuData: MenuPageData = {
           price: "",
           description:
             "1, 2, or 3 smashed beef patties, American cheese, lettuce, tomato, pickle, onion, TY's sauce.",
-          image: "/images/menu-burger.jpg",
+          image: "/images/menu/backyard_burger.jpg",
           badge: "Build Your Own",
         },
         {
-          name: "Big Bacon Cheeseburger",
+          name: "Fried Catfish Sandwich",
           price: "",
           description:
-            "6 oz ground beef, smoked bacon, double cheddar, TY's sauce, seeded Martin's bun.",
-          image: "/images/menu-sliders.jpg",
+            "Cornmeal-dusted catfish, slaw, pickles, spicy remoulade, Martin's potato roll.",
+          image: "/images/menu/catfish_sandwich.jpg",
+        },
+        {
+          name: "Chicken Tenders",
+          price: "",
+          description:
+            "Hand-breaded, crispy chicken tenders. Also available tossed in buffalo sauce. Make it a Tower of Tenders.",
+          image: "/images/menu/chicken_tenders.jpg",
         },
       ],
       stackedCards: [
         {
           items: [
             {
-              name: "Fried Catfish Sandwich",
+              name: "Big Bacon Cheeseburger",
               price: "",
               description:
-                "Cornmeal-dusted catfish, slaw, pickles, spicy remoulade, Martin's potato roll.",
+                "6 oz ground beef, smoked bacon, double cheddar, TY's sauce, seeded Martin's bun.",
             },
             {
               name: "Turkey BLAT",
@@ -228,21 +235,25 @@ const menuData: MenuPageData = {
       label: "Dessert",
       subtitle: "Sweet Finish",
       heading: "Dessert",
-      listItems: [
+      imageCards: [
         {
           name: "Caramel-Bottom Apple Pie",
-          subtitle: "Served with Vanilla Ice Cream",
-          price: "$9",
-        },
-        {
-          name: "G&T's Wedding Cake",
-          subtitle: "House Specialty",
-          price: "$9",
+          price: "",
+          description: "Served with vanilla ice cream.",
+          image: "/images/menu/apple_pie.jpg",
         },
         {
           name: "Gooey Chocolate Chip Cookies",
-          subtitle: "Fresh Baked",
-          price: "$9",
+          price: "",
+          description: "Fresh baked.",
+          image: "/images/menu/cookies.jpg",
+        },
+      ],
+      listItems: [
+        {
+          name: "G&T's Wedding Cake",
+          subtitle: "House Specialty",
+          price: "",
         },
       ],
     },

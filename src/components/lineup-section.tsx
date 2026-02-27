@@ -165,7 +165,7 @@ export function LineupSection() {
   );
 
   return (
-    <section className="mx-auto max-w-[1280px] px-6 py-20 sm:px-8">
+    <section id="lineup" className="scroll-mt-[80px] mx-auto max-w-[1280px] px-6 py-20 sm:px-8">
       {/* Header row */}
       <div className="flex flex-col gap-6 border-b border-white/10 pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div className="flex flex-col gap-2">

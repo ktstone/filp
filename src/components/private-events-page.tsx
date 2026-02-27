@@ -1,137 +1,14 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { Users, ArrowRight, Sparkles, Mail, Phone, MapPin, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { venues, DEFAULT_BOOKING_URL, type Venue } from "@/lib/venues";
 
 /* -------------------------------------------------------------------------- */
-/*  Data                                                                       */
+/*  Filters                                                                    */
 /* -------------------------------------------------------------------------- */
-
-type Venue = {
-  name: string;
-  location: "Honky Tonk" | "The Oasis" | "3rd Floor";
-  capacity: number;
-  description: string;
-  gradient: string;
-  accentColor: string;
-  bookingUrl?: string;
-};
-
-const venues: Venue[] = [
-  {
-    name: "Honky Tonk - Full Buyout",
-    location: "Honky Tonk",
-    capacity: 1075,
-    description:
-      "Take advantage of the best Friends in Low Places has to offer with a full buyout of the Honky-Tonk. With over 30 televisions, floor-to-ceiling LED screens, and dynamic seating options, your guests will have the ultimate Broadway experience.",
-    gradient: "from-[#ef464f]/30 via-[#1a1a1a]/60 to-[#1a1a1a]",
-    accentColor: "bg-honky-red/20 border-honky-red/30",
-  },
-  {
-    name: "The Oasis - Full Buyout",
-    location: "The Oasis",
-    capacity: 700,
-    description:
-      "The Oasis features two full bars, an outdoor stage, ample built-in and soft seating, televisions and LED ticker tapes throughout, and dynamic seating options from barstools, high-top tables, soft seating, and custom banquettes.",
-    gradient: "from-[#5ec4b6]/25 via-[#1a1a1a]/60 to-[#1a1a1a]",
-    accentColor: "bg-honky-teal/20 border-honky-teal/30",
-  },
-  {
-    name: "Honky Tonk - 2nd Floor",
-    location: "Honky Tonk",
-    capacity: 350,
-    description:
-      "A massive mezzanine lets your guests have the ultimate vantage point of the action on stage. Floor to ceiling, accordion-style windows open up completely onto Broadway. And two large bars allow for any type of beverage service.",
-    gradient: "from-[#ef464f]/20 via-[#2c1a1a]/40 to-[#1a1a1a]",
-    accentColor: "bg-honky-red/10 border-honky-red/20",
-  },
-  {
-    name: "The Oasis - Broadway",
-    location: "The Oasis",
-    capacity: 200,
-    description:
-      "An indoor/outdoor bar centers the floor, various types of soft seating, tables, and custom furniture energize the design, and a drink rail expands the entire width of the roof so your guests can belly up to the views!",
-    gradient: "from-[#5ec4b6]/20 via-[#1a2a28]/40 to-[#1a1a1a]",
-    accentColor: "bg-honky-teal/10 border-honky-teal/20",
-  },
-  {
-    name: "Honky Tonk - Center Mezzanine",
-    location: "Honky Tonk",
-    capacity: 200,
-    description:
-      "This dedicated area allows your guests to get the best views of the stage, grab a drink at their own dedicated bar, and all while avoiding the crowds.",
-    gradient: "from-[#ef464f]/15 via-[#2c1a1a]/30 to-[#1a1a1a]",
-    accentColor: "bg-honky-red/10 border-honky-red/20",
-  },
-  {
-    name: "3rd Floor - Full Buyout",
-    location: "3rd Floor",
-    capacity: 175,
-    description:
-      "Each of these three distinct spaces (Trisha's Studio Kitchen, The Monticello Room, and The Gwendolyn Room) are enhanced by furniture pieces hand-selected by Garth and Trisha, and a diverse selection of menus created by Trisha Yearwood to accommodate any occasion.",
-    gradient: "from-[#c9a84c]/20 via-[#2a2418]/40 to-[#1a1a1a]",
-    accentColor: "bg-[#c9a84c]/10 border-[#c9a84c]/20",
-  },
-  {
-    name: "The Oasis - Tiki Bar",
-    location: "The Oasis",
-    capacity: 165,
-    description:
-      "A private Tiki Bar in the middle of the Neon Neighborhood! This area of our rooftop features a full stage, custom banquette seating, and a tropical themed bar and awning.",
-    gradient: "from-[#5ec4b6]/15 via-[#1a2a28]/30 to-[#1a1a1a]",
-    accentColor: "bg-honky-teal/10 border-honky-teal/20",
-  },
-  {
-    name: "Honky Tonk - Broadway Mezzanine",
-    location: "Honky Tonk",
-    capacity: 150,
-    description:
-      "The Broadway Mezzanine lets your guests belly up to the mezzanine for the best views of the stage, all while having the best view of the Neon Neighborhood and your own dedicated bar.",
-    gradient: "from-[#ef464f]/15 via-[#2c1a1a]/30 to-[#1a1a1a]",
-    accentColor: "bg-honky-red/10 border-honky-red/20",
-  },
-  {
-    name: "3rd Floor - The Monticello Room",
-    location: "3rd Floor",
-    capacity: 72,
-    description:
-      "The Monticello Room is a space that embodies elegance and comfort with its dark blue walls, atmospheric wallpaper, rustic wood tables, and cozy upholstered chairs set beneath soft, intimate lighting.",
-    gradient: "from-[#c9a84c]/15 via-[#2a2418]/30 to-[#1a1a1a]",
-    accentColor: "bg-[#c9a84c]/10 border-[#c9a84c]/20",
-  },
-  {
-    name: "3rd Floor - Trisha's Studio Kitchen",
-    location: "3rd Floor",
-    capacity: 50,
-    description:
-      "Trisha's Studio Kitchen draws inspiration from the Concord House featured on the Emmy-award-winning Trisha's Southern Kitchen. Designed for versatility, the space is surrounded by seating that's both soft and flexible, suitable for up to 50 guests.",
-    gradient: "from-[#c9a84c]/15 via-[#2a2418]/30 to-[#1a1a1a]",
-    accentColor: "bg-[#c9a84c]/10 border-[#c9a84c]/20",
-  },
-  {
-    name: "The Oasis - Semi Private Areas",
-    location: "The Oasis",
-    capacity: 29,
-    description:
-      "Semi-Private areas within The Oasis allow guests to be a part of the action while having their own space for reprieve. With indoor and outdoor options, views of Broadway, and semi-private entrances, your guests will feel like the ultimate VIPs.",
-    gradient: "from-[#5ec4b6]/15 via-[#1a2a28]/30 to-[#1a1a1a]",
-    accentColor: "bg-honky-teal/10 border-honky-teal/20",
-  },
-  {
-    name: "3rd Floor - The Gwendolyn Room",
-    location: "3rd Floor",
-    capacity: 24,
-    description:
-      "Sitting adjacent to the Monticello Room, the Gwendolyn Room offers a touching tribute to Trisha Yearwood's mother, Gwen. The Gwendolyn Room is charmed with personal touches in her honor.",
-    gradient: "from-[#c9a84c]/15 via-[#2a2418]/30 to-[#1a1a1a]",
-    accentColor: "bg-[#c9a84c]/10 border-[#c9a84c]/20",
-    bookingUrl: "https://portal.tripleseat.com/direct_bookings/gydmxh9vpa4",
-  },
-];
-
-const DEFAULT_BOOKING_URL =
-  "https://strategichospitality.tripleseat.com/party_request/34215";
 
 const filters = ["All", "Honky Tonk", "The Oasis", "3rd Floor"] as const;
 type Filter = (typeof filters)[number];
@@ -197,16 +74,23 @@ function FeaturedCard({ venue, index }: { venue: Venue; index: number }) {
       }`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
-      {/* Background gradient (placeholder for future image) */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${venue.gradient}`} />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.03),transparent_70%)]" />
+      {/* Background image */}
+      <Image
+        src={venue.image}
+        alt={venue.name}
+        fill
+        className="object-cover transition-transform duration-700 group-hover:scale-105"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+      />
+      {/* Dark overlay for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30" />
 
       {/* Decorative large capacity number */}
-      <div className="absolute -right-4 -bottom-6 font-heading text-[160px] font-black leading-none text-white/[0.03] select-none md:text-[200px]">
+      <div className="absolute -right-4 -bottom-6 font-heading text-[160px] font-black leading-none text-white/[0.04] select-none md:text-[200px]">
         {venue.capacity}
       </div>
 
-      <div className="relative flex flex-col justify-between p-8 md:p-10 lg:p-12">
+      <div className="relative flex min-h-[400px] flex-col justify-end p-8 md:p-10 lg:p-12">
         <div>
           {/* Location badge */}
           <div className={`mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-sm ${venue.accentColor}`}>
@@ -223,7 +107,7 @@ function FeaturedCard({ venue, index }: { venue: Venue; index: number }) {
 
           {/* Capacity */}
           <div className="mb-4 flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/10 backdrop-blur-sm">
               <Users className="h-4 w-4 text-white" />
             </div>
             <div>
@@ -236,20 +120,29 @@ function FeaturedCard({ venue, index }: { venue: Venue; index: number }) {
           <CapacityBar capacity={venue.capacity} />
 
           {/* Description */}
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/60">
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70">
             {venue.description}
           </p>
         </div>
 
-        {/* CTA */}
-        <div className="mt-8">
+        {/* CTAs */}
+        <div className="mt-8 flex flex-wrap gap-3">
           <Button
             asChild
-            className="h-12 rounded-lg bg-honky-red px-8 text-sm font-semibold tracking-wider text-white uppercase shadow-[0_0_20px_rgba(239,72,80,0.3)] transition-all hover:bg-honky-red/90 hover:shadow-[0_0_30px_rgba(239,72,80,0.5)] group-hover:shadow-[0_0_30px_rgba(239,72,80,0.5)]"
+            className="h-12 rounded-lg bg-honky-red px-8 text-sm font-semibold tracking-wider text-white uppercase shadow-[0_0_20px_rgba(239,72,80,0.3)] transition-all hover:bg-honky-red/90 hover:shadow-[0_0_30px_rgba(239,72,80,0.5)]"
+          >
+            <a href={`/private-events/${venue.slug}`}>
+              Learn More
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </a>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="h-12 rounded-lg border-2 border-white/20 bg-transparent px-6 text-sm font-semibold tracking-wider text-white uppercase backdrop-blur-sm hover:bg-white/5 hover:text-white"
           >
             <a href={venue.bookingUrl || DEFAULT_BOOKING_URL} target="_blank" rel="noopener noreferrer">
               Book Now
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </a>
           </Button>
         </div>
@@ -273,31 +166,39 @@ function VenueCard({ venue, index }: { venue: Venue; index: number }) {
       }`}
       style={{ transitionDelay: `${index * 80}ms` }}
     >
-      {/* Background gradient (placeholder for future image) */}
-      <div className={`absolute inset-0 bg-gradient-to-b ${venue.gradient}`} />
+      {/* Image */}
+      <a href={`/private-events/${venue.slug}`} className="relative block h-48 shrink-0 overflow-hidden">
+        <Image
+          src={venue.image}
+          alt={venue.name}
+          fill
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent" />
 
-      {/* Hover glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.02),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-      <div className="relative flex flex-1 flex-col p-6 md:p-8">
-        {/* Top row: location + capacity */}
-        <div className="mb-5 flex items-start justify-between gap-3">
-          <div className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 backdrop-blur-sm ${venue.accentColor}`}>
-            <span className="text-[10px] font-semibold tracking-[1px] text-white/70 uppercase">
+        {/* Badges overlaid on image */}
+        <div className="absolute right-3 bottom-3 left-3 flex items-end justify-between">
+          <div className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 backdrop-blur-md ${venue.accentColor}`}>
+            <span className="text-[10px] font-semibold tracking-[1px] text-white/80 uppercase">
               {venue.location}
             </span>
           </div>
-          <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 backdrop-blur-sm">
+          <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-black/40 px-3 py-1.5 backdrop-blur-md">
             <Users className="h-3 w-3 text-white/60" />
             <span className="text-xs font-bold text-white">
               {venue.capacity}
             </span>
           </div>
         </div>
+      </a>
 
+      <div className="relative flex flex-1 flex-col p-6 md:p-8">
         {/* Venue name */}
         <h3 className="mb-3 font-heading text-xl font-black text-white uppercase md:text-2xl">
-          {venue.name}
+          <a href={`/private-events/${venue.slug}`} className="transition-colors hover:text-white/80">
+            {venue.name}
+          </a>
         </h3>
 
         <CapacityBar capacity={venue.capacity} />
@@ -307,16 +208,23 @@ function VenueCard({ venue, index }: { venue: Venue; index: number }) {
           {venue.description}
         </p>
 
-        {/* CTA */}
-        <div className="mt-6">
+        {/* CTAs */}
+        <div className="mt-6 flex items-center gap-4">
+          <a
+            href={`/private-events/${venue.slug}`}
+            className="group/btn flex items-center gap-2 text-sm font-semibold tracking-wider text-honky-red uppercase transition-colors hover:text-white"
+          >
+            Learn More
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
+          </a>
+          <span className="text-white/10">|</span>
           <a
             href={venue.bookingUrl || DEFAULT_BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="group/btn flex items-center gap-2 text-sm font-semibold tracking-wider text-honky-red uppercase transition-colors hover:text-white"
+            className="text-sm font-semibold tracking-wider text-white/40 uppercase transition-colors hover:text-white"
           >
             Book Now
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
           </a>
         </div>
       </div>
@@ -381,7 +289,7 @@ export function PrivateEventsPage() {
           {/* Subtitle */}
           <p className="mt-6 max-w-[640px] text-lg leading-8 text-white/60 md:text-xl">
             From intimate gatherings to full venue buyouts accommodating over
-            1,000 guests — we have the perfect space for your next celebration
+            1,000 guests &mdash; we have the perfect space for your next celebration
             on Broadway.
           </p>
 

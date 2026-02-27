@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Weekend Brunch Menu | Friends In Low Places",
   description:
-    "Mornings in Low Places — giant cinnamon rolls, biscuits, mimosa towers, and all the Southern brunch favorites. 10AM–2PM.",
+    "Mornings in Low Places — giant cinnamon rolls, biscuits, mimosa towers, and all the Southern brunch favorites. 10AM\u20132PM.",
 };
 
 const menuData: MenuPageData = {
@@ -18,51 +18,43 @@ const menuData: MenuPageData = {
       id: "brunch-items",
       icon: "UtensilsCrossed",
       label: "Brunch",
-      subtitle: "10:00 AM – 2:00 PM",
+      subtitle: "10:00 AM \u2013 2:00 PM",
       heading: "Brunch Items",
       imageCards: [
         {
-          name: "Giant Cinnamon Roll",
+          name: "Bacon, Egg & Cheese Biscuit",
           price: "",
           description:
-            "Oversized, gooey cinnamon roll, ideal for sharing.",
-          image: "/images/menu-chicken.jpg",
-          badge: "Perfect for Sharing",
+            "Buttermilk biscuit, egg, bacon, American cheese. Served with hashbrown crowns.",
+          image: "/images/menu/bacon_egg_cheese_biscuit.jpeg",
         },
         {
           name: "Hashbrown Casserito",
           price: "",
           description:
             "Cheesy hashbrown casserole wrapped in a tortilla with eggs, sausage, bacon. Seared with a cheese crust and served with hashbrown crowns.",
-          image: "/images/menu-nachos.jpg",
+          image: "/images/menu/casserito.jpeg",
         },
       ],
-      stackedCards: [
+      regularItems: [
         {
-          items: [
-            {
-              name: "Avocado Pesto Toast",
-              price: "",
-              description:
-                "Buttery croissant, everything bagel spice, sweet pimento chili.",
-            },
-            {
-              name: "Bacon, Egg & Cheese Biscuit",
-              price: "",
-              description:
-                "Buttermilk biscuit, egg, bacon, American cheese. Served with hashbrown crowns.",
-            },
-          ],
+          name: "Giant Cinnamon Roll",
+          price: "",
+          description:
+            "Oversized, gooey cinnamon roll, ideal for sharing.",
+          badge: "Perfect for Sharing",
         },
         {
-          items: [
-            {
-              name: "Chicken Biscuit",
-              price: "",
-              description:
-                "Chicken tender on buttermilk biscuit, sweet heat pimento mayo. Served with hashbrown crowns.",
-            },
-          ],
+          name: "Avocado Pesto Toast",
+          price: "",
+          description:
+            "Buttery croissant, everything bagel spice, sweet pimento chili.",
+        },
+        {
+          name: "Chicken Biscuit",
+          price: "",
+          description:
+            "Chicken tender on buttermilk biscuit, sweet heat pimento mayo. Served with hashbrown crowns.",
         },
       ],
     },
