@@ -11,7 +11,7 @@ export type Venue = {
   capacity: number;
   description: string;
   image: string;
-  /** Additional gallery images — will be populated per-space */
+  /** Additional gallery images */
   gallery: string[];
   /** Floor plan image path */
   floorPlan?: string;
@@ -23,6 +23,8 @@ export type Venue = {
 export const DEFAULT_BOOKING_URL =
   "https://strategichospitality.tripleseat.com/party_request/34215";
 
+const ES = "/images/event-spaces";
+
 export const venues: Venue[] = [
   {
     slug: "honky-tonk-full-buyout",
@@ -31,8 +33,9 @@ export const venues: Venue[] = [
     capacity: 1075,
     description:
       "Take advantage of the best Friends in Low Places has to offer with a full buyout of the Honky-Tonk. With over 30 televisions, floor-to-ceiling LED screens, and dynamic seating options, your guests will have the ultimate Broadway experience.",
-    image: "/images/event-spaces/honky_tonk_full.jpg",
-    gallery: [],
+    image: `${ES}/honky_tonk_full.jpg`,
+    gallery: Array.from({ length: 26 }, (_, i) => `${ES}/honky-tonk-full/honky-tonk-full${i + 1}.jpg`),
+    floorPlan: `${ES}/honky-tonk-full/plan.png`,
     gradient: "from-[#ef464f]/30 via-[#1a1a1a]/60 to-[#1a1a1a]",
     accentColor: "bg-honky-red/20 border-honky-red/30",
   },
@@ -43,8 +46,9 @@ export const venues: Venue[] = [
     capacity: 700,
     description:
       "The Oasis features two full bars, an outdoor stage, ample built-in and soft seating, televisions and LED ticker tapes throughout, and dynamic seating options from barstools, high-top tables, soft seating, and custom banquettes.",
-    image: "/images/event-spaces/oasis_full.jpg",
-    gallery: [],
+    image: `${ES}/oasis_full.jpg`,
+    gallery: Array.from({ length: 22 }, (_, i) => `${ES}/oasis-full/oasis-full${i + 1}.jpg`),
+    floorPlan: `${ES}/oasis-full/plan.png`,
     gradient: "from-[#5ec4b6]/25 via-[#1a1a1a]/60 to-[#1a1a1a]",
     accentColor: "bg-honky-teal/20 border-honky-teal/30",
   },
@@ -55,8 +59,9 @@ export const venues: Venue[] = [
     capacity: 350,
     description:
       "A massive mezzanine lets your guests have the ultimate vantage point of the action on stage. Floor to ceiling, accordion-style windows open up completely onto Broadway. And two large bars allow for any type of beverage service.",
-    image: "/images/event-spaces/honky-tonk-2nd-floor.jpg",
-    gallery: [],
+    image: `${ES}/honky-tonk-2nd-floor.jpg`,
+    gallery: Array.from({ length: 10 }, (_, i) => `${ES}/honky-tonk-2nd/honky-tonk-2nd${i + 1}.jpg`),
+    floorPlan: `${ES}/honky-tonk-2nd/plan.png`,
     gradient: "from-[#ef464f]/20 via-[#2c1a1a]/40 to-[#1a1a1a]",
     accentColor: "bg-honky-red/10 border-honky-red/20",
   },
@@ -67,8 +72,9 @@ export const venues: Venue[] = [
     capacity: 200,
     description:
       "An indoor/outdoor bar centers the floor, various types of soft seating, tables, and custom furniture energize the design, and a drink rail expands the entire width of the roof so your guests can belly up to the views!",
-    image: "/images/event-spaces/oasis-broadway.jpg",
-    gallery: [],
+    image: `${ES}/oasis-broadway.jpg`,
+    gallery: Array.from({ length: 4 }, (_, i) => `${ES}/oasis-broadway/oasis-broadway${i + 1}.jpg`),
+    floorPlan: `${ES}/oasis-broadway/plan.png`,
     gradient: "from-[#5ec4b6]/20 via-[#1a2a28]/40 to-[#1a1a1a]",
     accentColor: "bg-honky-teal/10 border-honky-teal/20",
   },
@@ -79,8 +85,9 @@ export const venues: Venue[] = [
     capacity: 200,
     description:
       "This dedicated area allows your guests to get the best views of the stage, grab a drink at their own dedicated bar, and all while avoiding the crowds.",
-    image: "/images/event-spaces/honky-tonk-center-mezzanine.jpg",
-    gallery: [],
+    image: `${ES}/honky-tonk-center-mezzanine.jpg`,
+    gallery: Array.from({ length: 7 }, (_, i) => `${ES}/honky-tonk-center-mezzanine/honky-tonk-center-mezzanine${i + 1}.jpg`),
+    floorPlan: `${ES}/honky-tonk-center-mezzanine/plan.png`,
     gradient: "from-[#ef464f]/15 via-[#2c1a1a]/30 to-[#1a1a1a]",
     accentColor: "bg-honky-red/10 border-honky-red/20",
   },
@@ -91,8 +98,9 @@ export const venues: Venue[] = [
     capacity: 175,
     description:
       "Each of these three distinct spaces (Trisha\u2019s Studio Kitchen, The Monticello Room, and The Gwendolyn Room) are enhanced by furniture pieces hand-selected by Garth and Trisha, and a diverse selection of menus created by Trisha Yearwood to accommodate any occasion.",
-    image: "/images/event-spaces/3rd-floor-full.jpg",
-    gallery: [],
+    image: `${ES}/3rd-floor-full.jpg`,
+    gallery: Array.from({ length: 6 }, (_, i) => `${ES}/3rd-floor-full/3rd-floor-full${i + 1}.jpg`),
+    floorPlan: `${ES}/3rd-floor-full/plan.jpg`,
     gradient: "from-[#c9a84c]/20 via-[#2a2418]/40 to-[#1a1a1a]",
     accentColor: "bg-[#c9a84c]/10 border-[#c9a84c]/20",
   },
@@ -103,8 +111,9 @@ export const venues: Venue[] = [
     capacity: 165,
     description:
       "A private Tiki Bar in the middle of the Neon Neighborhood! This area of our rooftop features a full stage, custom banquette seating, and a tropical themed bar and awning.",
-    image: "/images/event-spaces/oasis-tiki-bar.jpg",
-    gallery: [],
+    image: `${ES}/oasis-tiki-bar.jpg`,
+    gallery: Array.from({ length: 7 }, (_, i) => `${ES}/oasis-tiki/oasis-tiki${i + 1}.jpg`),
+    floorPlan: `${ES}/oasis-tiki/plan.png`,
     gradient: "from-[#5ec4b6]/15 via-[#1a2a28]/30 to-[#1a1a1a]",
     accentColor: "bg-honky-teal/10 border-honky-teal/20",
   },
@@ -115,8 +124,9 @@ export const venues: Venue[] = [
     capacity: 150,
     description:
       "The Broadway Mezzanine lets your guests belly up to the mezzanine for the best views of the stage, all while having the best view of the Neon Neighborhood and your own dedicated bar.",
-    image: "/images/event-spaces/honky-tonk-broadway-mezzanine.jpg",
-    gallery: [],
+    image: `${ES}/honky-tonk-broadway-mezzanine.jpg`,
+    gallery: Array.from({ length: 5 }, (_, i) => `${ES}/honky-tonk-broadway-mezzanine/honky-tonk-broadway-mezzanine${i + 1}.jpg`),
+    floorPlan: `${ES}/honky-tonk-broadway-mezzanine/plan.png`,
     gradient: "from-[#ef464f]/15 via-[#2c1a1a]/30 to-[#1a1a1a]",
     accentColor: "bg-honky-red/10 border-honky-red/20",
   },
@@ -127,8 +137,9 @@ export const venues: Venue[] = [
     capacity: 72,
     description:
       "The Monticello Room is a space that embodies elegance and comfort with its dark blue walls, atmospheric wallpaper, rustic wood tables, and cozy upholstered chairs set beneath soft, intimate lighting.",
-    image: "/images/event-spaces/3rd-floor-monticello.jpg",
-    gallery: [],
+    image: `${ES}/3rd-floor-monticello.jpg`,
+    gallery: Array.from({ length: 4 }, (_, i) => `${ES}/3rd-floor-monticello/3rd-floor-monticello${i + 1}.jpg`),
+    floorPlan: `${ES}/3rd-floor-monticello/plan.jpg`,
     gradient: "from-[#c9a84c]/15 via-[#2a2418]/30 to-[#1a1a1a]",
     accentColor: "bg-[#c9a84c]/10 border-[#c9a84c]/20",
   },
@@ -139,8 +150,13 @@ export const venues: Venue[] = [
     capacity: 50,
     description:
       "Trisha\u2019s Studio Kitchen draws inspiration from the Concord House featured on the Emmy-award-winning Trisha\u2019s Southern Kitchen. Designed for versatility, the space is surrounded by seating that\u2019s both soft and flexible, suitable for up to 50 guests.",
-    image: "/images/event-spaces/3rd-floor-trishas-kitchen.jpg",
-    gallery: [],
+    image: `${ES}/3rd-floor-trishas-kitchen.jpg`,
+    gallery: [
+      `${ES}/3rd-floor-trishas-kitchen/3rd-floor-trishas-kitchen2.jpg`,
+      `${ES}/3rd-floor-trishas-kitchen/3rd-floor-trishas-kitchen3.jpg`,
+      `${ES}/3rd-floor-trishas-kitchen/3rd-floor-trishas-kitchen4.jpg`,
+    ],
+    floorPlan: `${ES}/3rd-floor-trishas-kitchen/plan.jpg`,
     gradient: "from-[#c9a84c]/15 via-[#2a2418]/30 to-[#1a1a1a]",
     accentColor: "bg-[#c9a84c]/10 border-[#c9a84c]/20",
   },
@@ -151,8 +167,9 @@ export const venues: Venue[] = [
     capacity: 29,
     description:
       "Semi-Private areas within The Oasis allow guests to be a part of the action while having their own space for reprieve. With indoor and outdoor options, views of Broadway, and semi-private entrances, your guests will feel like the ultimate VIPs.",
-    image: "/images/event-spaces/oasis-semi-private.jpg",
-    gallery: [],
+    image: `${ES}/oasis-semi-private.jpg`,
+    gallery: Array.from({ length: 6 }, (_, i) => `${ES}/oasis-semi-private/oasis-semi-private${i + 1}.jpg`),
+    floorPlan: `${ES}/oasis-semi-private/plan.png`,
     gradient: "from-[#5ec4b6]/15 via-[#1a2a28]/30 to-[#1a1a1a]",
     accentColor: "bg-honky-teal/10 border-honky-teal/20",
   },
@@ -163,8 +180,9 @@ export const venues: Venue[] = [
     capacity: 24,
     description:
       "Sitting adjacent to the Monticello Room, the Gwendolyn Room offers a touching tribute to Trisha Yearwood\u2019s mother, Gwen. The Gwendolyn Room is charmed with personal touches in her honor.",
-    image: "/images/event-spaces/3rd-floor-gwendolyn.jpg",
-    gallery: [],
+    image: `${ES}/3rd-floor-gwendolyn.jpg`,
+    gallery: Array.from({ length: 6 }, (_, i) => `${ES}/3rd-floor-gwendolyn/3rd-floor-gwendolyn${i + 2}.jpg`),
+    floorPlan: `${ES}/3rd-floor-gwendolyn/plan.jpg`,
     gradient: "from-[#c9a84c]/15 via-[#2a2418]/30 to-[#1a1a1a]",
     accentColor: "bg-[#c9a84c]/10 border-[#c9a84c]/20",
     bookingUrl: "https://portal.tripleseat.com/direct_bookings/gydmxh9vpa4",

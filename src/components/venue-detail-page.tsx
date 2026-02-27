@@ -41,7 +41,7 @@ function VenueHero({ venue }: { venue: Venue }) {
         {/* Back link */}
         <a
           href="/private-events"
-          className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/50 transition-colors hover:text-white"
+          className="mb-10 flex w-fit items-center gap-2 text-sm font-medium text-white/50 transition-colors hover:text-white"
         >
           <ArrowLeft className="h-4 w-4" />
           All Spaces
