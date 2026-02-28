@@ -56,10 +56,7 @@ function CareersHero() {
 
       {/* Heading */}
       <h1 className="relative text-center font-heading text-6xl font-black leading-[0.9] text-white uppercase md:text-[96px]">
-        Join the{" "}
-        <span className="neon-text font-heading" data-neon="Crew">
-          Crew
-        </span>
+        <span className="neon-text font-heading" data-neon="Join the Crew">Join the Crew</span>
       </h1>
 
       {/* Subtitle */}
@@ -475,7 +472,7 @@ function RevealFormSection() {
         <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 backdrop-blur-sm sm:p-10">
           <div className="mb-8">
             <h2 className="font-heading text-2xl font-black text-white uppercase">
-              Apply Now
+              <span className="neon-text font-heading" data-neon="Apply Now">Apply Now</span>
             </h2>
             <p className="mt-2 text-sm font-light text-white/40">
               Fields marked with <span className="text-honky-red">*</span>{" "}

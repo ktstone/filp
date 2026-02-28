@@ -17,7 +17,6 @@ interface MenuData {
   label: string;
   subtitle: string;
   heading: string;
-  headingNeon: string;
   description: string;
   featuredImage: string;
   featuredTag: string;
@@ -31,8 +30,7 @@ const lunchDinnerMenu: MenuData = {
   label: "Lunch & Dinner",
   menuLink: "/menu/lunch-dinner",
   subtitle: "Southern Comfort",
-  heading: "Food That Hits",
-  headingNeon: "The Spot",
+  heading: "Food That Hits The Spot",
   description:
     "Inspired by Trisha's Southern Kitchen and her best-selling cookbooks, our menu features familiar favorites and new creations. Whether you're pulling up a chair or enjoying the vibrant energy of Friends In Low Places, our food is designed to make you feel at home.",
   featuredImage: "/images/menu/backyard_burger.jpg",
@@ -65,8 +63,7 @@ const brunchMenu: MenuData = {
   label: "Weekend Brunch",
   menuLink: "/menu/brunch",
   subtitle: "Rise & Shine",
-  heading: "",
-  headingNeon: "Brunch Like A Local",
+  heading: "Brunch Like A Local",
   description:
     "Mornings in Low Places, 10AM to 2PM. Giant cinnamon rolls, biscuit stacks, and all the comfort you need to start the weekend right.",
   featuredImage: "/images/menu/bacon_egg_cheese_biscuit.jpeg",
@@ -99,8 +96,7 @@ const lateNightMenu: MenuData = {
   label: "Late Night",
   menuLink: "/menu/late-night",
   subtitle: "After Dark Eats",
-  heading: "Midnight",
-  headingNeon: "Munchies",
+  heading: "Midnight Munchies",
   description:
     "The kitchen stays hot until close. Load up on late-night favorites between sets. Perfect fuel for dancing until last call.",
   featuredImage: "/images/menu/backyard_burger.jpg",
@@ -215,9 +211,7 @@ export function FoodSection() {
               {menu.subtitle}
             </span>
             <h2 className="font-heading text-5xl font-black leading-[1] text-white uppercase">
-              {menu.heading}
-              <br />
-              <span className="neon-text font-heading" data-neon={menu.headingNeon}>{menu.headingNeon}</span>
+              <span className="neon-text font-heading" data-neon={menu.heading}>{menu.heading}</span>
             </h2>
             <p className="mt-4 text-lg leading-7 text-[#9ca3af]">
               {menu.description}

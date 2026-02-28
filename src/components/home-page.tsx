@@ -27,7 +27,7 @@ import { ShaderOverlay, DefaultAurora, DefaultLensFlare } from "@/components/sha
 /* -------------------------------------------------------------------------- */
 function Hero() {
   return (
-    <section className="relative flex h-screen min-h-[700px] items-center justify-center overflow-hidden px-4 pt-28 pb-24">
+    <section className="relative flex h-screen min-h-[700px] items-end justify-center overflow-hidden px-4 pt-40 pb-24">
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
@@ -59,6 +59,11 @@ function Hero() {
 
       {/* Content */}
       <div className="relative z-10 flex max-w-[896px] flex-col items-center text-center">
+        {/* h1 — visually hidden but present for SEO */}
+        <h1 className="sr-only">
+          Friends In Low Places — Nashville&apos;s Premier Honky Tonk on Broadway
+        </h1>
+
         {/* Live badge */}
         <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
           <span className="h-2 w-2 rounded-full bg-honky-teal" />
@@ -67,23 +72,8 @@ function Hero() {
           </span>
         </div>
 
-        {/* Logo */}
-        <Image
-          src="/images/logo-circle.png"
-          alt="Friends In Low Places - Nashville TN"
-          width={400}
-          height={400}
-          className="mt-8 w-[280px] drop-shadow-[0_0_40px_rgba(239,70,79,0.4)] lg:w-[400px]"
-          priority
-        />
-
-        {/* h1 — visually hidden but present for SEO */}
-        <h1 className="sr-only">
-          Friends In Low Places — Nashville&apos;s Premier Honky Tonk on Broadway
-        </h1>
-
         {/* Subtitle */}
-        <p className="mt-8 max-w-[672px] text-xl font-light leading-7 text-white/80">
+        <p className="mt-6 max-w-[672px] text-xl font-light leading-7 text-white/80">
           Live country music on 4 floors. Cold beer. Good friends.
           <br />
           Open daily on Broadway.

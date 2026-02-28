@@ -66,7 +66,7 @@ function VenueHero({ venue }: { venue: Venue }) {
 
         {/* Venue name */}
         <h1 className="font-heading text-4xl font-black text-white uppercase md:text-6xl lg:text-7xl">
-          {venue.name}
+          <span className="neon-text font-heading" data-neon={venue.name}>{venue.name}</span>
         </h1>
 
         {/* Capacity badge */}
@@ -106,7 +106,7 @@ function VenueDescription({ venue }: { venue: Venue }) {
           {/* Main description */}
           <div>
             <h2 className="mb-6 font-heading text-2xl font-black text-white uppercase md:text-3xl">
-              About This Space
+              <span className="neon-text font-heading" data-neon="About This Space">About This Space</span>
             </h2>
             <p className="text-lg font-light leading-9 text-white/60">
               {venue.description}
@@ -207,7 +207,7 @@ function VenueGallery({ venue }: { venue: Venue }) {
           }`}
         >
           <h2 className="mb-8 font-heading text-2xl font-black text-white uppercase md:text-3xl">
-            Gallery
+            <span className="neon-text font-heading" data-neon="Gallery">Gallery</span>
           </h2>
 
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
@@ -374,7 +374,7 @@ function VenueFloorPlan({ venue }: { venue: Venue }) {
           }`}
         >
           <h2 className="mb-8 font-heading text-2xl font-black text-white uppercase md:text-3xl">
-            Floor Plan
+            <span className="neon-text font-heading" data-neon="Floor Plan">Floor Plan</span>
           </h2>
 
           <button
@@ -524,7 +524,7 @@ function OtherSpaces({ currentSlug, location }: { currentSlug: string; location:
     <section className="border-t border-white/[0.06] px-6 py-16 md:py-20">
       <div className="mx-auto max-w-[1280px]">
         <h2 className="mb-8 text-center font-heading text-2xl font-black text-white uppercase md:text-3xl">
-          Explore More Spaces
+          <span className="neon-text font-heading" data-neon="Explore More Spaces">Explore More Spaces</span>
         </h2>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -571,9 +571,8 @@ function BookingCta({ venue }: { venue: Venue }) {
         }`}
       >
         <h2 className="font-heading text-3xl font-black text-white uppercase md:text-4xl">
-          Book the{" "}
-          <span className="neon-text font-heading" data-neon={venue.name.split(" - ").pop()}>
-            {venue.name.split(" - ").pop()}
+          <span className="neon-text font-heading" data-neon={`Book the ${venue.name.split(" - ").pop()}`}>
+            Book the {venue.name.split(" - ").pop()}
           </span>
         </h2>
 

@@ -230,7 +230,7 @@ export function PrivateEventsPage() {
       {/* ------------------------------------------------------------------ */}
       {/*  Hero                                                               */}
       {/* ------------------------------------------------------------------ */}
-      <section className="relative flex min-h-[520px] items-end overflow-hidden px-6 pt-28 pb-16 md:min-h-[600px] md:pb-20">
+      <section className="relative flex min-h-[520px] items-end overflow-hidden px-6 pt-40 pb-16 md:min-h-[600px] md:pb-20">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#2c1a1a] via-honky-bg to-honky-bg" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,rgba(239,70,79,0.15),transparent_60%)]" />
@@ -262,10 +262,7 @@ export function PrivateEventsPage() {
 
           {/* Heading */}
           <h1 className="font-heading text-5xl font-black text-white uppercase md:text-6xl lg:text-7xl">
-            Host Your{" "}
-            <span className="neon-text font-heading" data-neon="Event">
-              Event
-            </span>
+            <span className="neon-text font-heading" data-neon="Host Your Event">Host Your Event</span>
           </h1>
 
           {/* Subtitle */}
@@ -320,10 +317,7 @@ export function PrivateEventsPage() {
               Our Venues
             </p>
             <h2 className="font-heading text-4xl font-black text-white uppercase md:text-5xl">
-              <span className="text-white">Find Your </span>
-              <span className="neon-text font-heading" data-neon="Space">
-                Space
-              </span>
+              <span className="neon-text font-heading" data-neon="Find Your Space">Find Your Space</span>
             </h2>
           </div>
 
@@ -401,10 +395,7 @@ export function PrivateEventsPage() {
 
           {/* Heading */}
           <h2 className="font-heading text-4xl font-black text-white uppercase md:text-5xl">
-            Ready to{" "}
-            <span className="neon-text font-heading" data-neon="Book?">
-              Book?
-            </span>
+            <span className="neon-text font-heading" data-neon="Ready to Book?">Ready to Book?</span>
           </h2>
 
           <p className="mt-5 max-w-lg text-lg leading-7 text-white/50">

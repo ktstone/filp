@@ -136,18 +136,7 @@ function MenuHero({ title, subtitle }: { title: string; subtitle: string }) {
 
         {/* Heading */}
         <h1 className="font-heading text-6xl leading-[0.9] font-black uppercase text-white drop-shadow-[0_4px_30px_rgba(0,0,0,0.5)] md:text-[96px] opacity-0 animate-[fadeInUp_0.6s_ease_0.1s_forwards]">
-          {title.split(" ").length > 1 ? (
-            <>
-              {title.split(" ").slice(0, -1).join(" ")}{" "}
-              <span className="neon-text font-heading" data-neon={title.split(" ").at(-1)}>
-                {title.split(" ").at(-1)}
-              </span>
-            </>
-          ) : (
-            <span className="neon-text font-heading" data-neon={title}>
-              {title}
-            </span>
-          )}
+          <span className="neon-text font-heading" data-neon={title}>{title}</span>
         </h1>
 
         {/* Subtitle */}
@@ -515,8 +504,7 @@ function CtaBanner() {
         </div>
 
         <h2 className="font-heading text-5xl font-black uppercase text-white">
-          Coming with a{" "}
-          <span className="neon-text font-heading" data-neon="Crowd?">Crowd?</span>
+          <span className="neon-text font-heading" data-neon="Coming with a Crowd?">Coming with a Crowd?</span>
         </h2>
         <p className="mt-5 max-w-lg text-lg font-light leading-8 text-white/50">
           Book a VIP table for your group and skip the line. Dedicated servers, premium bottle

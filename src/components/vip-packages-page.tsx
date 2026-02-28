@@ -162,10 +162,7 @@ function PhotoGallery() {
             The Party Starts Here
           </h3>
           <h2 className="font-heading text-4xl font-black text-white uppercase md:text-5xl">
-            <span className="text-white">Celebrate at </span>
-            <span className="neon-text font-heading" data-neon="Friends">
-              Friends
-            </span>
+            <span className="neon-text font-heading" data-neon="Celebrate at Friends">Celebrate at Friends</span>
           </h2>
         </div>
 
@@ -600,7 +597,7 @@ export function VipPackagesPage() {
       {/* ------------------------------------------------------------------ */}
       {/*  Hero                                                               */}
       {/* ------------------------------------------------------------------ */}
-      <section className="relative flex min-h-[520px] items-end overflow-hidden px-6 pt-28 pb-16 md:min-h-[600px] md:pb-20">
+      <section className="relative flex min-h-[520px] items-end overflow-hidden px-6 pt-40 pb-16 md:min-h-[600px] md:pb-20">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#2c1a1a] via-honky-bg to-honky-bg" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,rgba(239,70,79,0.18),transparent_55%)]" />
@@ -632,10 +629,7 @@ export function VipPackagesPage() {
 
           {/* Heading */}
           <h1 className="max-w-4xl font-heading text-4xl font-black leading-[1.1] text-white uppercase md:text-5xl lg:text-6xl">
-            Before the Vows, Raise a Round at{" "}
-            <span className="neon-text font-heading" data-neon="Friends in Low Places">
-              Friends in Low Places
-            </span>
+            <span className="neon-text font-heading" data-neon="Before the Vows, Raise a Round at Friends in Low Places">Before the Vows, Raise a Round at Friends in Low Places</span>
           </h1>
 
           {/* Subtitle */}
@@ -671,10 +665,7 @@ export function VipPackagesPage() {
               Celebrate in Style
             </h3>
             <h2 className="font-heading text-4xl font-black text-white uppercase md:text-5xl">
-              <span className="text-white">Choose Your </span>
-              <span className="neon-text font-heading" data-neon="Package">
-                Package
-              </span>
+              <span className="neon-text font-heading" data-neon="Choose Your Package">Choose Your Package</span>
             </h2>
           </div>
 
@@ -730,10 +721,7 @@ export function VipPackagesPage() {
               Get Started
             </h3>
             <h2 className="font-heading text-4xl font-black text-white uppercase md:text-5xl">
-              <span className="text-white">Plan Your </span>
-              <span className="neon-text font-heading" data-neon="Party">
-                Party
-              </span>
+              <span className="neon-text font-heading" data-neon="Plan Your Party">Plan Your Party</span>
             </h2>
             <p className="mx-auto mt-3 max-w-lg text-base text-white/50">
               Fill out the form below and our events team will be in touch to

@@ -158,11 +158,11 @@ export function Header() {
         {/* Center: logo */}
         <Link href="/" className="absolute left-1/2 -translate-x-1/2">
           <Image
-            src="/images/logo-circle.png"
+            src="/images/nav-logo.webp"
             alt="Friends In Low Places - Home"
-            width={44}
-            height={44}
-            className="shrink-0"
+            width={240}
+            height={88}
+            className="h-[88px] w-auto shrink-0 py-2"
           />
         </Link>
 

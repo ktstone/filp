@@ -290,7 +290,7 @@ export function EventsPage() {
       {/* ------------------------------------------------------------------ */}
       {/*  Hero                                                               */}
       {/* ------------------------------------------------------------------ */}
-      <section className="relative flex min-h-[440px] items-end overflow-hidden px-6 pt-28 pb-12 md:min-h-[500px] md:pb-16">
+      <section className="relative flex min-h-[440px] items-end overflow-hidden px-6 pt-40 pb-12 md:min-h-[500px] md:pb-16">
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#2c1a1a] via-honky-bg to-honky-bg" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,rgba(239,70,79,0.15),transparent_60%)]" />
