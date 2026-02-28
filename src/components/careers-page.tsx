@@ -155,7 +155,7 @@ function ApplicationForm() {
     }
 
     try {
-      await fetch("/", {
+      await fetch("/__forms.html", {
         method: "POST",
         body: formData,
       });
