@@ -16,7 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
 import { type Venue, DEFAULT_BOOKING_URL, getLocationColor, venues } from "@/lib/venues";
-import { Shader, Aurora } from "shaders/react";
+import { AuroraOverlay } from "@/components/aurora-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Hero                                                                       */
@@ -40,25 +40,21 @@ function VenueHero({ venue }: { venue: Venue }) {
       <div className="absolute inset-0 bg-gradient-to-r from-[#181111]/40 to-transparent" />
 
       {/* Shader overlay */}
-      <div className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen opacity-60">
-        <Shader>
-          <Aurora
-            blendMode="linearDodge"
-            colorA="#d9d9d9"
-            colorB="#ffdfc2"
-            colorC="#5d67c2"
-            colorSpace="oklab"
-            curtainCount={3}
-            height={72}
-            intensity={36}
-            opacity={0.71}
-            rayDensity={7}
-            seed={73}
-            speed={-2.8}
-            waviness={0}
-          />
-        </Shader>
-      </div>
+      <AuroraOverlay
+        blendMode="linearDodge"
+        colorA="#d9d9d9"
+        colorB="#ffdfc2"
+        colorC="#5d67c2"
+        colorSpace="oklab"
+        curtainCount={3}
+        height={72}
+        intensity={36}
+        opacity={0.71}
+        rayDensity={7}
+        seed={73}
+        speed={-2.8}
+        waviness={0}
+      />
 
       <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 pb-12 md:pb-16">
         {/* Back link */}
@@ -569,25 +565,21 @@ function BookingCta({ venue }: { venue: Venue }) {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(239,70,79,0.08),transparent_70%)]" />
 
       {/* Shader overlay */}
-      <div className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen opacity-60">
-        <Shader>
-          <Aurora
-            blendMode="linearDodge"
-            colorA="#d9d9d9"
-            colorB="#ffdfc2"
-            colorC="#5d67c2"
-            colorSpace="oklab"
-            curtainCount={3}
-            height={72}
-            intensity={36}
-            opacity={0.71}
-            rayDensity={7}
-            seed={19}
-            speed={-2.8}
-            waviness={0}
-          />
-        </Shader>
-      </div>
+      <AuroraOverlay
+        blendMode="linearDodge"
+        colorA="#d9d9d9"
+        colorB="#ffdfc2"
+        colorC="#5d67c2"
+        colorSpace="oklab"
+        curtainCount={3}
+        height={72}
+        intensity={36}
+        opacity={0.71}
+        rayDensity={7}
+        seed={19}
+        speed={-2.8}
+        waviness={0}
+      />
 
       <div
         ref={ref}

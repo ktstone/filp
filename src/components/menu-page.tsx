@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
-import { Shader, Aurora } from "shaders/react";
+import { AuroraOverlay } from "@/components/aurora-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Types                                                                      */
@@ -118,25 +118,21 @@ function MenuHero({ title, subtitle }: { title: string; subtitle: string }) {
       </div>
 
       {/* Shader overlay */}
-      <div className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen opacity-60">
-        <Shader>
-          <Aurora
-            blendMode="linearDodge"
-            colorA="#d9d9d9"
-            colorB="#ffdfc2"
-            colorC="#5d67c2"
-            colorSpace="oklab"
-            curtainCount={3}
-            height={72}
-            intensity={36}
-            opacity={0.71}
-            rayDensity={7}
-            seed={27}
-            speed={-2.8}
-            waviness={0}
-          />
-        </Shader>
-      </div>
+      <AuroraOverlay
+        blendMode="linearDodge"
+        colorA="#d9d9d9"
+        colorB="#ffdfc2"
+        colorC="#5d67c2"
+        colorSpace="oklab"
+        curtainCount={3}
+        height={72}
+        intensity={36}
+        opacity={0.71}
+        rayDensity={7}
+        seed={27}
+        speed={-2.8}
+        waviness={0}
+      />
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center">
@@ -510,25 +506,21 @@ function CtaBanner() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(94,196,182,0.04),transparent_50%)]" />
 
       {/* Shader overlay */}
-      <div className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen opacity-60">
-        <Shader>
-          <Aurora
-            blendMode="linearDodge"
-            colorA="#d9d9d9"
-            colorB="#ffdfc2"
-            colorC="#5d67c2"
-            colorSpace="oklab"
-            curtainCount={3}
-            height={72}
-            intensity={36}
-            opacity={0.71}
-            rayDensity={7}
-            seed={46}
-            speed={-2.8}
-            waviness={0}
-          />
-        </Shader>
-      </div>
+      <AuroraOverlay
+        blendMode="linearDodge"
+        colorA="#d9d9d9"
+        colorB="#ffdfc2"
+        colorC="#5d67c2"
+        colorSpace="oklab"
+        curtainCount={3}
+        height={72}
+        intensity={36}
+        opacity={0.71}
+        rayDensity={7}
+        seed={46}
+        speed={-2.8}
+        waviness={0}
+      />
 
       <div
         ref={ref}
