@@ -1,6 +1,8 @@
 "use client";
 
+import { useState, type FormEvent } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Calendar,
   ChevronDown,
@@ -12,12 +14,13 @@ import {
   ArrowRight,
   Users,
   PartyPopper,
+  CheckCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
 import { LineupSection } from "@/components/lineup-section";
 import { FoodSection } from "@/components/food-section";
-import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
+import { ShaderOverlay, DefaultAurora, DefaultLensFlare } from "@/components/shader-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Hero                                                                       */
@@ -42,8 +45,8 @@ function Hero() {
 
       {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={14} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={14} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
       {/* Scroll indicator */}
@@ -95,10 +98,10 @@ function Hero() {
             </a>
           </Button>
           <Button asChild variant="outline" className="h-14 rounded-lg border-2 border-white/20 bg-transparent px-8 text-base font-semibold tracking-wider text-white uppercase backdrop-blur-sm hover:bg-white/5 hover:text-white">
-            <a href="/private-events">
+            <Link href="/private-events">
               <PartyPopper className="h-[18px] w-[18px]" />
               Private Events
-            </a>
+            </Link>
           </Button>
         </div>
       </div>
@@ -150,6 +153,22 @@ function ReservationsSection() {
                   famous Southern kitchen and signature cocktails while you
                   watch the show.
                 </p>
+
+                <a
+                  href="https://www.opentable.com/restaurant/profile/1380574/reserve?rid=1380574&restref=1380574"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-block"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://www.opentable.com/restaurant-solutions/badge/ot/DC2-2024.png"
+                    alt="OpenTable Diners' Choice 2024"
+                    width={100}
+                    height={100}
+                    className="drop-shadow-[0_0_8px_rgba(239,70,79,0.3)]"
+                  />
+                </a>
               </div>
 
               <Button asChild className="mt-8 w-full rounded-lg bg-white py-4 text-sm font-semibold tracking-wider text-honky-bg uppercase hover:bg-white/90">
@@ -182,10 +201,10 @@ function ReservationsSection() {
               </div>
 
               <Button asChild className="mt-8 w-full rounded-lg bg-honky-teal py-4 text-sm font-semibold tracking-wider text-white uppercase shadow-[0_10px_15px_-3px_rgba(94,196,182,0.15)] hover:bg-honky-teal/90">
-                <a href="/vip-reservations">
+                <Link href="/vip-reservations">
                   <Star className="h-4 w-4" />
                   Reserve VIP Table
-                </a>
+                </Link>
               </Button>
             </div>
           </div>
@@ -211,10 +230,10 @@ function ReservationsSection() {
               </div>
 
               <Button asChild className="mt-8 w-full rounded-lg bg-honky-red py-4 text-sm font-semibold tracking-wider text-white uppercase shadow-[0_10px_15px_-3px_rgba(239,72,80,0.2)] hover:bg-honky-red/90">
-                <a href="/vip-packages">
+                <Link href="/vip-packages">
                   <Sparkles className="h-4 w-4" />
                   View Packages
-                </a>
+                </Link>
               </Button>
             </div>
           </div>
@@ -357,10 +376,10 @@ function PrivateEventsTeaser() {
                 asChild
                 className="h-14 rounded-lg bg-honky-red px-8 text-base font-semibold tracking-wider text-white uppercase shadow-[0_0_30px_rgba(239,72,80,0.3)] hover:bg-honky-red/90"
               >
-                <a href="/private-events">
+                <Link href="/private-events">
                   Explore All Venues
                   <ArrowRight className="h-4 w-4" />
-                </a>
+                </Link>
               </Button>
             </div>
           </div>
@@ -368,7 +387,7 @@ function PrivateEventsTeaser() {
           {/* Right — venue cards stack */}
           <div className="flex flex-col gap-4">
             {featuredVenues.map((venue) => (
-              <a
+              <Link
                 key={venue.name}
                 href="/private-events"
                 className="group relative flex items-center gap-6 overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 transition-all hover:border-white/15 hover:bg-white/[0.04]"
@@ -403,21 +422,82 @@ function PrivateEventsTeaser() {
 
                 {/* Arrow */}
                 <ArrowRight className="h-4 w-4 shrink-0 text-white/20 transition-all group-hover:translate-x-1 group-hover:text-honky-red" aria-hidden="true" />
-              </a>
+              </Link>
             ))}
 
             {/* See all link */}
-            <a
+            <Link
               href="/private-events"
               className="group mt-1 flex items-center justify-center gap-2 rounded-xl border border-dashed border-white/10 py-4 text-sm font-semibold tracking-wider text-white/40 uppercase transition-colors hover:border-white/20 hover:text-white/70"
             >
               View All 12 Venues
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Email Signup (Mailchimp)                                                   */
+/* -------------------------------------------------------------------------- */
+const MAILCHIMP_URL =
+  "https://garthbrooks.us11.list-manage.com/subscribe/post?u=50d3d863212f3d6fb5e2d0243&id=3c7ef6694a";
+
+function EmailSignup() {
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!email) return;
+    // Open Mailchimp in a new tab (their standard no-JS fallback)
+    const url = `${MAILCHIMP_URL}&EMAIL=${encodeURIComponent(email)}`;
+    window.open(url, "_blank", "noopener");
+    setSubmitted(true);
+  }
+
+  return (
+    <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#1a1a1a]/90 p-6 backdrop-blur-sm">
+      <h3 className="font-heading text-xl font-bold text-white">
+        Get on the List
+      </h3>
+      <p className="text-sm text-[#9ca3af]">
+        First dibs on tickets, events, and exclusive offers.
+      </p>
+      {submitted ? (
+        <div className="flex flex-1 flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed border-white/10 bg-honky-bg/50 px-5 py-6">
+          <CheckCircle className="h-8 w-8 text-honky-teal" />
+          <p className="text-center text-sm font-medium text-white">
+            Check the tab that opened to confirm your subscription!
+          </p>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+          <label htmlFor="vip-email" className="sr-only">Email address</label>
+          <input
+            id="vip-email"
+            type="email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
+            className="w-full rounded-xl border-2 border-white/10 bg-honky-bg px-5 py-3.5 text-sm text-white placeholder:text-[#6b7280] focus:border-honky-red/50 focus:outline-none"
+          />
+          <Button
+            type="submit"
+            className="w-full rounded-xl bg-honky-red py-3.5 text-sm font-bold text-white shadow-[0_0_10px_rgba(239,70,79,0.5),0_0_20px_rgba(239,70,79,0.3)] hover:bg-honky-red/90"
+          >
+            Get Access
+          </Button>
+        </form>
+      )}
+      <p className="text-xs text-[#6b7280]">
+        No spam, just good times.
+      </p>
+    </div>
   );
 }
 
@@ -443,8 +523,8 @@ function VipSignup() {
 
       {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={91} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={91} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
       {/* Content */}
@@ -473,29 +553,7 @@ function VipSignup() {
         {/* Two equal CTAs */}
         <div className="mt-12 grid w-full max-w-[768px] grid-cols-1 gap-6 md:grid-cols-2">
           {/* Email signup */}
-          <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#1a1a1a]/90 p-6 backdrop-blur-sm">
-            <h3 className="font-heading text-xl font-bold text-white">
-              Get on the List
-            </h3>
-            <p className="text-sm text-[#9ca3af]">
-              First dibs on tickets, events, and exclusive offers.
-            </p>
-            <div className="flex flex-col gap-3">
-              <label htmlFor="vip-email" className="sr-only">Email address</label>
-              <input
-                id="vip-email"
-                type="email"
-                placeholder="Enter your email"
-                className="w-full rounded-xl border-2 border-white/10 bg-honky-bg px-5 py-3.5 text-sm text-white placeholder:text-[#6b7280] focus:border-honky-red/50 focus:outline-none"
-              />
-              <Button className="w-full rounded-xl bg-honky-red py-3.5 text-sm font-bold text-white shadow-[0_0_10px_rgba(239,70,79,0.5),0_0_20px_rgba(239,70,79,0.3)] hover:bg-honky-red/90">
-                Get Access
-              </Button>
-            </div>
-            <p className="text-xs text-[#6b7280]">
-              No spam, just good times.
-            </p>
-          </div>
+          <EmailSignup />
 
           {/* SMS signup */}
           <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#1a1a1a]/90 p-6 backdrop-blur-sm">

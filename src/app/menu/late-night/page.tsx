@@ -2,12 +2,13 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { MenuPage, type MenuPageData } from "@/components/menu-page";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Late Night Menu",
   description:
     "Late night bites at Nashville's premier honky tonk. Burgers, chicken tenders, nachos, and more. Kitchen open until close.",
-  alternates: { canonical: "https://www.friendsbarnashville.com/menu/late-night" },
+  alternates: { canonical: `${SITE_URL}/menu/late-night` },
 };
 
 const menuData: MenuPageData = {

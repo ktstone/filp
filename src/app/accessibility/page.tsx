@@ -1,12 +1,13 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Accessibility Statement",
   description:
     "Accessibility Statement for Friends In Low Places Bar & Honky Tonk. Learn about our commitment to making our website accessible to everyone.",
-  alternates: { canonical: "https://www.friendsbarnashville.com/accessibility" },
+  alternates: { canonical: `${SITE_URL}/accessibility` },
 };
 
 const sections = [

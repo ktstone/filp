@@ -2,12 +2,13 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { FaqPage } from "@/components/faq-page";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "FAQ",
   description:
     "Frequently asked questions about Friends In Low Places on Broadway in Nashville. Hours, reservations, food, dress code, private events, and more.",
-  alternates: { canonical: "https://www.friendsbarnashville.com/faq" },
+  alternates: { canonical: `${SITE_URL}/faq` },
 };
 
 const faqJsonLd = {

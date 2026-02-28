@@ -1,12 +1,13 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
     "Terms of Service for Friends In Low Places Bar & Honky Tonk. Review the terms and conditions governing use of our website and services.",
-  alternates: { canonical: "https://www.friendsbarnashville.com/terms-of-service" },
+  alternates: { canonical: `${SITE_URL}/terms-of-service` },
 };
 
 const sections = [

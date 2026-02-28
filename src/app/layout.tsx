@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GoogleTagManager, GoogleAnalytics } from "@next/third-parties/google";
 import { Spline_Sans, Epilogue } from "next/font/google";
+import { SITE_URL } from "@/lib/config";
 import "./globals.css";
 
 const splineSans = Spline_Sans({
@@ -15,7 +16,6 @@ const epilogue = Epilogue({
   weight: ["200", "300", "700", "900"],
 });
 
-const SITE_URL = "https://www.friendsbarnashville.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

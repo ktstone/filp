@@ -2,12 +2,13 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { MenuPage, type MenuPageData } from "@/components/menu-page";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Lunch & Dinner Menu",
   description:
     "Inspired by Trisha's Southern Kitchen. Familiar favorites and new creations at Nashville's premier honky tonk. View the full lunch and dinner menu.",
-  alternates: { canonical: "https://www.friendsbarnashville.com/menu/lunch-dinner" },
+  alternates: { canonical: `${SITE_URL}/menu/lunch-dinner` },
 };
 
 const menuData: MenuPageData = {

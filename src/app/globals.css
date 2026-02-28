@@ -54,6 +54,9 @@
   --color-honky-text-light: #cbd5e1;
   --color-honky-text-gray: #94a3b8;
   --color-honky-text-muted: #64748b;
+  --color-honky-bg-deep: #0f0f0f;
+  --color-honky-bg-warm: #181111;
+  --color-honky-card-warm: #271c1c;
   --color-honky-border: rgba(255, 255, 255, 0.1);
   --color-honky-border-subtle: rgba(255, 255, 255, 0.05);
 }

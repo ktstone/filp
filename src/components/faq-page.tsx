@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   Clock,
   CreditCard,
@@ -77,9 +78,9 @@ const faqs: FaqItem[] = [
         <strong className="text-white">first come, first served</strong> with no reservations
         required. We&rsquo;d love to have you join us for a VIP bottle reservation in The Oasis
         &ndash;{" "}
-        <a href="/vip-packages" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
+        <Link href="/vip-packages" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
           fill out the form here
-        </a>
+        </Link>
         , or text us at{" "}
         <a href="sms:6156695565" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
           615-669-5565
@@ -107,9 +108,9 @@ const faqs: FaqItem[] = [
     answer: (
       <p>
         We have a{" "}
-        <a href="/menu/lunch-dinner" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
+        <Link href="/menu/lunch-dinner" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
           full menu
-        </a>{" "}
+        </Link>{" "}
         available in our honky-tonk (created by Trisha Yearwood!), as well as Trisha&rsquo;s ParTY
         Kitchen Chicken Tenders on the rooftop.
       </p>
@@ -135,9 +136,9 @@ const faqs: FaqItem[] = [
       <p>
         Of course! VIP Bottle Service is available{" "}
         <strong className="text-white">Thursday &ndash; Sunday starting at 10:00pm</strong>. Please{" "}
-        <a href="/vip-packages" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
+        <Link href="/vip-packages" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
           fill out the reservation form
-        </a>{" "}
+        </Link>{" "}
         or text us at{" "}
         <a href="sms:6156695565" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
           615-669-5565
@@ -153,9 +154,9 @@ const faqs: FaqItem[] = [
     answer: (
       <p>
         Of course! Please{" "}
-        <a href="/private-events" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
+        <Link href="/private-events" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
           fill out the inquiry form
-        </a>{" "}
+        </Link>{" "}
         or email{" "}
         <a href="mailto:events@friendsbarnashville.com" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
           events@friendsbarnashville.com
@@ -171,9 +172,9 @@ const faqs: FaqItem[] = [
     answer: (
       <p>
         Take a look at our{" "}
-        <a href="/events" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
+        <Link href="/events" className="text-honky-red underline decoration-honky-red/30 underline-offset-2 transition-colors hover:text-honky-red/80">
           live music schedule
-        </a>
+        </Link>
         !
       </p>
     ),
@@ -245,6 +246,7 @@ function AccordionItem({ item, isOpen, onToggle, index }: { item: FaqItem; isOpe
       <button
         onClick={onToggle}
         aria-expanded={isOpen}
+        aria-controls={`faq-${index}`}
         className="flex w-full items-center gap-4 px-6 py-5 text-left transition-colors sm:px-8"
       >
         {/* Icon */}
@@ -279,6 +281,7 @@ function AccordionItem({ item, isOpen, onToggle, index }: { item: FaqItem; isOpe
 
       {/* Answer panel */}
       <div
+        id={`faq-${index}`}
         role="region"
         aria-hidden={!isOpen}
         className={`grid transition-all duration-300 ease-in-out ${
@@ -334,7 +337,7 @@ export function FaqPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <div className="min-h-screen bg-[#181111]">
+    <div className="min-h-screen bg-honky-bg-warm">
       <FaqHero />
 
       {/* FAQ list */}

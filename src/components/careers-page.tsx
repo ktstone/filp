@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
-import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
+import { ShaderOverlay, DefaultAurora, DefaultLensFlare } from "@/components/shader-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Positions                                                                  */
@@ -42,8 +42,8 @@ function CareersHero() {
 
       {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={58} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={58} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
       {/* Badge */}
@@ -100,11 +100,30 @@ function CareersHero() {
 /*  Application Form                                                           */
 /* -------------------------------------------------------------------------- */
 
+const ALLOWED_MIME_TYPES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
+const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024; // 10 MB
+
+function validateFile(f: File): string | null {
+  if (!ALLOWED_MIME_TYPES.includes(f.type)) {
+    return "Only PDF, DOC, or DOCX files are accepted.";
+  }
+  if (f.size > MAX_FILE_SIZE_BYTES) {
+    return "File must be under 10 MB.";
+  }
+  return null;
+}
+
 function ApplicationForm() {
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
+  const [fileError, setFileError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function handleDragOver(e: DragEvent) {
@@ -121,17 +140,35 @@ function ApplicationForm() {
     e.preventDefault();
     setIsDragging(false);
     const dropped = e.dataTransfer.files?.[0];
-    if (dropped) setFile(dropped);
+    if (dropped) {
+      const error = validateFile(dropped);
+      if (error) {
+        setFileError(error);
+        return;
+      }
+      setFileError(null);
+      setFile(dropped);
+    }
   }
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const selected = e.target.files?.[0];
-    if (selected) setFile(selected);
+    if (selected) {
+      const error = validateFile(selected);
+      if (error) {
+        setFileError(error);
+        e.target.value = "";
+        return;
+      }
+      setFileError(null);
+      setFile(selected);
+    }
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
+    setSubmitError(false);
 
     const form = e.currentTarget;
     const formData = new FormData(form);
@@ -140,14 +177,17 @@ function ApplicationForm() {
     }
 
     try {
-      await fetch("/__forms.html", {
+      const res = await fetch("/__forms.html", {
         method: "POST",
         body: formData,
       });
-      setSubmitted(true);
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setSubmitError(true);
+      }
     } catch {
-      // Netlify forms will handle errors
-      setSubmitted(true);
+      setSubmitError(true);
     } finally {
       setSubmitting(false);
     }
@@ -300,7 +340,7 @@ function ApplicationForm() {
 
       {/* Resume upload */}
       <div className="flex flex-col gap-2">
-        <label className="text-sm font-semibold tracking-wide text-white/80">
+        <label htmlFor="resume-upload" className="text-sm font-semibold tracking-wide text-white/80">
           Resume
         </label>
         <div
@@ -327,6 +367,7 @@ function ApplicationForm() {
         >
           <input
             ref={fileInputRef}
+            id="resume-upload"
             type="file"
             name="resume"
             accept=".pdf,.doc,.docx"
@@ -345,6 +386,7 @@ function ApplicationForm() {
                 onClick={(e) => {
                   e.stopPropagation();
                   setFile(null);
+                  setFileError(null);
                   if (fileInputRef.current) fileInputRef.current.value = "";
                 }}
                 className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-white/60 transition-colors hover:bg-white/20 hover:text-white"
@@ -367,12 +409,34 @@ function ApplicationForm() {
                 </span>
               </div>
               <span className="text-xs text-white/20">
-                PDF, DOC, or DOCX
+                PDF, DOC, or DOCX &mdash; max 10 MB
               </span>
             </>
           )}
         </div>
+
+        {/* File validation error */}
+        {fileError && (
+          <p className="flex items-center gap-1.5 text-sm text-honky-red" role="alert">
+            <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+              <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            {fileError}
+          </p>
+        )}
       </div>
+
+      {/* Submit error */}
+      {submitError && (
+        <div className="flex items-center gap-2 rounded-lg bg-honky-red/10 px-4 py-3" role="alert">
+          <svg className="h-4 w-4 shrink-0 text-honky-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+            <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <p className="text-sm text-honky-red">
+            Something went wrong. Please try again or email us directly.
+          </p>
+        </div>
+      )}
 
       {/* Submit */}
       <Button
@@ -427,7 +491,7 @@ function RevealFormSection() {
 
 export function CareersPage() {
   return (
-    <div className="min-h-screen bg-[#181111]">
+    <div className="min-h-screen bg-honky-bg-warm">
       <CareersHero />
       <RevealFormSection />
     </div>

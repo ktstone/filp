@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer";
 import { VenueDetailPage } from "@/components/venue-detail-page";
 import { venues, getVenueBySlug } from "@/lib/venues";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/config";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${venue.name} — Private Events`,
     description: `${venue.description.slice(0, 155)}...`,
-    alternates: { canonical: `https://www.friendsbarnashville.com/private-events/${slug}` },
+    alternates: { canonical: `${SITE_URL}/private-events/${slug}` },
   };
 }
 

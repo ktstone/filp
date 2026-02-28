@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 
@@ -164,7 +165,7 @@ export function FoodSection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-[#0f0f0f] px-6 py-20">
+    <section className="relative overflow-hidden bg-honky-bg-deep px-6 py-20">
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-gradient-to-l from-honky-bg/50 via-transparent to-transparent" />
 
@@ -267,13 +268,13 @@ export function FoodSection() {
           </div>
 
           {/* View Full Menu link */}
-          <a
+          <Link
             href={menu.menuLink}
             className="mt-2 flex items-center gap-2 text-base font-bold tracking-wider text-honky-red uppercase transition-colors hover:text-honky-red/80"
           >
             View Full Menu
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

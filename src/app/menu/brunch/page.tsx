@@ -2,12 +2,13 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { MenuPage, type MenuPageData } from "@/components/menu-page";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Weekend Brunch Menu",
   description:
     "Mornings in Low Places. Giant cinnamon rolls, biscuits, mimosa towers, and all the Southern brunch favorites. 10AM\u20132PM.",
-  alternates: { canonical: "https://www.friendsbarnashville.com/menu/brunch" },
+  alternates: { canonical: `${SITE_URL}/menu/brunch` },
 };
 
 const menuData: MenuPageData = {

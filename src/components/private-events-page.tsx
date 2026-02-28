@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Users, ArrowRight, Sparkles, Mail, Phone, MapPin, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
 import { venues, DEFAULT_BOOKING_URL, type Venue } from "@/lib/venues";
-import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
+import { ShaderOverlay, DefaultAurora, DefaultLensFlare } from "@/components/shader-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Filters                                                                    */
@@ -106,10 +107,10 @@ function FeaturedCard({ venue, index }: { venue: Venue; index: number }) {
             asChild
             className="h-12 rounded-lg bg-honky-red px-8 text-sm font-semibold tracking-wider text-white uppercase shadow-[0_0_20px_rgba(239,72,80,0.3)] transition-all hover:bg-honky-red/90 hover:shadow-[0_0_30px_rgba(239,72,80,0.5)]"
           >
-            <a href={`/private-events/${venue.slug}`}>
+            <Link href={`/private-events/${venue.slug}`}>
               Learn More
               <ArrowRight className="ml-2 h-4 w-4" />
-            </a>
+            </Link>
           </Button>
           <Button
             asChild
@@ -142,7 +143,7 @@ function VenueCard({ venue, index }: { venue: Venue; index: number }) {
       style={{ transitionDelay: `${index * 80}ms` }}
     >
       {/* Image */}
-      <a href={`/private-events/${venue.slug}`} className="relative block h-48 shrink-0 overflow-hidden">
+      <Link href={`/private-events/${venue.slug}`} className="relative block h-48 shrink-0 overflow-hidden">
         <Image
           src={venue.image}
           alt={venue.name}
@@ -166,14 +167,14 @@ function VenueCard({ venue, index }: { venue: Venue; index: number }) {
             </span>
           </div>
         </div>
-      </a>
+      </Link>
 
       <div className="relative flex flex-1 flex-col p-6 md:p-8">
         {/* Venue name */}
         <h3 className="mb-3 font-heading text-xl font-black text-white uppercase md:text-2xl">
-          <a href={`/private-events/${venue.slug}`} className="transition-colors hover:text-white/80">
+          <Link href={`/private-events/${venue.slug}`} className="transition-colors hover:text-white/80">
             {venue.name}
-          </a>
+          </Link>
         </h3>
 
         <CapacityBar capacity={venue.capacity} />
@@ -185,13 +186,13 @@ function VenueCard({ venue, index }: { venue: Venue; index: number }) {
 
         {/* CTAs */}
         <div className="mt-6 flex items-center gap-4">
-          <a
+          <Link
             href={`/private-events/${venue.slug}`}
             className="group/btn flex items-center gap-2 text-sm font-semibold tracking-wider text-honky-red uppercase transition-colors hover:text-white"
           >
             Learn More
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover/btn:translate-x-1" />
-          </a>
+          </Link>
           <span className="text-white/10">|</span>
           <a
             href={venue.bookingUrl || DEFAULT_BOOKING_URL}
@@ -246,8 +247,8 @@ export function PrivateEventsPage() {
 
         {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={63} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={63} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
         <div className="relative z-10 mx-auto w-full max-w-[1280px]">
@@ -299,10 +300,10 @@ export function PrivateEventsPage() {
               variant="outline"
               className="h-12 rounded-lg border-2 border-white/20 bg-transparent px-6 text-sm font-semibold tracking-wider text-white uppercase backdrop-blur-sm hover:bg-white/5 hover:text-white"
             >
-              <a href="/docs/FILP_Private_Events.pdf" download>
+              <Link href="/docs/FILP_Private_Events.pdf" download>
                 <Download className="h-4 w-4" />
                 Download Event Guide
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
@@ -388,8 +389,8 @@ export function PrivateEventsPage() {
 
         {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={7} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={7} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
         <div className="relative mx-auto flex max-w-[800px] flex-col items-center text-center">

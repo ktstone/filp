@@ -3,140 +3,19 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Music, Clock, MapPin, ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
-import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
-
-/* -------------------------------------------------------------------------- */
-/*  Types & helpers                                                            */
-/* -------------------------------------------------------------------------- */
-
-interface ScheduleEntry {
-  Date: string;
-  "Date Time": string;
-  "Time Label": string;
-  Name: string;
-  Venue: string;
-}
-
-interface ShowSlot {
-  timeLabel: string;
-  dateTime: Date;
-  artists: { name: string; venue: string }[];
-}
-
-interface DaySchedule {
-  dateKey: string;
-  date: Date;
-  slots: ShowSlot[];
-}
-
-type VenueFilter = "all" | "Honky Tonk" | "Oasis";
-
-function parseDate(dateTimeStr: string): Date {
-  // "3/1/2026 14:00:00" → Date
-  const [datePart, timePart] = dateTimeStr.split(" ");
-  const [month, day, year] = datePart.split("/").map(Number);
-  const [hours, minutes] = (timePart || "0:0").split(":").map(Number);
-  return new Date(year, month - 1, day, hours, minutes);
-}
-
-function formatDayOfWeek(date: Date): string {
-  return date.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
-}
-
-function formatMonthDay(date: Date): string {
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-}
-
-function getDayNumber(date: Date): number {
-  return date.getDate();
-}
-
-function isSameDay(a: Date, b: Date): boolean {
-  return (
-    a.getFullYear() === b.getFullYear() &&
-    a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate()
-  );
-}
-
-/** Check if a show is currently live */
-function isShowLive(slot: ShowSlot, now: Date): boolean {
-  const timeLabel = slot.timeLabel.toLowerCase();
-  // Parse end time from time label like "2 pm - 6 pm"
-  const parts = timeLabel.split("-").map((s) => s.trim());
-  if (parts.length !== 2) return false;
-
-  const startDt = slot.dateTime;
-
-  // Parse end time
-  const endMatch = parts[1].match(/(\d+)(?::(\d+))?\s*(am|pm)/i);
-  if (!endMatch) return false;
-  let endHour = parseInt(endMatch[1]);
-  const endMin = endMatch[2] ? parseInt(endMatch[2]) : 0;
-  const endAmPm = endMatch[3].toLowerCase();
-
-  if (endAmPm === "pm" && endHour !== 12) endHour += 12;
-  if (endAmPm === "am" && endHour === 12) endHour = 0;
-
-  // Build end date — if end hour < start hour, it's next day
-  const endDt = new Date(startDt);
-  endDt.setHours(endHour, endMin, 0, 0);
-  if (endDt <= startDt) {
-    endDt.setDate(endDt.getDate() + 1);
-  }
-
-  return now >= startDt && now < endDt;
-}
-
-/* -------------------------------------------------------------------------- */
-/*  Data processing                                                            */
-/* -------------------------------------------------------------------------- */
-
-function processSchedule(entries: ScheduleEntry[]): DaySchedule[] {
-  // Group by date string → then by time slot
-  const dayMap = new Map<string, Map<string, { dateTime: Date; artists: { name: string; venue: string }[] }>>();
-
-  for (const entry of entries) {
-    const dt = parseDate(entry["Date Time"]);
-    const dateKey = `${dt.getFullYear()}-${dt.getMonth()}-${dt.getDate()}`;
-
-    if (!dayMap.has(dateKey)) {
-      dayMap.set(dateKey, new Map());
-    }
-    const slotMap = dayMap.get(dateKey)!;
-    const slotKey = entry["Time Label"];
-
-    if (!slotMap.has(slotKey)) {
-      slotMap.set(slotKey, { dateTime: dt, artists: [] });
-    }
-    slotMap.get(slotKey)!.artists.push({
-      name: entry.Name,
-      venue: entry.Venue,
-    });
-  }
-
-  // Convert to sorted array
-  const days: DaySchedule[] = [];
-  for (const [dateKey, slotMap] of dayMap) {
-    const slots: ShowSlot[] = [];
-    for (const [timeLabel, data] of slotMap) {
-      slots.push({ timeLabel, dateTime: data.dateTime, artists: data.artists });
-    }
-    // Sort slots by time
-    slots.sort((a, b) => a.dateTime.getTime() - b.dateTime.getTime());
-
-    const firstSlot = slots[0];
-    days.push({
-      dateKey,
-      date: new Date(firstSlot.dateTime.getFullYear(), firstSlot.dateTime.getMonth(), firstSlot.dateTime.getDate()),
-      slots,
-    });
-  }
-
-  // Sort days chronologically
-  days.sort((a, b) => a.date.getTime() - b.date.getTime());
-  return days;
-}
+import { ShaderOverlay, DefaultAurora, DefaultLensFlare } from "@/components/shader-overlay";
+import {
+  type ScheduleEntry,
+  type ShowSlot,
+  type DaySchedule,
+  type VenueFilter,
+  isSameDay,
+  isShowLive,
+  processSchedule,
+  formatDayOfWeek,
+  formatMonthDay,
+  getDayNumber,
+} from "@/lib/schedule";
 
 /* -------------------------------------------------------------------------- */
 /*  Date picker                                                                */
@@ -428,8 +307,8 @@ export function EventsPage() {
 
         {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={42} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={42} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
         <div className="relative z-10 mx-auto w-full max-w-[1280px]">

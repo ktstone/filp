@@ -1,116 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Clock, ArrowRight, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
-
-/* -------------------------------------------------------------------------- */
-/*  Types & helpers                                                            */
-/* -------------------------------------------------------------------------- */
-
-interface ScheduleEntry {
-  Date: string;
-  "Date Time": string;
-  "Time Label": string;
-  Name: string;
-  Venue: string;
-}
-
-interface ShowSlot {
-  timeLabel: string;
-  dateTime: Date;
-  artists: { name: string; venue: string }[];
-}
-
-function parseDate(dateTimeStr: string): Date {
-  const [datePart, timePart] = dateTimeStr.split(" ");
-  const [month, day, year] = datePart.split("/").map(Number);
-  const [hours, minutes] = (timePart || "0:0").split(":").map(Number);
-  return new Date(year, month - 1, day, hours, minutes);
-}
-
-function isSameDay(a: Date, b: Date): boolean {
-  return (
-    a.getFullYear() === b.getFullYear() &&
-    a.getMonth() === b.getMonth() &&
-    a.getDate() === b.getDate()
-  );
-}
-
-function isShowLive(slot: ShowSlot, now: Date): boolean {
-  const parts = slot.timeLabel.toLowerCase().split("-").map((s) => s.trim());
-  if (parts.length !== 2) return false;
-
-  const startDt = slot.dateTime;
-  const endMatch = parts[1].match(/(\d+)(?::(\d+))?\s*(am|pm)/i);
-  if (!endMatch) return false;
-  let endHour = parseInt(endMatch[1]);
-  const endMin = endMatch[2] ? parseInt(endMatch[2]) : 0;
-  const endAmPm = endMatch[3].toLowerCase();
-  if (endAmPm === "pm" && endHour !== 12) endHour += 12;
-  if (endAmPm === "am" && endHour === 12) endHour = 0;
-
-  const endDt = new Date(startDt);
-  endDt.setHours(endHour, endMin, 0, 0);
-  if (endDt <= startDt) endDt.setDate(endDt.getDate() + 1);
-
-  return now >= startDt && now < endDt;
-}
-
-type VenueFilter = "all" | "Honky Tonk" | "Oasis";
-
-/* -------------------------------------------------------------------------- */
-/*  Process raw entries into slots for a single day                            */
-/* -------------------------------------------------------------------------- */
-
-function getSlotsForDay(entries: ScheduleEntry[], targetDate: Date): ShowSlot[] {
-  const slotMap = new Map<string, ShowSlot>();
-
-  for (const entry of entries) {
-    const dt = parseDate(entry["Date Time"]);
-    if (!isSameDay(dt, targetDate)) continue;
-
-    const key = entry["Time Label"];
-    if (!slotMap.has(key)) {
-      slotMap.set(key, { timeLabel: key, dateTime: dt, artists: [] });
-    }
-    slotMap.get(key)!.artists.push({ name: entry.Name, venue: entry.Venue });
-  }
-
-  return Array.from(slotMap.values()).sort(
-    (a, b) => a.dateTime.getTime() - b.dateTime.getTime(),
-  );
-}
-
-/** Find the nearest day with shows (today or next available) */
-function findNearestDay(entries: ScheduleEntry[]): Date | null {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const dates = new Set<string>();
-  const dateMap = new Map<string, Date>();
-
-  for (const entry of entries) {
-    const dt = parseDate(entry["Date Time"]);
-    const key = `${dt.getFullYear()}-${dt.getMonth()}-${dt.getDate()}`;
-    if (!dates.has(key)) {
-      dates.add(key);
-      dateMap.set(key, new Date(dt.getFullYear(), dt.getMonth(), dt.getDate()));
-    }
-  }
-
-  const sortedDates = Array.from(dateMap.values()).sort(
-    (a, b) => a.getTime() - b.getTime(),
-  );
-
-  // Today or nearest future date
-  for (const d of sortedDates) {
-    if (d >= today) return d;
-  }
-  // Fallback to the latest date if all are past
-  return sortedDates[sortedDates.length - 1] ?? null;
-}
+import {
+  type ScheduleEntry,
+  type ShowSlot,
+  type VenueFilter,
+  isSameDay,
+  isShowLive,
+  getSlotsForDay,
+  findNearestDay,
+} from "@/lib/schedule";
 
 /* -------------------------------------------------------------------------- */
 /*  Timeline with reveal (separate component so hook mounts with DOM)          */
@@ -350,10 +253,10 @@ export function LineupSection() {
           variant="outline"
           className="h-12 rounded-lg border-2 border-white/15 bg-transparent px-8 text-sm font-semibold tracking-wider text-white uppercase backdrop-blur-sm hover:bg-white/5 hover:text-white"
         >
-          <a href="/events">
+          <Link href="/events">
             View Full Schedule
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </Button>
       </div>
     </section>

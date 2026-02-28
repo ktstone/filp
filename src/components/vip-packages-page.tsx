@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Heart,
   Beer,
@@ -24,7 +25,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
-import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
+import { ShaderOverlay, DefaultAurora, DefaultLensFlare } from "@/components/shader-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Package card                                                               */
@@ -123,10 +124,10 @@ function PackageCard({
               variant="outline"
               className="h-12 rounded-lg border-2 border-white/20 bg-transparent px-6 text-sm font-semibold tracking-wider text-white uppercase backdrop-blur-sm hover:bg-white/5 hover:text-white"
             >
-              <a href={pdfUrl} download>
+              <Link href={pdfUrl} download>
                 <Download className="h-4 w-4" />
                 Download PDF
-              </a>
+              </Link>
             </Button>
           )}
         </div>
@@ -263,11 +264,16 @@ function InquiryForm() {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    const params = new URLSearchParams();
+    formData.forEach((value, key) => {
+      if (typeof value === "string") params.append(key, value);
+    });
+
     try {
       const res = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+        body: params.toString(),
       });
 
       if (res.ok) {
@@ -459,6 +465,7 @@ function InquiryForm() {
                 name="date"
                 type="date"
                 required
+                min={new Date().toISOString().split("T")[0]}
                 className={`${inputClasses} pl-11`}
               />
             </div>
@@ -610,8 +617,8 @@ export function VipPackagesPage() {
 
         {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={81} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={81} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
         <div className="relative z-10 mx-auto w-full max-w-[1280px]">

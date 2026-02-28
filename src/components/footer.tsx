@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
 
 /* Simple X/Twitter icon — Lucide doesn't include the current X logo */
@@ -72,19 +73,29 @@ export function Footer() {
                 { label: "Careers", href: "/careers" },
                 { label: "Gift Cards", href: "https://friendsbarnashville.cardfoundry.com", external: true },
                 { label: "Shop", href: "https://shop.friendsbarnashville.com/", external: true },
-              ].map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  {...("external" in link && link.external
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  className="flex items-center gap-2 text-sm font-thin text-[#6b7280] transition-colors hover:text-white"
-                >
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-honky-red/50" />
-                  {link.label}
-                </a>
-              ))}
+              ].map((link) =>
+                "external" in link && link.external ? (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm font-thin text-[#6b7280] transition-colors hover:text-white"
+                  >
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-honky-red/50" />
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="flex items-center gap-2 text-sm font-thin text-[#6b7280] transition-colors hover:text-white"
+                  >
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-honky-red/50" />
+                    {link.label}
+                  </Link>
+                )
+              )}
             </div>
           </div>
 
@@ -142,24 +153,24 @@ export function Footer() {
             &copy; 2026 Friends In Low Places. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a
+            <Link
               href="/privacy-policy"
               className="text-sm font-thin text-[#4b5563] transition-colors hover:text-white"
             >
               Privacy Policy
-            </a>
-            <a
+            </Link>
+            <Link
               href="/terms-of-service"
               className="text-sm font-thin text-[#4b5563] transition-colors hover:text-white"
             >
               Terms of Service
-            </a>
-            <a
+            </Link>
+            <Link
               href="/accessibility"
               className="text-sm font-thin text-[#4b5563] transition-colors hover:text-white"
             >
               Accessibility
-            </a>
+            </Link>
           </div>
         </div>
       </div>

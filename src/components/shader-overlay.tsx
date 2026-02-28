@@ -14,7 +14,8 @@ const ShaderClient = dynamic(
   { ssr: false },
 );
 
-export { Aurora, LensFlare } from "shaders/react";
+import { Aurora, LensFlare } from "shaders/react";
+export { Aurora, LensFlare };
 
 /**
  * Generic wrapper — renders children inside a client-only <Shader>,
@@ -26,4 +27,14 @@ export function ShaderOverlay({ children }: { children: ReactNode }) {
       <ShaderClient>{children}</ShaderClient>
     </div>
   );
+}
+
+export function DefaultAurora({ seed }: { seed: number }) {
+  return (
+    <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={seed} speed={6.7} waviness={0} />
+  );
+}
+
+export function DefaultLensFlare() {
+  return <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />;
 }

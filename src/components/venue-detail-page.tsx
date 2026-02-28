@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Users,
   ArrowLeft,
@@ -16,7 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
 import { type Venue, DEFAULT_BOOKING_URL, getLocationColor, venues } from "@/lib/venues";
-import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
+import { ShaderOverlay, DefaultAurora, DefaultLensFlare } from "@/components/shader-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Hero                                                                       */
@@ -41,19 +42,19 @@ function VenueHero({ venue }: { venue: Venue }) {
 
       {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={73} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={73} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
       <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6 pb-12 md:pb-16">
         {/* Back link */}
-        <a
+        <Link
           href="/private-events"
           className="mb-10 flex w-fit items-center gap-2 text-sm font-medium text-white/50 transition-colors hover:text-white"
         >
           <ArrowLeft className="h-4 w-4" />
           All Spaces
-        </a>
+        </Link>
 
         {/* Location badge */}
         <div className={`mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-sm ${venue.accentColor}`}>
@@ -269,6 +270,8 @@ function GalleryLightbox({
   onPrev: () => void;
   onNext: () => void;
 }) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -279,6 +282,7 @@ function GalleryLightbox({
   );
 
   useEffect(() => {
+    closeButtonRef.current?.focus();
     document.addEventListener("keydown", handleKeyDown);
     document.body.style.overflow = "hidden";
     return () => {
@@ -296,6 +300,7 @@ function GalleryLightbox({
       onClick={onClose}
     >
       <button
+        ref={closeButtonRef}
         onClick={onClose}
         aria-label="Close gallery"
         className="absolute top-6 right-6 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
@@ -465,7 +470,7 @@ function FloorPlanLightbox({
 function OtherSpaceCard({ venue, index }: { venue: Venue; index: number }) {
   const { ref, visible } = useReveal<HTMLAnchorElement>();
   return (
-    <a
+    <Link
       ref={ref}
       key={venue.slug}
       href={`/private-events/${venue.slug}`}
@@ -493,7 +498,7 @@ function OtherSpaceCard({ venue, index }: { venue: Venue; index: number }) {
           <span>{venue.capacity} guests</span>
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 
@@ -529,13 +534,13 @@ function OtherSpaces({ currentSlug, location }: { currentSlug: string; location:
         </div>
 
         <div className="mt-10 text-center">
-          <a
+          <Link
             href="/private-events"
             className="inline-flex items-center gap-2 text-sm font-semibold tracking-wider text-honky-red uppercase transition-colors hover:text-white"
           >
             <ArrowLeft className="h-4 w-4" />
             View All Spaces
-          </a>
+          </Link>
         </div>
       </div>
     </section>
@@ -555,8 +560,8 @@ function BookingCta({ venue }: { venue: Venue }) {
 
       {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={19} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={19} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
       <div
@@ -626,7 +631,7 @@ function BookingCta({ venue }: { venue: Venue }) {
 
 export function VenueDetailPage({ venue }: { venue: Venue }) {
   return (
-    <div className="min-h-screen bg-[#181111]">
+    <div className="min-h-screen bg-honky-bg-warm">
       <VenueHero venue={venue} />
       <VenueDescription venue={venue} />
       <VenueGallery venue={venue} />

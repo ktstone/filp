@@ -1,12 +1,13 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "Privacy Policy for Friends In Low Places Bar & Honky Tonk. Learn how we collect, use, and protect your personal information.",
-  alternates: { canonical: "https://www.friendsbarnashville.com/privacy-policy" },
+  alternates: { canonical: `${SITE_URL}/privacy-policy` },
 };
 
 const sections = [

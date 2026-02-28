@@ -1,12 +1,13 @@
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { VipPackagesPage } from "@/components/vip-packages-page";
+import { SITE_URL } from "@/lib/config";
 
 export const metadata = {
   title: "VIP Packages",
   description:
     "Bachelor and bachelorette party packages at Friends In Low Places on Broadway in Nashville. Live music, cold drinks, and VIP treatment for your celebration.",
-  alternates: { canonical: "https://www.friendsbarnashville.com/vip-packages" },
+  alternates: { canonical: `${SITE_URL}/vip-packages` },
 };
 
 export default function Page() {

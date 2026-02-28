@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
-import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
+import { ShaderOverlay, DefaultAurora, DefaultLensFlare } from "@/components/shader-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Perks                                                                      */
@@ -96,8 +96,8 @@ function ReservationsHero() {
 
       {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={35} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={35} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
       <div className="relative mb-8 inline-flex items-center gap-2 rounded-full border border-honky-red/30 bg-white/5 px-4 py-2 backdrop-blur-sm">
@@ -416,6 +416,7 @@ function ReservationForm({
 }) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const [reservationType, setReservationType] = useState<ReservationType>(initialType);
 
   function handleTypeChange(type: ReservationType) {
@@ -426,19 +427,29 @@ function ReservationForm({
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
+    setSubmitError(false);
 
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    const params = new URLSearchParams();
+    formData.forEach((value, key) => {
+      if (typeof value === "string") params.append(key, value);
+    });
+
     try {
-      await fetch("/__forms.html", {
+      const res = await fetch("/__forms.html", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+        body: params.toString(),
       });
-      setSubmitted(true);
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        setSubmitError(true);
+      }
     } catch {
-      setSubmitted(true);
+      setSubmitError(true);
     } finally {
       setSubmitting(false);
     }
@@ -596,6 +607,7 @@ function ReservationForm({
             name="date"
             type="date"
             required
+            min={new Date().toISOString().split("T")[0]}
             className={`${inputClasses} [color-scheme:dark]`}
           />
         </div>
@@ -661,6 +673,18 @@ function ReservationForm({
         further messaging.
       </p>
 
+      {/* Error message */}
+      {submitError && (
+        <div className="flex items-center gap-2 rounded-lg bg-honky-red/10 px-4 py-3">
+          <svg className="h-4 w-4 shrink-0 text-honky-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+            <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <p className="text-sm text-honky-red">
+            Something went wrong. Please try again or text us at 615-549-9297.
+          </p>
+        </div>
+      )}
+
       {/* Submit */}
       <Button
         type="submit"
@@ -721,7 +745,7 @@ export function VipReservationsPage() {
   const [formType, setFormType] = useState<ReservationType>("vip");
 
   return (
-    <div className="min-h-screen bg-[#181111]">
+    <div className="min-h-screen bg-honky-bg-warm">
       <ReservationsHero />
       <PerksSection />
       <VipGallery />

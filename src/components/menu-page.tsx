@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import {
   Wine,
@@ -17,7 +18,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
-import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
+import { ShaderOverlay, DefaultAurora, DefaultLensFlare } from "@/components/shader-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Types                                                                      */
@@ -119,8 +120,8 @@ function MenuHero({ title, subtitle }: { title: string; subtitle: string }) {
 
       {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={27} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={27} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
       {/* Content */}
@@ -168,13 +169,13 @@ const menuTypes = [
 
 function MenuTypeSwitcher({ active }: { active: string }) {
   return (
-    <div className="border-b border-[#392829] bg-[#181111]">
+    <div className="border-b border-[#392829] bg-honky-bg-warm">
       <div className="mx-auto flex max-w-[1280px] items-center justify-center px-6">
         <div className="flex gap-1 overflow-x-auto py-3">
           {menuTypes.map(({ key, label, href }) => {
             const isActive = active === key;
             return (
-              <a
+              <Link
                 key={key}
                 href={href}
                 className={`shrink-0 rounded-lg px-5 py-2.5 text-sm font-semibold tracking-wider uppercase transition-all ${
@@ -184,7 +185,7 @@ function MenuTypeSwitcher({ active }: { active: string }) {
                 }`}
               >
                 {label}
-              </a>
+              </Link>
             );
           })}
         </div>
@@ -258,7 +259,7 @@ function SectionHeader({
 
 function FeaturedCard({ item }: { item: FeaturedItem }) {
   return (
-    <div className="mb-8 flex flex-col overflow-hidden rounded-2xl border border-[#392829] bg-[#271c1c] md:flex-row">
+    <div className="mb-8 flex flex-col overflow-hidden rounded-2xl border border-[#392829] bg-honky-card-warm md:flex-row">
       {/* Image */}
       <div className="relative h-64 w-full shrink-0 md:h-auto md:w-[40%]">
         <Image src={item.image} alt={item.name} fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover" />
@@ -303,7 +304,7 @@ function FeaturedCard({ item }: { item: FeaturedItem }) {
 
 function RegularCard({ item }: { item: RegularItem }) {
   return (
-    <div className="rounded-xl border border-[#392829] bg-[#271c1c] p-5">
+    <div className="rounded-xl border border-[#392829] bg-honky-card-warm p-5">
       <div className="flex items-start justify-between gap-3">
         <h3 className="font-heading text-xl font-bold text-white">{item.name}</h3>
         <span className="shrink-0 font-heading text-lg font-bold text-honky-red">
@@ -333,7 +334,7 @@ function RegularCard({ item }: { item: RegularItem }) {
 
 function ListCard({ items }: { items: ListItem[] }) {
   return (
-    <div className="rounded-2xl border border-[#392829] bg-[#271c1c] p-6">
+    <div className="rounded-2xl border border-[#392829] bg-honky-card-warm p-6">
       <div className="grid gap-0 sm:grid-cols-2 sm:gap-x-8">
         {items.map((item, i) => (
           <div
@@ -374,7 +375,7 @@ function ListCard({ items }: { items: ListItem[] }) {
 
 function ImageCardComponent({ item }: { item: ImageCard }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-[#392829] bg-[#271c1c]">
+    <div className="overflow-hidden rounded-2xl border border-[#392829] bg-honky-card-warm">
       {/* Image */}
       <div className="relative h-48">
         <Image src={item.image} alt={item.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
@@ -407,7 +408,7 @@ function ImageCardComponent({ item }: { item: ImageCard }) {
 
 function StackedTextCard({ card }: { card: StackedCard }) {
   return (
-    <div className="rounded-2xl border border-[#392829] bg-[#271c1c] p-6">
+    <div className="rounded-2xl border border-[#392829] bg-honky-card-warm p-6">
       {card.items.map((item, i) => (
         <div
           key={item.name}
@@ -489,15 +490,15 @@ function CtaBanner() {
   const { ref, visible } = useReveal();
 
   return (
-    <section className="relative overflow-hidden border-t border-white/[0.06] bg-[#181111] px-6 py-24">
+    <section className="relative overflow-hidden border-t border-white/[0.06] bg-honky-bg-warm px-6 py-24">
       {/* Subtle radial glows */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(239,70,79,0.08),transparent_60%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(94,196,182,0.04),transparent_50%)]" />
 
       {/* Shader overlay */}
       <ShaderOverlay>
-        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={46} speed={6.7} waviness={0} />
-        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+        <DefaultAurora seed={46} />
+        <DefaultLensFlare />
       </ShaderOverlay>
 
       <div
@@ -526,20 +527,20 @@ function CtaBanner() {
             asChild
             className="h-14 rounded-lg bg-honky-red px-8 text-base font-bold tracking-wider text-white uppercase shadow-[0_0_30px_rgba(239,72,80,0.25)] hover:bg-honky-red/90"
           >
-            <a href="/vip-reservations">
+            <Link href="/vip-reservations">
               <Star className="h-4 w-4" />
               VIP Reservations
-            </a>
+            </Link>
           </Button>
           <Button
             asChild
             variant="outline"
             className="h-14 rounded-lg border-2 border-white/15 bg-white/5 px-8 text-base font-bold tracking-wider text-white uppercase backdrop-blur-sm hover:bg-white/10 hover:text-white"
           >
-            <a href="/vip-packages">
+            <Link href="/vip-packages">
               <Sparkles className="h-4 w-4" />
               VIP Packages
-            </a>
+            </Link>
           </Button>
         </div>
       </div>
@@ -577,7 +578,7 @@ export function MenuPage({ data }: { data: MenuPageData }) {
   }, [data.sections]);
 
   return (
-    <div className="min-h-screen bg-[#181111]">
+    <div className="min-h-screen bg-honky-bg-warm">
       <MenuHero title={data.title} subtitle={data.subtitle} />
       <MenuTypeSwitcher active={data.menuType} />
       <CategoryNav sections={data.sections} activeId={activeSection} />
