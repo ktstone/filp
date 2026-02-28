@@ -21,10 +21,10 @@ const ShaderInner = dynamic(
   { ssr: false },
 );
 
-export function AuroraOverlay(props: AuroraProps) {
+export function AuroraOverlay({ intensity = 55, speed = -4.5, waviness = 1.2, ...props }: AuroraProps) {
   return (
-    <div className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen opacity-60">
-      <ShaderInner {...props} />
+    <div className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen opacity-80">
+      <ShaderInner intensity={intensity} speed={speed} waviness={waviness} {...props} />
     </div>
   );
 }
