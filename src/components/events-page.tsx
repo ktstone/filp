@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Music, Clock, MapPin, ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
-import { AuroraOverlay } from "@/components/aurora-overlay";
+import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Types & helpers                                                            */
@@ -427,21 +427,10 @@ export function EventsPage() {
         />
 
         {/* Shader overlay */}
-        <AuroraOverlay
-          blendMode="linearDodge"
-          colorA="#d9d9d9"
-          colorB="#ffdfc2"
-          colorC="#5d67c2"
-          colorSpace="oklab"
-          curtainCount={3}
-          height={72}
-          intensity={36}
-          opacity={0.71}
-          rayDensity={7}
-          seed={42}
-          speed={-2.8}
-          waviness={0}
-        />
+      <ShaderOverlay>
+        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={42} speed={6.7} waviness={0} />
+        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+      </ShaderOverlay>
 
         <div className="relative z-10 mx-auto w-full max-w-[1280px]">
           {/* Label */}

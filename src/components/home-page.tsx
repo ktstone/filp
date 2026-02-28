@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
 import { LineupSection } from "@/components/lineup-section";
 import { FoodSection } from "@/components/food-section";
-import { AuroraOverlay } from "@/components/aurora-overlay";
+import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Hero                                                                       */
@@ -41,21 +41,10 @@ function Hero() {
       </div>
 
       {/* Shader overlay */}
-      <AuroraOverlay
-        blendMode="linearDodge"
-        colorA="#d9d9d9"
-        colorB="#ffdfc2"
-        colorC="#5d67c2"
-        colorSpace="oklab"
-        curtainCount={3}
-        height={72}
-        intensity={36}
-        opacity={0.71}
-        rayDensity={7}
-        seed={14}
-        speed={-2.8}
-        waviness={0}
-      />
+      <ShaderOverlay>
+        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={14} speed={6.7} waviness={0} />
+        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+      </ShaderOverlay>
 
       {/* Scroll indicator */}
       <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 opacity-60">
@@ -453,21 +442,10 @@ function VipSignup() {
       <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-transparent to-[#0a0a0a]" />
 
       {/* Shader overlay */}
-      <AuroraOverlay
-        blendMode="linearDodge"
-        colorA="#d9d9d9"
-        colorB="#ffdfc2"
-        colorC="#5d67c2"
-        colorSpace="oklab"
-        curtainCount={3}
-        height={72}
-        intensity={36}
-        opacity={0.71}
-        rayDensity={7}
-        seed={91}
-        speed={-2.8}
-        waviness={0}
-      />
+      <ShaderOverlay>
+        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={91} speed={6.7} waviness={0} />
+        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+      </ShaderOverlay>
 
       {/* Content */}
       <div

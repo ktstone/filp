@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
-import { AuroraOverlay } from "@/components/aurora-overlay";
+import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Types                                                                      */
@@ -118,21 +118,10 @@ function MenuHero({ title, subtitle }: { title: string; subtitle: string }) {
       </div>
 
       {/* Shader overlay */}
-      <AuroraOverlay
-        blendMode="linearDodge"
-        colorA="#d9d9d9"
-        colorB="#ffdfc2"
-        colorC="#5d67c2"
-        colorSpace="oklab"
-        curtainCount={3}
-        height={72}
-        intensity={36}
-        opacity={0.71}
-        rayDensity={7}
-        seed={27}
-        speed={-2.8}
-        waviness={0}
-      />
+      <ShaderOverlay>
+        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={27} speed={6.7} waviness={0} />
+        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+      </ShaderOverlay>
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center">
@@ -506,21 +495,10 @@ function CtaBanner() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(94,196,182,0.04),transparent_50%)]" />
 
       {/* Shader overlay */}
-      <AuroraOverlay
-        blendMode="linearDodge"
-        colorA="#d9d9d9"
-        colorB="#ffdfc2"
-        colorC="#5d67c2"
-        colorSpace="oklab"
-        curtainCount={3}
-        height={72}
-        intensity={36}
-        opacity={0.71}
-        rayDensity={7}
-        seed={46}
-        speed={-2.8}
-        waviness={0}
-      />
+      <ShaderOverlay>
+        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={46} speed={6.7} waviness={0} />
+        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+      </ShaderOverlay>
 
       <div
         ref={ref}

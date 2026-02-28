@@ -6,7 +6,7 @@ import { Users, ArrowRight, Sparkles, Mail, Phone, MapPin, Download } from "luci
 import { Button } from "@/components/ui/button";
 import { useReveal } from "@/hooks/use-reveal";
 import { venues, DEFAULT_BOOKING_URL, type Venue } from "@/lib/venues";
-import { AuroraOverlay } from "@/components/aurora-overlay";
+import { ShaderOverlay, Aurora, LensFlare } from "@/components/shader-overlay";
 
 /* -------------------------------------------------------------------------- */
 /*  Filters                                                                    */
@@ -245,21 +245,10 @@ export function PrivateEventsPage() {
         />
 
         {/* Shader overlay */}
-        <AuroraOverlay
-          blendMode="linearDodge"
-          colorA="#d9d9d9"
-          colorB="#ffdfc2"
-          colorC="#5d67c2"
-          colorSpace="oklab"
-          curtainCount={3}
-          height={72}
-          intensity={36}
-          opacity={0.71}
-          rayDensity={7}
-          seed={63}
-          speed={-2.8}
-          waviness={0}
-        />
+      <ShaderOverlay>
+        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={63} speed={6.7} waviness={0} />
+        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+      </ShaderOverlay>
 
         <div className="relative z-10 mx-auto w-full max-w-[1280px]">
           {/* Label */}
@@ -398,21 +387,10 @@ export function PrivateEventsPage() {
         <div className="absolute inset-0 border-y border-white/5" />
 
         {/* Shader overlay */}
-        <AuroraOverlay
-          blendMode="linearDodge"
-          colorA="#d9d9d9"
-          colorB="#ffdfc2"
-          colorC="#5d67c2"
-          colorSpace="oklab"
-          curtainCount={3}
-          height={72}
-          intensity={36}
-          opacity={0.71}
-          rayDensity={7}
-          seed={7}
-          speed={-2.8}
-          waviness={0}
-        />
+      <ShaderOverlay>
+        <Aurora blendMode="linearDodge" colorA="#d9d9d9" colorB="#ffdfc2" colorC="#5d67c2" colorSpace="oklab" curtainCount={3} height={48} intensity={53} opacity={0.71} rayDensity={73} seed={7} speed={6.7} waviness={0} />
+        <LensFlare ghostChroma={0.64} ghostIntensity={0.79} haloChroma={0.57} haloIntensity={0.36} intensity={0.2} />
+      </ShaderOverlay>
 
         <div className="relative mx-auto flex max-w-[800px] flex-col items-center text-center">
           {/* Icon */}
