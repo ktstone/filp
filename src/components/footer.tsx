@@ -154,6 +154,12 @@ export function Footer() {
             >
               Terms of Service
             </a>
+            <a
+              href="/accessibility"
+              className="text-sm font-thin text-[#4b5563] transition-colors hover:text-white"
+            >
+              Accessibility
+            </a>
           </div>
         </div>
       </div>
