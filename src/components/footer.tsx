@@ -55,6 +55,19 @@ export function Footer() {
                 <XIcon className="h-[16px] w-[16px]" />
               </a>
             </div>
+            <a
+              href="https://www.opentable.com/restaurant/profile/1380574/reserve?rid=1380574&restref=1380574"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://www.opentable.com/restaurant-solutions/badge/ot/DC2-2024.png"
+                alt="OpenTable Diners' Choice 2024"
+                width={80}
+                height={80}
+              />
+            </a>
           </div>
 
           {/* Explore — 2-col on desktop */}

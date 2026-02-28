@@ -153,22 +153,6 @@ function ReservationsSection() {
                   famous Southern kitchen and signature cocktails while you
                   watch the show.
                 </p>
-
-                <a
-                  href="https://www.opentable.com/restaurant/profile/1380574/reserve?rid=1380574&restref=1380574"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 inline-block"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="https://www.opentable.com/restaurant-solutions/badge/ot/DC2-2024.png"
-                    alt="OpenTable Diners' Choice 2024"
-                    width={100}
-                    height={100}
-                    className="drop-shadow-[0_0_8px_rgba(239,70,79,0.3)]"
-                  />
-                </a>
               </div>
 
               <Button asChild className="mt-8 w-full rounded-lg bg-white py-4 text-sm font-semibold tracking-wider text-honky-bg uppercase hover:bg-white/90">
