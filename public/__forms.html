@@ -2,10 +2,13 @@
   Hidden form blueprint for Netlify Forms detection.
   Netlify parses static HTML at deploy time to register form schemas.
   This file is not linked from anywhere — it exists solely for form detection.
+  Every field name here MUST match the corresponding React component's inputs.
 -->
 <html>
 <head><title>Forms</title></head>
 <body>
+
+  <!-- VIP Packages inquiry (vip-packages-page.tsx) -->
   <form name="vip-inquiry" data-netlify="true" hidden>
     <input name="first-name" type="text" />
     <input name="last-name" type="text" />
@@ -17,5 +20,30 @@
     <select name="time"><option value=""></option></select>
     <textarea name="message"></textarea>
   </form>
+
+  <!-- VIP Reservations (vip-reservations-page.tsx) -->
+  <form name="vip-reservations" data-netlify="true" hidden>
+    <input name="reservation-type" type="text" />
+    <input name="first-name" type="text" />
+    <input name="last-name" type="text" />
+    <input name="email" type="email" />
+    <input name="phone" type="tel" />
+    <input name="party-size" type="number" />
+    <select name="location"><option value=""></option></select>
+    <input name="date" type="date" />
+    <select name="time"><option value=""></option></select>
+    <textarea name="message"></textarea>
+  </form>
+
+  <!-- Careers application (careers-page.tsx) -->
+  <form name="careers" data-netlify="true" enctype="multipart/form-data" hidden>
+    <input name="first-name" type="text" />
+    <input name="last-name" type="text" />
+    <input name="email" type="email" />
+    <input name="phone" type="tel" />
+    <select name="position"><option value=""></option></select>
+    <input name="resume" type="file" />
+  </form>
+
 </body>
 </html>
