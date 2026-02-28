@@ -278,9 +278,8 @@ export function LineupSection() {
             {isToday ? "Today\u2019s Lineup" : "Upcoming Shows"}
           </p>
           <h2 className="font-heading text-5xl font-black tracking-tight uppercase">
-            <span className="text-white">Who&apos;s </span>
-            <span className="neon-text font-heading" data-neon="Playing">
-              Playing
+            <span className="neon-text font-heading" data-neon="Who's Playing">
+              Who&apos;s Playing
             </span>
           </h2>
           {dateLabel && (

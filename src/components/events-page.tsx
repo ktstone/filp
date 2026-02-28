@@ -458,9 +458,8 @@ export function EventsPage() {
 
           {/* Heading */}
           <h1 className="animate-[fadeInUp_0.7s_ease-out_0.1s_both] font-heading text-5xl font-black text-white uppercase md:text-6xl lg:text-7xl">
-            Who&apos;s{" "}
-            <span className="neon-text font-heading" data-neon="Playing">
-              Playing
+            <span className="neon-text font-heading" data-neon="Who's Playing">
+              Who&apos;s Playing
             </span>
           </h1>
 

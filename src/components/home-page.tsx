@@ -140,8 +140,7 @@ function ReservationsSection() {
             Secure Your Spot
           </p>
           <h2 className="font-heading text-4xl font-black uppercase">
-            <span className="text-white">Plan Your </span>
-            <span className="neon-text font-heading" data-neon="Night">Night</span>
+            <span className="neon-text font-heading" data-neon="Night">Plan Your Night</span>
           </h2>
         </div>
 
@@ -260,8 +259,7 @@ function VirtualTour() {
             Explore the Venue
           </p>
           <h2 className="font-heading text-4xl font-black uppercase md:text-5xl">
-            <span className="text-white">Take a </span>
-            <span className="neon-text font-heading" data-neon="Tour">Tour</span>
+            <span className="neon-text font-heading" data-neon="Tour">Take a Tour</span>
           </h2>
           <p className="mt-3 max-w-lg text-base leading-relaxed text-white/50">
             Step inside Friends In Low Places before you even walk through the
@@ -341,10 +339,8 @@ function PrivateEventsTeaser() {
             </div>
 
             <h2 className="font-heading text-4xl font-black text-white uppercase md:text-5xl">
-              Host Your{" "}
-              <span className="neon-text font-heading" data-neon="Event">
-                Event
-              </span>
+              <span className="neon-text font-heading" data-neon="Event">Host Your Event</span>
+
             </h2>
 
             <p className="mt-5 max-w-lg text-lg leading-8 text-white/50">
@@ -495,7 +491,7 @@ function VipSignup() {
 
         {/* Heading */}
         <h2 className="font-heading text-5xl font-black tracking-tight text-white uppercase lg:text-6xl">
-          Join the <span className="neon-text font-heading" data-neon="VIP Club">VIP Club</span>
+        <span className="neon-text font-heading" data-neon="VIP Club">Join the VIP Club</span>
         </h2>
 
         {/* Subtitle */}

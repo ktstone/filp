@@ -64,8 +64,8 @@ const brunchMenu: MenuData = {
   label: "Weekend Brunch",
   menuLink: "/menu/brunch",
   subtitle: "Rise & Shine",
-  heading: "Brunch Like",
-  headingNeon: "A Local",
+  heading: "",
+  headingNeon: "Brunch Like A Local",
   description:
     "Mornings in Low Places, 10AM to 2PM. Giant cinnamon rolls, biscuit stacks, and all the comfort you need to start the weekend right.",
   featuredImage: "/images/menu/bacon_egg_cheese_biscuit.jpeg",
