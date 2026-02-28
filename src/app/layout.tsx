@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleTagManager, GoogleAnalytics } from "@next/third-parties/google";
 import { Spline_Sans, Epilogue } from "next/font/google";
 import "./globals.css";
 
@@ -144,6 +144,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <GoogleTagManager gtmId="GTM-PWLQ9V8C" />
+      <GoogleAnalytics gaId="G-9NERM4QMJX" />
       <head>
         <JsonLd />
       </head>
