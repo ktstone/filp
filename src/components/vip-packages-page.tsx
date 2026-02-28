@@ -609,7 +609,7 @@ export function VipPackagesPage() {
         />
 
         {/* Shader overlay */}
-        <div className="absolute inset-0 z-[1] mix-blend-screen opacity-60">
+        <div className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen opacity-60">
           <Shader>
             <Aurora
               blendMode="linearDodge"

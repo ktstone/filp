@@ -95,7 +95,7 @@ function ReservationsHero() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_center,rgba(239,70,79,0.08),transparent_60%)]" />
 
       {/* Shader overlay */}
-      <div className="absolute inset-0 z-[1] mix-blend-screen opacity-60">
+      <div className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen opacity-60">
         <Shader>
           <Aurora
             blendMode="linearDodge"

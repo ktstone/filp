@@ -118,7 +118,7 @@ function MenuHero({ title, subtitle }: { title: string; subtitle: string }) {
       </div>
 
       {/* Shader overlay */}
-      <div className="absolute inset-0 z-[1] mix-blend-screen opacity-60">
+      <div className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen opacity-60">
         <Shader>
           <Aurora
             blendMode="linearDodge"
@@ -510,7 +510,7 @@ function CtaBanner() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(94,196,182,0.04),transparent_50%)]" />
 
       {/* Shader overlay */}
-      <div className="absolute inset-0 z-[1] mix-blend-screen opacity-60">
+      <div className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen opacity-60">
         <Shader>
           <Aurora
             blendMode="linearDodge"
