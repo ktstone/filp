@@ -473,7 +473,7 @@ function VipSignup() {
         {/* Two equal CTAs */}
         <div className="mt-12 grid w-full max-w-[768px] grid-cols-1 gap-6 md:grid-cols-2">
           {/* Email signup */}
-          <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#1a1a1a]/90 p-6 backdrop-blur-sm">
             <h3 className="font-heading text-xl font-bold text-white">
               Get on the List
             </h3>
@@ -498,7 +498,7 @@ function VipSignup() {
           </div>
 
           {/* SMS signup */}
-          <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#1a1a1a]/90 p-6 backdrop-blur-sm">
             <h3 className="font-heading text-xl font-bold text-white">
               Text to Join
             </h3>
